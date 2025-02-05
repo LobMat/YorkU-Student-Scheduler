@@ -1,0 +1,1 @@
+// this file contains the methods which facilitate database communication in the context of account business objects. 

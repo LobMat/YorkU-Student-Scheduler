@@ -1,0 +1,2 @@
+// An interface for database related methods, allowing easy transition from stub to real database implementations.
+// If these methods are called rather than an overridden version, an error will be thrown. 
