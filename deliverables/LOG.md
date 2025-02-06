@@ -15,7 +15,7 @@
 ### Visualize a Weekly Schedule - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Setup React Frontend Application and frontend folder heirarchy.                               | 2h | |
+| Setup React Frontend Application and frontend folder heirarchy.                               | 2h | 2h |
 | Design and implement the schedule activity UI, layout, and logic                              | 4h | |
 | Implement logic for storing and displaying complex objects in UI and storing objects locally. | 2h | |
 | Ensure course preferences persist in local storage for user sessions.                         | 3h | |
@@ -63,3 +63,14 @@
 * Divison of user stories finalized. 
 * Discussed more specific requirements for iteration 1, such as StubDatabase implementation ideas.
 * Created the repository.
+***
+## Personal Logs
+### Caleb 
+ FEB 5TH 2025 (150 mins)
+ - created a folder structure for our project
+ - created some business objects for our iteration1 with functional helper methods
+
+ FEB 6TH 2025 (120 mins)
+ - created a react application which we will shape into our frontend
+ - carved out the folder structure within the frontend.
+ - created the basic format of the home page.
