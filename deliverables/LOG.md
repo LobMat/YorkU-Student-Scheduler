@@ -6,11 +6,11 @@
 ### Block Out Times for Courses & Personal Activities - (Assigned to: *Kunle* | Priority: *High* | Expected: *0.5 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Implement a search bar UI for finding and selecting courses.                                  | 1.5h | |
-| Create API endpoints and controllers to fetch course data.                                    | 3h   | |
-| Implement backend service logic to format course data for frontend.                           | 1.5h | |
-| Develop dropdown menus to configure course preferences.                                       | 3h   | |
-| Write unit tests to validate course selection and scheduling functionality.                   | 2h   | | 
+| Implement a search bar UI for finding and selecting courses.                                  | 1.5h | 1h |
+| Create API endpoints and controllers to fetch course data.                                    | 2h   | 2h |
+| Implement backend service logic to format course data for frontend.                           | 1.5h | 1h |
+| Develop dropdown menus to configure course preferences.                                       | 2h   | 1h |
+| Write unit tests to validate course selection and scheduling functionality.                   | 1h   |  | 
 <br/>
 ### Visualize a Weekly Schedule - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
@@ -78,3 +78,12 @@
  FEB 7TH 2025 (150 mins)
  - after playing around with react, created some helper methods for the team to use when working with 
    frontend.
+
+### Kunle
+FEB 7th 2025 (220 mins)
+ - Added functionality to the searchbar to find and add courses. Worked with Caleb to create the server
+   and dummy data functions.
+ - Created business logic to turn a course from the database into a UI-friendly object, and send this
+   to the frontend using an express route.
+ - You can change the selected section, start time, and duration for each activity on each day of the week.
+ - This can now simply be implemented to have features which show it visually for Caleb's user story.
