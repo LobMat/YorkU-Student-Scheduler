@@ -17,7 +17,7 @@
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Setup React Frontend Application and frontend folder heirarchy.                               | 2h | 2h |
 | Design and implement the schedule activity UI, layout, and logic                              | 4h | |
-| Implement logic for storing and displaying complex objects in UI and storing objects locally. | 2h | |
+| Implement logic for storing and displaying complex objects in UI and storing objects locally. | 2h | 2.5h |
 | Ensure course preferences persist in local storage for user sessions.                         | 3h | |
 | Testing, debugging, and UI refinements                                                        | 2h | | 
 <br/>
@@ -74,3 +74,7 @@
  - created a react application which we will shape into our frontend
  - carved out the folder structure within the frontend.
  - created the basic format of the home page.
+
+ FEB 7TH 2025 (150 mins)
+ - after playing around with react, created some helper methods for the team to use when working with 
+   frontend.
