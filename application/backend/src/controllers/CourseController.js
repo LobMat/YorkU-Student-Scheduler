@@ -6,8 +6,8 @@ exports.addCourseController = async(req, res) => {
   const courseObject = await CourseService.getCourseObject(courseCode);
 
   if (courseObject) {
-    req.status(200).json({courseObject: courseObject});
+    res.status(200).json({courseObject: courseObject});
   } else {
-    req.status(201).json({courseObject: undefined});
+    res.status(201).json({courseObject: undefined});
   }
 }

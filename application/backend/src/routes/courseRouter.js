@@ -5,3 +5,5 @@ const {addCourseController} = require('../controllers/CourseController');
 const courseRouter = require('express').Router();
 
 courseRouter.get('/add', addCourseController);
+
+module.exports = courseRouter;
