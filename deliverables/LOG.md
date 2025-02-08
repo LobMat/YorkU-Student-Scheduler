@@ -16,10 +16,10 @@
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Setup React Frontend Application and frontend folder heirarchy.                               | 2h | 2h |
-| Design and implement the schedule activity UI, layout, and logic                              | 4h | |
+| Design and implement the schedule activity UI, layout, and logic                              | 4h | 2h |
 | Implement logic for storing and displaying complex objects in UI and storing objects locally. | 2h | 2.5h |
-| Ensure course preferences persist in local storage for user sessions.                         | 3h | |
-| Testing, debugging, and UI refinements                                                        | 2h | | 
+| Ensure course preferences persist in local storage for user sessions.                         | 3h | 2h |
+| Testing, debugging, and UI refinements                                                        | 2h | 1h | 
 <br/>
 ### Create and Account to Save Info Between Sessions - (Assigned to: *Mateo* | Priority: *High* | Expected: *0.4 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
@@ -78,6 +78,11 @@
  FEB 7TH 2025 (150 mins)
  - after playing around with react, created some helper methods for the team to use when working with 
    frontend.
+
+FEB 7-8TH 2025 (180 mins)
+ - created a visual tool reflection of users choices for each course.
+ - unit testing for the current course services and also the course model class.  
+- added functionality for course preferences to be stored locally in the browser.
 
 ### Kunle
 FEB 7th 2025 (220 mins)
