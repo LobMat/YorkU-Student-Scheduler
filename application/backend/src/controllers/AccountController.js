@@ -23,10 +23,15 @@ exports.loginController = async (req, res) => {
 }
 
 exports.verifyIDController = async (req, res) => {
-  const truth = await AccountService.accountExists(req.query.id);
-  if (truth) {
+  if (await AccountService.accountExists(req.query.id)) {
     res.status(200).json();
   } else {
     res.status(400).json();
   }
+}
+
+exports.storePrefsController = async (req, res) => {
+  const {username, prefs} = req.body;
+  await AccountService.writePrefs(username, prefs);
+  res.status(200).json();
 }

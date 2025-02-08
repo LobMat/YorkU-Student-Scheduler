@@ -41,6 +41,13 @@ class AccountService {
       }   
     return {key, err};
   }
+
+  // 3) update the preference object for a given account.
+  static async storeCoursePrefs(username, prefs){
+    const account = Account.getAccountFromData(username, await accountRepository.readAccount(username));
+    account.coursePrefObject = prefs;
+    await accountRepository.writeAccount(account);
+  }
 }
 
 module.exports = AccountService;

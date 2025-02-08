@@ -1,10 +1,12 @@
 //#region - imports
   import { createContext, useContext, useEffect} from "react";     // react hooks
   import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
-  import { readLocal } from "../../logic/BrowserStorage";
+  import { useMountedEffect } from "../../logic/CustomEffects";
+  import { readLocal, POST } from "../../logic/BrowserStorage";
   import SearchBar from "./components/SearchBar";
   import CourseItem from "./components/CourseItem";
   import Schedule from "./components/Schedule";
+  import { useAppContext } from "../../App";
   import './styles/LeftBody.css'
 //#endregion
 
@@ -17,6 +19,7 @@ const MainPage = () => {
 
   //#region - instantiation
   
+  const {navTrig, hasSignedIn} = useAppContext();
   // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
@@ -29,6 +32,7 @@ const MainPage = () => {
 
   // page mount effect: load local preferences, add courses.
   useEffect(() => {
+    navTrig();
     // read local prefs into the reference, append this to get request.
     initMap(readLocal('coursePrefs'));
 
@@ -37,7 +41,35 @@ const MainPage = () => {
     .then(response => response.json())
     .then(data => initList(data.courseObjectList));
   }, [])
+  //#endregion
   
+  //#region - course preference update handler
+
+  // effect which sets a timer. every one second decrement it as long as its over -1. when it reaches zero,
+  // store account preferences changes in the database.
+  const timeTilSave = useRef(-1);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (timeTilSave.current > -1) {
+        if (timeTilSave.current == 0 && hasSignedIn) {
+          const id = readLocal('id');
+          fetch(`http://localhost:3000/accounts/store`, POST({username: id, prefs: readLocal('coursePrefs')}));
+        }
+        timeTilSave.current -= 1;
+      }
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  // effect which resets timer on course change if timer inactive and user is signed in.
+  useMountedEffect(() => {
+    if (hasSignedIn && timeTilSave.current == -1) {
+      timeTilSave.current = 5;
+    }
+  }, [courses]);
+
   //#endregion
 
   //#region - html return

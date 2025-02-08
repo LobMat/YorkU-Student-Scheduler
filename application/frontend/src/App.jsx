@@ -73,15 +73,14 @@ function App () {
   //#region - html return
   return (
     <AppContext.provider value={{navTrig, hasSignedIn}}>
-      
+
       <Router>
         <nav className = 'headbar'>
           <img src={yustLogo} className="logo" /> 
           <ul>
               <li><a href="/">Home</a></li>
           </ul>
-        </nav>
-  
+        </nav>  
   
         <Routes>
           <Route path="/" element={<MainPage />} />
