@@ -1,6 +1,6 @@
 //#region - imports
   import { createContext, useContext, useEffect} from "react";     // react hooks
-  import { useObjectList, useObjectRef } from "../../logic/CustomHooks"; // custom logic
+  import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
   import { readLocal } from "../../logic/BrowserStorage";
   import SearchBar from "./components/SearchBar";
   import CourseItem from "./components/CourseItem";

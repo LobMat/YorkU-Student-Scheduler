@@ -21,3 +21,12 @@ exports.loginController = async (req, res) => {
     res.status(201).json({err:err});
   }
 }
+
+exports.verifyIDController = async (req, res) => {
+  const truth = await AccountService.accountExists(req.query.id);
+  if (truth) {
+    res.status(200).json();
+  } else {
+    res.status(400).json();
+  }
+}

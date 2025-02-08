@@ -7,7 +7,8 @@ class AccountService {
   
   static usernameExists = async (username) => await accountRepository.getKeyFromUsername(username) != undefined;
   static emailExists = async (email) => await accountRepository.getKeyFromEmail(email) != undefined;
-
+  static accountExists = async (key) => await accountRepository.readAccount(key) != undefined;
+  
   // 1) account registration logic. If the username and email are available and the two passwords match
   // create an account with the given course preference object (this is to save existing course prefs from before registering) 
   static async register (username, email, passOne, passTwo, coursePrefObject) {
