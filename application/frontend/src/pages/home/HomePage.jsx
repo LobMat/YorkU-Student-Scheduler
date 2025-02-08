@@ -1,7 +1,7 @@
 //#region - imports
-  import { createContext, useContext,  } from "react";     // react hooks
-  import { useObjectList } from "../../logic/CustomHooks"; // custom logic
-  
+  import { createContext, useContext, useEffect} from "react";     // react hooks
+  import { useObjectList, useObjectRef } from "../../logic/CustomHooks"; // custom logic
+  import { readLocal } from "../../logic/BrowserStorage";
   import SearchBar from "./components/SearchBar";
   import CourseItem from "./components/CourseItem";
   import './styles/LeftBody.css'
@@ -15,12 +15,33 @@ export const useMainContext = () => useContext(SchedulingContext);
 const MainPage = () => {
 
   //#region - instantiation
+  
+  // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
+  const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
+ 
+  // organize context variables into sections:
+  const hooks = {courses, prefs};
+  const getters = {getCourseValue, getPref};
+  const setters = {setCourseValue, pushCourse, setPref};
+  const dev = {initList, initMap};
+
+  // page mount effect: load local preferences, add courses.
+  useEffect(() => {
+    // read local prefs into the reference, append this to get request.
+    initMap(readLocal('coursePrefs'));
+
+    //fetch request for list of course objects in the pref object.
+    fetch(`http://localhost:3000/courses/init?data=${encodeURIComponent(JSON.stringify(prefs.current))}`, {method: 'GET'})
+    .then(response => response.json())
+    .then(data => {console.log(data.courseObjectList); initList(data.courseObjectList)});
+  }, [])
+  
   //#endregion
 
   //#region - html return
   return(
-    <SchedulingContext.Provider value={{courses, getCourseValue, setCourseValue, pushCourse, initList}}>
+    <SchedulingContext.Provider value={{hooks, getters, setters, dev}}>
       <div id='left-body'>
 
         <SearchBar />

@@ -133,11 +133,13 @@ export const useObjectRef = (initial={}) => {
   
   }
 
-  const clear = () => {map.current = {}}
+  const initMap = (input) => {
+    map.current = input ?? {}
+  };
   const setValue = (match, updates) => {
     map.current[match] = recursiveUpdate(updates, map?.current?.[match]);
   }
-  return [map?.current, getValue, setValue, clear];
+  return [map, getValue, setValue, initMap];
 }
 
 // 4) effect hook that does not run on the first render, and only calls func() on subsequent dependency changes.

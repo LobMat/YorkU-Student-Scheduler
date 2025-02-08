@@ -1,5 +1,6 @@
 //#region - imports
 import { useState } from "react";
+import { writeLocal } from "../../../logic/BrowserStorage";
 import { useMainContext } from "../HomePage";
 //#endregion
 
@@ -7,7 +8,13 @@ const SearchBar = () => {
   
   //#region - initialization
   const [query, setQuery] = useState("");
-  const {courses, pushCourse, initList} = useMainContext();
+
+  const {
+    hooks: {prefs}, 
+    setters: {pushCourse},
+    dev: {initList, initMap},
+  } = useMainContext();
+         
   //#endregion
 
   //#region - handlers
@@ -19,9 +26,11 @@ const SearchBar = () => {
     // testing function: enter clear to empty course list
     if (query == 'clear') {
       initList([]);
+      initMap();
+      writeLocal('coursePrefs', {});
     } 
     // duplicate course
-    else if (courses.find(course => course.code == query)) {
+    else if (prefs.current[query]) {
       alert('Course already added.');
     }
 
@@ -34,7 +43,20 @@ const SearchBar = () => {
       .then(data => {
         if (data.courseObject)  {
           console.log(data.courseObject);  //console test
+
+          prefs.current[query] = {
+            sectionChoice: 0,
+            sectionPreferences: data.courseObject.sections.map(section=>({
+              uniqueActChoice: 0,
+              commonActBlocks:  section.commonActs.map(()=>[[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]),
+              uniqueActBlocks:  section.uniqueActs.map(()=>[[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]),
+            }))
+          }
+
+          writeLocal('coursePrefs', prefs.current);
           pushCourse(data.courseObject);
+
+
         } else {
           alert('Course does not exist!');
         }

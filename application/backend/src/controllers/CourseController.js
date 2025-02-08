@@ -11,3 +11,10 @@ exports.addCourseController = async(req, res) => {
     res.status(201).json({courseObject: undefined});
   }
 }
+
+exports.initialCourseListController = async(req, res) => {
+  const prefs = await JSON.parse(decodeURIComponent(req.query.data));
+  const courseObjectList = await CourseService.getInitialCourseList(prefs);
+  res.status(200).json({courseObjectList: courseObjectList});
+
+}

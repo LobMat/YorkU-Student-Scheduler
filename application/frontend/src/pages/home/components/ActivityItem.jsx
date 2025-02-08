@@ -1,6 +1,7 @@
 //#region - imports
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {useMainContext} from '../HomePage'
+import { writeLocal } from "../../../logic/BrowserStorage";
 //#endregion
 //#region - global constants
 const times = [
@@ -57,29 +58,54 @@ const daysOfWeek = [
 
 const ActivityItem = ({ course, type, pos }) => {
   
+  //#region - initialization
+  const { 
+    hooks:    {prefs}, 
+    setters:  {setPref, setCourseValue},
+    getters:  {getPref}
+  } = useMainContext();
+  
+  const code = course?.code
+  //#endregion
+ 
+  //#region - handlers
+  const displayMap = useMemo(() => { 
+    return getPref(code, [`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}]`])?.[0];
+  }, [course])
 
+  const handleChange = (day, target, newVal) => {
+    setCourseValue(code, [[`blocks[${(type == 'unique')  ? 0 : pos}][${day}][${target}]`, newVal]])
+    setPref(code, [[`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}][${day}][${target}]`, newVal]]);
+    writeLocal('coursePrefs', prefs.current);
+  }
+  //#endregion
 
   //#region - html return
   return (
     <div className="activity-item">
-      <h4>{course?.sections[course.sectionChoice]?.[`${type}Acts`]?.[pos].actName}</h4>
+      <h4>{course?.sections[course.sectionChoice]?.[`${type}Acts`]?.[pos].name}</h4>
      
       {daysOfWeek.map((day, index) => (
         
         <div key={day} className="activity-day">
           <input
             type="checkbox"
+            checked={displayMap?.at(index)?.at(0) || false}
+            onChange={(e) =>
+              handleChange(index, 0, e.target.checked)
+            }
           />
           <label>{day}</label>
+          {displayMap?.at(index)?.at(0) && (
             <>
-              <select>
+              <select value={displayMap?.at(index)?.at(1)} onChange={(e) => handleChange(index, 1, Number(e.target.value))}>
                 {times.map(time => (
                     <option key={time.value} value={time.value}>
                         {time.label}
                     </option>
                 ))}
               </select>
-              <select>
+              <select value={displayMap?.at(index)?.at(2)} onChange={(e) => handleChange(index, 2, Number(e.target.value))}>
                 {durations.map(duration => (
                     <option key={duration.value} value={duration.value}>
                         {duration.label}
@@ -87,6 +113,7 @@ const ActivityItem = ({ course, type, pos }) => {
                 ))}
               </select>
             </>
+          )}
         </div>
       ))}
     </div>
