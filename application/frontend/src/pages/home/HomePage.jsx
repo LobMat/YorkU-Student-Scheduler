@@ -4,6 +4,7 @@
   import { readLocal } from "../../logic/BrowserStorage";
   import SearchBar from "./components/SearchBar";
   import CourseItem from "./components/CourseItem";
+  import Schedule from "./components/Schedule";
   import './styles/LeftBody.css'
 //#endregion
 
@@ -34,7 +35,7 @@ const MainPage = () => {
     //fetch request for list of course objects in the pref object.
     fetch(`http://localhost:3000/courses/init?data=${encodeURIComponent(JSON.stringify(prefs.current))}`, {method: 'GET'})
     .then(response => response.json())
-    .then(data => {console.log(data.courseObjectList); initList(data.courseObjectList)});
+    .then(data => initList(data.courseObjectList));
   }, [])
   
   //#endregion
@@ -56,6 +57,8 @@ const MainPage = () => {
         </div>
       </div>
       <div id='right-body'>
+      <Schedule term="FALL"/>
+      <Schedule term="WINTER" />
       </div>
 
     </SchedulingContext.Provider>
