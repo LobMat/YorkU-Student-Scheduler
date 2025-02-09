@@ -12,6 +12,10 @@ const reviewRepository = {
     const reviewLiteral = await StubDatabase.read("reviews", id);
     return reviewLiteral;
   },
+
+  nextId: async () => {
+    return StubDatabase.sizeOf("reviews") + 1;
+  }
   
 };
 

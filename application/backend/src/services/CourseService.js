@@ -34,7 +34,6 @@ class CourseService {
         courseObject.blocks = blocks;
         
         returnList.push(courseObject);
-        
       }
     }
     

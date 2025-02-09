@@ -5,13 +5,13 @@ class Review {
 
   //#region - Review business object instance contructor
 
-  constructor(reviewID, courseCode, authorUsername, postedDate, difficultyRating = 0, contentRating = 0) {
+  constructor(reviewID, courseCode, authorUsername, postedDate,description, difficultyRating = 0, contentRating = 0 ) {
     // parameters required to create a course object
     this.reviewID = reviewID;
     this.authorUsername = authorUsername;
     this.postedDate = postedDate;
     this.courseCode = courseCode;
-
+    this.description = description
     // not required for creation, only used for updating.
     this.difficultyRating = difficultyRating;
     this.contentRating = contentRating;

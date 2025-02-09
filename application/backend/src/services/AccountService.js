@@ -4,7 +4,6 @@ const accountRepository = require('../repositories/accountRepository');
 // This file contains all business logic related to Account objects.
 
 class AccountService {
-  
   static usernameExists = async (username) => await accountRepository.getKeyFromUsername(username) != undefined;
   static emailExists = async (email) => await accountRepository.getKeyFromEmail(email) != undefined;
   static accountExists = async (key) => await accountRepository.readAccount(key) != undefined;
@@ -39,7 +38,6 @@ class AccountService {
     } else {
       const accData = await accountRepository.readAccount(key);
       if (accData.password != password) {
-
         err = "* Password is incorrect.";
         return {key: undefined, prefs: undefined, err};
       }

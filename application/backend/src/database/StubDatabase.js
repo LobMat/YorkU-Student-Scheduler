@@ -45,6 +45,9 @@ class StubDatabase extends DatabaseInterface {
         this.collections.delete(target, key);
     }
 
+    static async sizeOf(target) {
+        return this.collections.get(target).size;
+    }
 
 }
 
