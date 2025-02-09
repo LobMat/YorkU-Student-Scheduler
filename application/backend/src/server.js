@@ -3,6 +3,7 @@ const cors = require("cors");
 
 const courseRouter = require("./routes/courseRouter");
 const accountRouter = require("./routes/accountRouter");
+const reviewRouter = require("./routes/reviewRouter");
 
 const {writeCourseData} = require('./database/WriteDummyData');
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/courses', courseRouter);
 app.use('/accounts', accountRouter);
+app.use('/reviews', reviewRouter);
 
 writeCourseData();
 

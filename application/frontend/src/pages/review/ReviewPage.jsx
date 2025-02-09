@@ -11,8 +11,8 @@ function ReviewPage() {
   //#region - instantiation 
   const navigate = useNavigate();  
   const {navDep, navTrig, hasSignedIn} = useAppContext();
-
   useEffect(()=>{navTrig()},[]);
+
 
   useMountedEffect(() => {
     if (!hasSignedIn) {
@@ -34,7 +34,19 @@ function ReviewPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
+
+    fetch(`http://localhost:3000/reviews/writeReview`, POST({
+      accountId: readLocal('id') ?? "", 
+      courseCode: formData.courseCode, 
+      difficultyRating: formData.difficulty, 
+      contentRating: formData.content, 
+      description: formData.description
+    }))
+    .then(response => {
+      if (response.status == 200) alert('review written successfully')
+      else if (response.status == 201) alert ('course doesnt exist')
+      else if (response.status == 202) alert ('account doesnt exist')
+    })
   };
 
   return (

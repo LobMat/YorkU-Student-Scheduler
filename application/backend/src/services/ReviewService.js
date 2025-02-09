@@ -24,19 +24,20 @@ class ReviewService {
 
 
 
-    const course = Course.getInstance(courseCode, await courseRepository.readCourse(courseCode));
-    const account = Account.getInstance(accountId, await accountRepository.readAccount(accountId));
-    if (!course) {
+    const courseData = await courseRepository.readCourse(courseCode);
+    const accountData = await accountRepository.readAccount(accountId);
+    if (!courseData) {
       return 1;
-    } else if (!account) {
+    } else if (!accountData) {
       return 2;
     } else {
       
       await reviewRepository.writeReview(newRev);
-
+      const account = Account.getInstance(accountId, accountData);
       account.addReview(reviewId);
       await accountRepository.writeAccount(account);
       
+      const course = Course.getInstance(courseCode, courseData);
       course.addReview(reviewId);
       await courseRepository.writeCourse(course);
     
