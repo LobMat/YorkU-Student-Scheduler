@@ -4,7 +4,7 @@ const cors = require("cors");
 const courseRouter = require("./routes/courseRouter");
 const accountRouter = require("./routes/accountRouter");
 
-const {writeCourseData} = require('./database/WriteDummyData');
+const {writeCourseData, writeAccountData} = require('./database/WriteDummyData');
 
 const app = express();
 const port = 3000;
@@ -20,6 +20,7 @@ app.use('/courses', courseRouter);
 app.use('/accounts', accountRouter);
 
 writeCourseData();
+writeAccountData();
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

@@ -35,3 +35,41 @@ exports.storePrefsController = async (req, res) => {
   await AccountService.storeCoursePrefs(username, prefs);
   res.status(200).json();
 }
+
+exports.sendFriendRequestController = async(req, res) => {
+  const {sender, receiver} = req.body;
+  const status = 200 + await AccountService.sendFriendRequest(sender, receiver);
+  res.status(status).json();
+}
+
+exports.getFriendsController = async(req,res) => {
+  const username = req.query.user;
+  const friends = await AccountService.getFriendslist(username);
+  if (friends) {
+    res.status(200).json({success: true, friends: friends});
+  } else {
+    res.status(400).json({success: false, friends: []});
+  }
+}
+
+//#region - controllers for friends list dev testing.
+exports.switchAccountController = async(req,res) => {
+  const{newUsername} = req.body;
+  const key = await AccountService.getKeyFromUsername(newUsername);
+  
+  if (key)  res.status(200).json({key: key});
+  else      res.status(201).json();
+  
+}
+exports.clearFriendsController = async(req, res) => {
+  const{id} = req.body;
+  await AccountService.clearFriendsList(id);
+  res.status(200).json();
+}
+
+exports.getPendingController = async(req, res) => {
+  const{id} = req.body;
+  const pending = await AccountService.getPendingList(id);
+  res.status(200).json({pending: pending});
+}
+//#endregion

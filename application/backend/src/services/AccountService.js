@@ -54,6 +54,73 @@ class AccountService {
     account.coursePreferenceMap = prefs;
     await accountRepository.writeAccount(account);
   }
+  
+  // 4) friends list getter service
+  static async getFriendslist(key){
+    const accountData = await accountRepository.readAccount(key);
+    return accountData.friends;
+  }
+  
+  // 5) logic for sending friend request. takes in the sender key and the username of the reciever handles multiple 
+  // errors and returns numerical values determining the repsonse, which will then be handled in the front end.
+  static async sendFriendRequest(senderKey, receiverUsername) {
+    const senderData = await accountRepository.readAccount(senderKey);
+    if (!senderData) return `bad call: sender doesnt exist`;
+
+    const sender = Account.getAccountFromData(senderKey, senderData);
+
+    const receiverKey = await accountRepository.getKeyFromUsername(receiverUsername);
+    if (!receiverKey) return 4;
+    
+    const receiver = Account.getAccountFromData(receiverKey, await accountRepository.readAccount(receiverKey));
+
+    if (receiver.friendsList && receiver.friendsList.includes(sender.username))
+        return 3;
+    
+    if (receiver.pendingList && receiver.pendingList.includes(sender.username))
+        return 2;
+    
+    // send a friend request to someone who has sent you a friend request, add eachother as friends.
+    if (sender.pendingList.includes(receiverUsername)) {
+        
+        sender.addFriend(receiverUsername);
+        sender.removePendingRequest(receiverUsername);
+        await accountRepository.writeAccount(sender);
+        
+        receiver.addFriend(sender.username);
+        await accountRepository.writeAccount(receiver);
+        return 0;
+    } else {
+        receiver.addPendingRequest(sender.username);
+        await accountRepository.writeAccount(receiver);
+        return 1;
+    }
+  }
+
+  //#region - services used in development for quickly checking functionalities of friends list.
+  static async getKeyFromUsername(username) {
+    return await accountRepository.getKeyFromUsername(username);
+  }
+
+  static async clearFriendsList(key){
+    const account = Account.getAccountFromData(key, await accountRepository.readAccount(key));
+
+    account.friendsList = [];
+    
+    await accountRepository.writeAccount(account);
+  }
+
+  static async getPendingList(key){
+    const account = await accountRepository.readAccount(key);
+    return account.pending;
+  }
+  static async writePrefs(username, prefs){
+    const account = Account.getAccountFromData(username, await accountRepository.readAccount(username));
+    account.coursePrefObject = prefs;
+    console.log(account.coursePrefObject);
+    await accountRepository.writeAccount(account);
+  }
+  //#endregion
 }
 
 module.exports = AccountService;
