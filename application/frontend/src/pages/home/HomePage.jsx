@@ -1,5 +1,5 @@
 //#region - imports
-  import { createContext, useContext, useEffect} from "react";     // react hooks
+  import { createContext, useContext, useEffect, useRef} from "react";     // react hooks
   import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
   import { useMountedEffect } from "../../logic/CustomEffects";
   import { readLocal, POST } from "../../logic/BrowserStorage";
@@ -20,6 +20,7 @@ const MainPage = () => {
   //#region - instantiation
   
   const {navTrig, hasSignedIn} = useAppContext();
+  const signInBool = useRef(hasSignedIn);
   // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
@@ -31,6 +32,7 @@ const MainPage = () => {
   const dev = {initList, initMap};
 
   // page mount effect: load local preferences, add courses.
+
   useEffect(() => {
     navTrig();
     // read local prefs into the reference, append this to get request.
@@ -41,6 +43,11 @@ const MainPage = () => {
     .then(response => response.json())
     .then(data => initList(data.courseObjectList));
   }, [])
+
+  
+  useEffect(()=> {
+    signInBool.current = hasSignedIn
+  },[hasSignedIn])
   //#endregion
   
   //#region - course preference update handler
@@ -51,7 +58,7 @@ const MainPage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (timeTilSave.current > -1) {
-        if (timeTilSave.current == 0 && hasSignedIn) {
+        if (signInBool.current && timeTilSave.current == 0) {
           const id = readLocal('id');
           fetch(`http://localhost:3000/accounts/store`, POST({username: id, prefs: readLocal('coursePrefs')}));
         }
@@ -65,7 +72,7 @@ const MainPage = () => {
 
   // effect which resets timer on course change if timer inactive and user is signed in.
   useMountedEffect(() => {
-    if (hasSignedIn && timeTilSave.current == -1) {
+    if (signInBool.current && timeTilSave.current == -1) {
       timeTilSave.current = 5;
     }
   }, [courses]);
@@ -89,8 +96,8 @@ const MainPage = () => {
         </div>
       </div>
       <div id='right-body'>
-      <Schedule term="FALL"/>
-      <Schedule term="WINTER" />
+        <Schedule term="FALL"/>
+        <Schedule term="WINTER" />
       </div>
 
     </SchedulingContext.Provider>

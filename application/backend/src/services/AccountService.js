@@ -31,21 +31,27 @@ class AccountService {
   // return the key related for this account and the course preferences.
   static async login (idField, password) {
     const key = await accountRepository.getKeyFromUsername(idField) ?? await accountRepository.getKeyFromEmail(idField);
+    
     let err;
     if (!key) {
       err = "* No account with this username/email exists.";
+      return {key: undefined, prefs: undefined, err};
     } else {
       const accData = await accountRepository.readAccount(key);
-      if (accData.password != password) 
+      if (accData.password != password) {
+
         err = "* Password is incorrect.";
-      }   
-    return {key, err};
+        return {key: undefined, prefs: undefined, err};
+      }
+      return {key: key, prefs: accData.coursePrefs, err: undefined};
+    }   
+    
   }
 
   // 3) update the preference object for a given account.
   static async storeCoursePrefs(username, prefs){
-    const account = Account.getAccountFromData(username, await accountRepository.readAccount(username));
-    account.coursePrefObject = prefs;
+    const account = Account.getInstance(username, await accountRepository.readAccount(username));
+    account.coursePreferenceMap = prefs;
     await accountRepository.writeAccount(account);
   }
 }

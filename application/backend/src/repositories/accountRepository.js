@@ -5,7 +5,7 @@ const Account = require('../models/Account');
 const accountRepository = {
   writeAccount: async (account) => {
     const {key, value} = Account.getKeyValue(account);
-      await StubDatabase.write("accounts", key, value);
+    await StubDatabase.write("accounts", key, value);
   },
 
   readAccount: async (key) => {

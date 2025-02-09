@@ -30,7 +30,7 @@ class StubDatabase extends DatabaseInterface {
 
     static async read(target, key) {
         const value = await this.collections.get(target).get(key);
-        return (!value) ? null : value;
+        return (!value) ? undefined : value;
     }
 
     static async allKeys(target) {

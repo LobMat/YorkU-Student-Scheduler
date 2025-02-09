@@ -13,6 +13,8 @@ import yustLogo from './assets/mylogo.svg';
 //#endregion
 //#region - page imports
   import MainPage from './pages/home/HomePage.jsx';
+  import LoginPage from './pages/login/LoginPage.jsx';
+  import RegisterPage from './pages/register/RegisterPage.jsx';
   //#endregion
 
 //#region - context creation
@@ -38,7 +40,7 @@ function App () {
     if (!localAccKey) {
       setHasSignedIn(false);
     } else {
-      fetch(`${url}/accounts/verifyID?id=${encodeURIComponent(`"${localAccKey}"`)}`)
+      fetch(`http://localhost:3000/accounts/verifyID?id=${encodeURIComponent(localAccKey)}`)
       .then(response => {
         setHasSignedIn(response.ok);
         if (!response.ok) {
@@ -49,22 +51,20 @@ function App () {
   }, [navDep]);
   
   //memoized component based on mount status and login status determining which links to be displayed
-  const ShownLinks = memo(function ShownLinks({isSignedIn}) {
+  const ShownLinks = memo(function ShownLinks({hasSignedIn}) {
     // do not show either if app has not mounted, avoids flickering.
     if (!appHasMounted.current) {
       return(<></>);
     } 
     // display login and register links if you are NOT logged in
-    else if (!isSignedIn) {
+    else if (!hasSignedIn) {
       return(<>
         <li><a href="/login" onClick={() => writeSession('loginErr', "")}>Login</a></li>
         <li><a href="/register" onClick={() => writeLocal('errFlags', ["", "", ""])}>Register</a></li>
       </>)
     } 
-    // display friends list link if you are logged in.
     else { 
       return(<>
-        <li><a href="/friends">Friends</a></li>
       </>)
     }
   });
@@ -72,23 +72,26 @@ function App () {
   
   //#region - html return
   return (
-    <AppContext.provider value={{navTrig, hasSignedIn}}>
+    <AppContext.Provider value={{navDep, navTrig, hasSignedIn}}>
 
       <Router>
         <nav className = 'headbar'>
           <img src={yustLogo} className="logo" /> 
           <ul>
               <li><a href="/">Home</a></li>
+              <ShownLinks hasSignedIn={hasSignedIn}/>
           </ul>
         </nav>  
   
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
   
       </Router>
   
-    </AppContext.provider>
+    </AppContext.Provider>
   );
   //#endregion
 
