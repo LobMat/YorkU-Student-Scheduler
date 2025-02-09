@@ -46,8 +46,8 @@
 ### Leave Reviews on Courses (Assigned to: *Zayn* | Priority: *Medium* | Expected: *0.20 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Implement frontend UI for writing and submitting course reviews.                              | 2h | |
-| Develop backend logic to store reviews in the database.                                       | 1h | |
+| Implement frontend UI for writing and submitting course reviews.                              | 2h | 2h |
+| Develop backend logic to store reviews in the database.                                       | 1h | 1h |
 | Write unit tests for review submission functionality.                                         | 2h | |
 ***
 ## Team Meetings
@@ -102,3 +102,7 @@ FEB 7th 2025 (220 mins)
  Feb 9th 2025 (120 mins)
  - login and register ui complete
  - previously written login refactored to work with UI for these pages.
+
+ ### Zayn
+ Feb 9th 2025 (180 mins)
+ - backend and ui for writing reviews, fully functional.
