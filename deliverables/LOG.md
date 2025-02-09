@@ -24,10 +24,10 @@
 ### Create and Account to Save Info Between Sessions - (Assigned to: *Mateo* | Priority: *High* | Expected: *0.4 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Implement backend logic for account creation and login authentication.                        | 2h | 2h |
+| Implement backend logic for account creation and login authentication.                        | 2h | 3h |
 | Write unit tests for account login and registration services.                                 | 3h |  |
-| Develop frontend UI for login and registration pages.                                         | 4h | 3h |
-| Implement session storage to handle errors, and local storage to maintain login.              | 2h | 1h | 
+| Develop frontend UI for login and registration pages.                                         | 4h | 2h |
+| Implement session storage to handle errors, and local storage to maintain login.              | 2h | 2h | 
 <br/>
 ### View Statistics on Time Spent in and Between Classes - (Assigned to: *Mirza* | Priority: *Low* | Expected: *0.15 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
@@ -98,3 +98,7 @@ FEB 7th 2025 (220 mins)
  - full implementation of account logic for login/register backend logic
  - full implementation of nessecary frontend hooks for storing logged in state
  - full implementation of account logic for saving course preferences after chaanges are made on front end
+
+ Feb 9th 2025 (120 mins)
+ - login and register ui complete
+ - previously written login refactored to work with UI for these pages.
