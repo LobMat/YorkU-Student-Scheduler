@@ -15,6 +15,7 @@ import yustLogo from './assets/mylogo.svg';
   import MainPage from './pages/home/HomePage.jsx';
   import LoginPage from './pages/login/LoginPage.jsx';
   import RegisterPage from './pages/register/RegisterPage.jsx';
+  import Friends from './pages/friends/Friends.jsx';
   //#endregion
 
 //#region - context creation
@@ -65,6 +66,7 @@ function App () {
     } 
     else { 
       return(<>
+        <li><a href="/friends">Friends</a></li>
       </>)
     }
   });
@@ -87,6 +89,7 @@ function App () {
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/friends" element={<Friends />}/>
         </Routes>
   
       </Router>

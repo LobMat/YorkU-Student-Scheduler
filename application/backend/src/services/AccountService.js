@@ -67,31 +67,31 @@ class AccountService {
     const senderData = await accountRepository.readAccount(senderKey);
     if (!senderData) return `bad call: sender doesnt exist`;
 
-    const sender = Account.getAccountFromData(senderKey, senderData);
+    const sender = Account.getInstance(senderKey, senderData);
 
     const receiverKey = await accountRepository.getKeyFromUsername(receiverUsername);
     if (!receiverKey) return 4;
     
-    const receiver = Account.getAccountFromData(receiverKey, await accountRepository.readAccount(receiverKey));
+    const receiver = Account.getInstance(receiverKey, await accountRepository.readAccount(receiverKey));
 
     if (receiver.friendsList && receiver.friendsList.includes(sender.username))
         return 3;
     
-    if (receiver.pendingList && receiver.pendingList.includes(sender.username))
+    if (receiver.requestList && receiver.requestList.includes(sender.username))
         return 2;
     
     // send a friend request to someone who has sent you a friend request, add eachother as friends.
-    if (sender.pendingList.includes(receiverUsername)) {
+    if (sender.requestList.includes(receiverUsername)) {
         
         sender.addFriend(receiverUsername);
-        sender.removePendingRequest(receiverUsername);
+        sender.removeRequest(receiverUsername);
         await accountRepository.writeAccount(sender);
         
         receiver.addFriend(sender.username);
         await accountRepository.writeAccount(receiver);
         return 0;
     } else {
-        receiver.addPendingRequest(sender.username);
+        receiver.addRequest(sender.username);
         await accountRepository.writeAccount(receiver);
         return 1;
     }
@@ -112,14 +112,9 @@ class AccountService {
 
   static async getPendingList(key){
     const account = await accountRepository.readAccount(key);
-    return account.pending;
+    return account.requests;
   }
-  static async writePrefs(username, prefs){
-    const account = Account.getAccountFromData(username, await accountRepository.readAccount(username));
-    account.coursePrefObject = prefs;
-    console.log(account.coursePrefObject);
-    await accountRepository.writeAccount(account);
-  }
+
   //#endregion
 }
 

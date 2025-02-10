@@ -1,5 +1,7 @@
 const Course = require('../models/Course');
+const Account = require('../models/Account');
 const courseRepository = require('../repositories/courseRepository');
+const accountRepository = require('../repositories/accountRepository');
 
 //#region - course creation helper methods
 const createSection = (sectChar, termChar) => {
