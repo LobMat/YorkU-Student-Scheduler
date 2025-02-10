@@ -1,5 +1,7 @@
 const Course = require('../models/Course');
+const Account = require('../models/Account');
 const courseRepository = require('../repositories/courseRepository');
+const accountRepository = require('../repositories/accountRepository');
 
 //#region - course creation helper methods
 const createSection = (sectChar, termChar) => {
@@ -56,4 +58,11 @@ async function writeCourseData() {
   addCommonActivity(c3s6, "LECT01");
   courseRepository.writeCourse(new Course("EECS2101", "Fundamentals of Data Structures", [c3s1, c3s2, c3s3, c3s4, c3s5, c3s6]));
 }
-module.exports = {writeCourseData};
+async function writeAccountData() {
+  const a1 = new Account("calebwj", "2005cwj@gmail.com", "caleb123")
+  const a2 = new Account("ayokunlemi", "kunle@gmail.com", "nigeria")
+  accountRepository.writeAccount(a1);
+  accountRepository.writeAccount(a2);
+}
+
+module.exports = { writeCourseData, writeAccountData } ; 
