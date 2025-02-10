@@ -1,0 +1,24 @@
+Meeting minutes documentation, rationale behind changes on plan and big design decisions, 
+any concern with the project or group members, task assignments, 
+the development tasks per user story and the times originally allocated per development task and the actual time spent on each task
+
+
+January 20th Meeting Minutes:
+-Project ideas discussed with two being debated on
+-Project one is a Schedule Builder webapp that seeks to improve upon Visual Schedule Builder from YorkU
+-Project two is a social recipe sharing app
+-Front and Back end roles tentatively decided
+
+January 27th Meeting Minutes:
+-Project idea has been finalized as the schedule builder webapp
+-Features such as integrated rating systems and social features discussed
+-Initial work for ITR0 divided between group members 
+-Potential Customer obtained
+
+February 3rd Meeting Minutes:
+-Basic public course information gathering database created and discussed
+-User Story work divided between group members
+-Public github repository creation decided
+
+February 10th Meeting Minutes:
+-
