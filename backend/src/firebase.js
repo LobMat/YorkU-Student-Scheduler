@@ -1,5 +1,5 @@
 var admin = require("firebase-admin");
-var serviceAccount = require("./yorku-scheduler-firebase-adminsdk-fbsvc-7337973f11.json");
+var serviceAccount = require("./yorku-scheduler-firebase-adminsdk-fbsvc-b71daa9446.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -13,6 +13,15 @@ const addCourse = async (coursename, sections) => {
   const docRef = db.collection('courses').doc(coursename);
   await docRef.set({
     sections: sections
+ });
+  console.log('Document written');
+};
+
+const addUser = async (username, password, courses) => {
+  const docRef = db.collection('accounts').doc(username);
+  await docRef.set({
+    password: password,
+    courses: courses
  });
   console.log('Document written');
 };
@@ -31,6 +40,6 @@ const addCourse = async (coursename, sections) => {
 //   }
 // };
 
-module.exports = {addCourse};
+module.exports = { addCourse };
 
 
