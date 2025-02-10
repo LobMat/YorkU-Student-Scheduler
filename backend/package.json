@@ -1,9 +1,6 @@
 {
   "dependencies": {
-    "cheerio": "^1.0.0",
-    "firebase-admin": "^13.1.0",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "puppeteer-real-browser": "^1.4.0"
+    "firebase-admin": "^13.1.0"
   },
   "overrides": {
     "node-fetch": "^3.0.0"
