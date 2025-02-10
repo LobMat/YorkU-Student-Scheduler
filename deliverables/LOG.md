@@ -63,6 +63,9 @@
 * Divison of user stories finalized. 
 * Discussed more specific requirements for iteration 1, such as StubDatabase implementation ideas.
 * Created the repository.
+### February 10th (120 minutes)
+ - check in on individual user stories (everything is good)
+ - discussion on any possible changes and ideas for iteration 2.
 ***
 ## Personal Logs
 ### Caleb 
