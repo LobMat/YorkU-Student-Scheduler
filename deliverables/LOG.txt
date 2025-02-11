@@ -34,12 +34,11 @@ February 10th (150 minutes):
 - Discussed the other required coding, including how we'd implement interfaces and stub database.
 
 
-CALEB JONES LOG
-Feb 10th (300 mins)
-- Spent around 5 hours between last night and today on figuring out the basics of creating a database
-- Will be very relevant in creating a stub database and interfaces, which will be done tommorow.
-- I have also created some domain specific objects for the group to reference (Course, Section). They need to
-  be improved
-- I am brainstorming exactly what needs to domain specific objects.
 
-
+#CALEB JONES LOG#
+  Feb 10th (300 mins)
+    - Spent around 5 hours between last night and today on figuring out the basics of creating a database
+    - Will be very relevant in creating a stub database and interfaces, which will be done tommorow.
+    - I have also created some domain specific objects for the group to reference (Course, Section). They need to
+      be improved
+    - I am brainstorming exactly what needs to domain specific objects.
