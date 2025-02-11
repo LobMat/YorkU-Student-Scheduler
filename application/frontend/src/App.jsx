@@ -16,7 +16,7 @@ import yustLogo from './assets/mylogo.svg';
   import LoginPage from './pages/login/LoginPage.jsx';
   import RegisterPage from './pages/register/RegisterPage.jsx';
   import Friends from './pages/friends/Friends.jsx';
-import Review from '../../backend/src/models/Review.js';
+import ReviewPage from './pages/review/ReviewPage.jsx';
   //#endregion
 
 //#region - context creation
@@ -92,7 +92,7 @@ function App () {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/friends" element={<Friends />}/>
-          <Route path="/review" element={<Review />}/>
+          <Route path="/review" element={<ReviewPage />}/>
         </Routes>
   
       </Router>

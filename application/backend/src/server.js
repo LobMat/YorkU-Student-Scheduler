@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const courseRouter = require("./routes/courseRouter");
 const accountRouter = require("./routes/accountRouter");
@@ -23,6 +24,13 @@ app.use('/reviews', reviewRouter);
 
 writeCourseData();
 writeAccountData();
+
+const frontendPath = path.join(__dirname, "..", "..", "frontend", "dist");
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

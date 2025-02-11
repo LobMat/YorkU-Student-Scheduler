@@ -1,0 +1,14 @@
+FOR THE TEAM 
+------------
+
+if you need to test frontend normally, continue to start the server as usually (with npm run dev and node server)
+
+to compile and test the runnable file, make sure you have pkg installed by typing
+npm install -g pkg 
+in terminal.
+
+then, from the application directory, run 
+npm run pkg
+in terminal.
+
+should create 3 executable files in the application/runnable directory.

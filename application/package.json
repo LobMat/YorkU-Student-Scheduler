@@ -5,5 +5,20 @@
     "frontend"
   ],
   "scripts": {
+    "build": "cd frontend && npm run build",
+    "pkg": "npm run build && pkg . --targets node18-win,node18-macos,node18-linux --output runnable/yst-scheduling-tool"
+  },
+  "bin": "backend/src/server.js",
+  "pkg": {
+    "scripts": "backend/src/server.js",
+    "assets": [
+      "backend/src/controllers/**/*",
+      "backend/src/models/**/*",
+      "backend/src/services/**/*",
+      "backend/src/routes/**/*",
+      "backend/src/database/**/*",
+      "backend/src/repositories/**/*",
+      "frontend/dist/**/*"
+    ]
   }
 }
