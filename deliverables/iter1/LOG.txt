@@ -3,22 +3,43 @@ any concern with the project or group members, task assignments,
 the development tasks per user story and the times originally allocated per development task and the actual time spent on each task
 
 
-January 20th Meeting Minutes:
+ITERATION 1 USER STORIES (in order of completion)
+- visualize a weekly schedule. [caleb] (high priority, 1 day)
+- create an account to save information between sessions. [mateo] (high priority, 1 day)
+- block out times for courses and personal activities, with conflicts allowed. [kunle] (high priority, 0.5 days)
+- view statistics on how long spent per day in class and between classes [mirza] (low priority, 0.5 days)
+- create a friends list [ahmet] (med. priority, 0.5 days)
+- view the schedules and courses of friends, find commonalities [zayn] (med. priority, 1 day) 
+
+January 20th (90 minutes)
 -Project ideas discussed with two being debated on
 -Project one is a Schedule Builder webapp that seeks to improve upon Visual Schedule Builder from YorkU
 -Project two is a social recipe sharing app
 -Front and Back end roles tentatively decided
 
-January 27th Meeting Minutes:
+January 27th (60 minutes):
 -Project idea has been finalized as the schedule builder webapp
 -Features such as integrated rating systems and social features discussed
 -Initial work for ITR0 divided between group members 
 -Potential Customer obtained
 
-February 3rd Meeting Minutes:
+February 3rd (60 minutes)
 -Basic public course information gathering database created and discussed
 -User Story work divided between group members
--Public github repository creation decided
+-Public github repository creation.
 
-February 10th Meeting Minutes:
--
+February 10th (150 minutes):
+- Checked in on ideas for implimentation of user stories, 
+- Discussed the required order of completion for each user story.
+- Discussed the other required coding, including how we'd implement interfaces and stub database.
+
+
+CALEB JONES LOG
+Feb 10th (300 mins)
+- Spent around 5 hours between last night and today on figuring out the basics of creating a database
+- Will be very relevant in creating a stub database and interfaces, which will be done tommorow.
+- I have also created some domain specific objects for the group to reference (Course, Section). They need to
+  be improved
+- I am brainstorming exactly what needs to domain specific objects.
+
+
