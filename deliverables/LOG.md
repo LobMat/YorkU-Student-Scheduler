@@ -87,6 +87,9 @@ FEB 7-8TH 2025 (180 mins)
  - unit testing for the current course services and also the course model class.  
 - added functionality for course preferences to be stored locally in the browser.
 
+FEB 11th 2025 (90 mins) 
+ - created an easily compilable version of the app for submission.
+ 
 ### Kunle
 FEB 7th 2025 (220 mins)
  - Added functionality to the searchbar to find and add courses. Worked with Caleb to create the server
