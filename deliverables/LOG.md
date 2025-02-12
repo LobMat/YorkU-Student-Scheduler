@@ -12,7 +12,8 @@
 | Develop dropdown menus to configure course preferences.                                       | 2h   | 1h |
 | Write unit tests to validate course selection and scheduling functionality.                   | 1h   |  | 
 <br/>
-### Visualize a Weekly Schedule - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 days* | Actual:  )
+
+### Visualize a Weekly Schedule - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 days* | Actual: *~0.4 days* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Setup React Frontend Application and frontend folder heirarchy.                               | 2h | 2h |
@@ -21,20 +22,23 @@
 | Ensure course preferences persist in local storage for user sessions.                         | 3h | 2h |
 | Testing, debugging, and UI refinements                                                        | 2h | 1h | 
 <br/>
-### Create and Account to Save Info Between Sessions - (Assigned to: *Mateo* | Priority: *High* | Expected: *0.4 days* | Actual:  )
+
+### Create and Account to Save Info Between Sessions - (Assigned to: *Mateo* | Priority: *High* | Expected: *0.4 days* | Actual: *0.375 days* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Implement backend logic for account creation and login authentication.                        | 2h | 3h |
-| Write unit tests for account login and registration services.                                 | 3h |  |
+| Write unit tests for account login and registration services.                                 | 3h | 2h |
 | Develop frontend UI for login and registration pages.                                         | 4h | 2h |
 | Implement session storage to handle errors, and local storage to maintain login.              | 2h | 2h | 
 <br/>
-### View Statistics on Time Spent in and Between Classes - (Assigned to: *Mirza* | Priority: *Low* | Expected: *0.15 days* | Actual:  )
+
+### View Statistics on Time Spent in and Between Classes - (Assigned to: *Mirza* | Priority: *Low* | Expected: *0.125 days* | Actual: *0.125 days* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Implement logic to calculate time spent in classes and gaps between them.                     | 2h | 2h |
 | Develop a UI to visualize these statistics in a user-friendly format (1h).                    | 1h | 1h |
 <br/>
+
 ### Create a Friends List & Add Friends (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.35 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
@@ -43,6 +47,7 @@
 | Write unit tests for friend request functionality.                                            | 2h | |
 | Implement a frontend display for confirmed friends in the UI.                                 | 1h | 1h |  
 <br/>
+
 ### Leave Reviews on Courses (Assigned to: *Zayn* | Priority: *Medium* | Expected: *0.20 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
@@ -108,7 +113,9 @@ FEB 7th 2025 (220 mins)
  Feb 9th 2025 (120 mins)
  - login and register ui complete
  - previously written login refactored to work with UI for these pages.
-
+ Feb 10th 2025 (120 mins) 
+ - extensive unit testing for login and registration services
+ 
  ### Zayn
  Feb 9th 2025 (180 mins)
  - backend and ui for writing reviews, fully functional.
