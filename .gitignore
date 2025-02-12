@@ -1,2 +1,4 @@
 .DS_Store
 yorku-scheduler-*.json
+frontend/
+backend/node_modules/

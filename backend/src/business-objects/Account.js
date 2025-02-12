@@ -1,98 +1,71 @@
 // 😤 I need to actually write something that CHANGES the data in an account username instead of accidentally making a new one (specifically problem for username; maybe make user IDs)
 
-var admin = require("firebase-admin");
-var serviceAccount = require("../yorku-scheduler-firebase-adminsdk-fbsvc-2d61a64dfc.json");
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+// Make new account methods, and rework the way stuff is to look more like a bunch of static methods. update console tester accordingly.
 
-const db = admin.firestore();
 //const Course = require("./Course"); // for some imlpementation later
+
+//import StubDatabase from "../database/StubDatabase";
 
 class Account {
   // constructor for making an account
-  constructor(username, password, newAccountFlag) {
-    // there's a new account flag incase we're making a new account or retrieving an existing one
-    if (newAccountFlag == true) {
-      this.makeNewAccount(username, password);
-    } else {
-      this.fetchAccountData(username, password);
-    }
+  constructor(username, password, courses) {
+    this.username = username;
+    this.password = password;
+    this.courses = courses;
   }
 
   // this function just creates a new account with the info entered and saves it to the DB
-  makeNewAccount(username, password) {
-    this.username = username;
-    this.password = password;
-    this.courses = [];
-    this.saveToDB();
-  }
-
-  async fetchAccountData(username, password) {
-    try {
-      const accountRef = db.collection("accounts").doc(username);
-      const accountSnap = await accountRef.get();
-      if (accountSnap.exists) {
-        const accountData = accountSnap.data();
-        const match = await this.verifyAccount(accountData.password, password);
-        if (match) {
-          this.username = username;
-          this.password = accountData.password;
-          this.courses = accountData.courses;
-          console.log("User Data:", accountSnap.data());
-        } else {
-          console.log("Password Incorrect!");
-        }
-      } else {
-        console.log("No such user found!");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      throw error;
+  static makeNewAccount(username, password, database) {
+    if (database.getAccountByUsername(username) == undefined) {
+      let courses = [];
+      return new Account(username, password, courses);
+    } else {
+      console.log("An Account with that username already exists.");
     }
   }
 
-  async verifyAccount(passwordInDB, password) {
-    return passwordInDB && password; // I am aware this is weak but I will look into more stable implementation later
+  static login(username, password, database) {
+    if (database.getAccountByUsername(username) != undefined) {
+      const accountData = database.getAccountByUsername(username);
+      if (accountData.password == password) {
+        return new Account(username, password, accountData.courses);
+      } else {
+        console.log("Password Incorrect!");
+      }
+    } else {
+      console.log("No such user found!");
+    }
   }
+}
 
-  async saveToDB() {
-    const accountRef = db.collection("accounts").doc(this.username);
-    await accountRef.set({
-      username: this.username,
-      password: this.password,
-      courses: this.courses,
-    });
-    console.log("Account Written");
-  }
+// method for adding a course
+function addCourse(course) {
+  this.courses.push(course);
+}
 
-  // method for adding a course
-  set addCourse(course) {
-    this.courses.push(Object.assign({}, course));
-  }
+// method for getting courses
+function getCourses() {
+  return this.courses;
+}
 
-  // method for getting courses
-  get getCourses() {
-    return this.courses;
-  }
+// method for changing username
+function changeUsername(username) {
+  this.username = username;
+}
 
-  // method for changing username
-  set changeUsername(username) {
-    this.username = username;
-  }
+// method for changing password
+function changePassword(password) {
+  this.password = password;
+}
 
-  // method for changing password
-  set changePassword(password) {
-    this.password = password;
-  }
+// method for getting password
+function getPassword() {
+  return this.password;
+}
 
-  // method for getting password
-  get getPassword() {
-    return this.password;
-  }
-
-  // method for getting username
-  get getUsername() {
-    return this.username;
-  }
+// method for getting username
+function getUsername() {
+  return this.username;
 }
 
 module.exports = Account;
