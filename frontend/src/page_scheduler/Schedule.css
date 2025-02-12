@@ -1,0 +1,16 @@
+.schedule {
+
+  width: 24%; 
+  height: 75%;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 85fr 375fr;
+  grid-template-rows: 30fr 780fr;
+
+}
+
+.schedule > .days {
+    
+}
