@@ -90,3 +90,13 @@ font-size: 12px;
 border-style: solid;
 border-radius: 10px;
 }
+.stats {
+  grid-column: span 2 ;
+}
+.stats-grid{
+  color:#b0a4a4;
+  text-align: left;
+  display: grid;
+  grid-template-columns: auto auto auto; /* Adjust column width */
+  gap: 1ch; /* Optional space between columns */
+}

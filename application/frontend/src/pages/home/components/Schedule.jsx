@@ -2,6 +2,7 @@ import InteractiveGrid from './InteractiveGrid.jsx'
 import '../styles/Schedule.css'
 import { useMainContext } from '../HomePage.jsx'
 import { useMemo } from 'react';
+import Stats from './Stats.jsx';
 function Schedule({term}) {
 
   const termChar = term.charAt(0);
@@ -86,6 +87,7 @@ function Schedule({term}) {
           <p>8:00</p>
         </div>
         <InteractiveGrid termSchedule={termSchedule}/>
+        <Stats termSchedule={termSchedule}/>
       </div>
     </>
   )
