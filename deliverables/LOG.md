@@ -89,7 +89,7 @@ FEB 7-8TH 2025 (180 mins)
 
 FEB 11th 2025 (90 mins) 
  - created an easily compilable version of the app for submission.
- 
+
 ### Kunle
 FEB 7th 2025 (220 mins)
  - Added functionality to the searchbar to find and add courses. Worked with Caleb to create the server
@@ -122,3 +122,8 @@ FEB 7th 2025 (220 mins)
  Feb 10th 2025 (180 mins)
  - frontend page for friends list added
  - dev tools tested.
+
+ ### Mirza
+Feb 11th 2025 (150 mins) 
+- implemented the schedule time between and during logic 
+- implemented the time spent UI
