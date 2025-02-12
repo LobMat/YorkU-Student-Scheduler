@@ -25,6 +25,7 @@ const MainPage = () => {
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
  
+  
   // organize context variables into sections:
   const hooks = {courses, prefs};
   const getters = {getCourseValue, getPref};

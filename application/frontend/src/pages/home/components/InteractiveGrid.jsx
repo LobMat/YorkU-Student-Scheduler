@@ -19,27 +19,7 @@ const colours = [
 ];
 
 // 'InteractiveGrid.jsx' : React component containing the grid part of a schedule. and the activities within it.
-const activityAt = (courses, term, day, time) => {
-  let activo = undefined;
-  courses.forEach((course, index) => {
-    if (course?.sections[course?.sectionChoice].termChar === term) {
-      for (let block of course?.blocks) {
-        if (block?.times?.[day]?.[0] && block?.times?.[day]?.[1] === time) {
-          console.log(course.name)
-          activo = ({ 
-            code: course?.code,
-            index: index, 
-            sect: course?.sections[course?.sectionChoice].sectChar, 
-            actName: block?.name, 
-            span: block?.times?.[day][2] 
-          });
-        } 
-      }
-    }
-  })
-  return activo; // This will only be reached if no match is found
-}
-function InteractiveGrid({scheduleTerm}) {
+function InteractiveGrid({termSchedule}) {
   
   const { hooks: {courses},
           getters: {getCourseValue}
@@ -53,11 +33,33 @@ function InteractiveGrid({scheduleTerm}) {
     const tsm = [];
 
     for (let i = 0; i < 5; i++) {
+
+
       let j = 0;
       while(j < 26) {
-        let dispInfo = activityAt(courses, scheduleTerm, i, j);
-
-        if (!dispInfo || dispInfo.span == 0) {
+        
+        if (termSchedule[i][j] && termSchedule[i][j].span > 0) {
+          const {courseIndex, sect, act, span} = termSchedule[i][j];
+          // push activity object
+          tsm.push(
+            <div key={`${i}-${j}`} className="activity-slot" 
+            style={{  /* set style for this specific activity */
+              borderColor: `#${colours[courseIndex].border}`,
+              backgroundColor: `#${colours[courseIndex].bg}`,
+              color: `black`,
+              fontSize: `${(span < 3)?10:12}px`,
+              gridColumn: `${i+1}`,
+              gridRow: `${j+1}`,
+              gridRowEnd: `span ${span}`,
+            }}
+            >
+              {courses[courseIndex].code}<br />
+              Section {sect}<br />
+              {act}
+            </div>
+          )
+          j+= span;
+        } else {
           tsm.push(
             <div key={`${i}-${j}`} className="time-slot"
             style={{
@@ -68,30 +70,7 @@ function InteractiveGrid({scheduleTerm}) {
           />
           )
           j+= 1;
-        } else {
-          const fontSize = (dispInfo.span < 3) ? '10px' : '12px'; 
-          tsm.push(
-            <div key={`${i}-${j}`} className="activity-slot" 
-            style={{  /* set style for this specific activity */
-              borderColor: `#${colours[dispInfo.index].border}`,
-              color: 'black',
-              fontSize: `${fontSize}`,
-              backgroundColor: `#${colours[dispInfo.index].bg}`,
-              gridColumn: `${i+1}`,
-              gridRow: `${j+1}`,
-              gridRowEnd: `span ${dispInfo.span}`,
-            }}
-            >
-              {dispInfo.code}<br />
-              Section {dispInfo.sect}<br />
-              {dispInfo.actName}
-            </div>
-          )
-           j+= dispInfo.span;
-
         }
-
-
       }
     }
     
