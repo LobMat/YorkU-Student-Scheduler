@@ -32,8 +32,8 @@
 ### View Statistics on Time Spent in and Between Classes - (Assigned to: *Mirza* | Priority: *Low* | Expected: *0.15 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Implement logic to calculate time spent in classes and gaps between them.                     | 2h | |
-| Develop a UI to visualize these statistics in a user-friendly format (1h).                    | 1h | |
+| Implement logic to calculate time spent in classes and gaps between them.                     | 2h | 2h |
+| Develop a UI to visualize these statistics in a user-friendly format (1h).                    | 1h | 1h |
 <br/>
 ### Create a Friends List & Add Friends (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.35 days* | Actual:  )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
