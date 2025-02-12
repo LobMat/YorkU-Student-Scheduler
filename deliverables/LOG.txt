@@ -42,3 +42,11 @@ February 10th (150 minutes):
     - I have also created some domain specific objects for the group to reference (Course, Section). They need to
       be improved
     - I am brainstorming exactly what needs to domain specific objects.
+
+
+
+#MATEO LOBATO LOG#
+  Feb 10th (160 mins)
+    - Spent just over 2 and a half hours learning the basics of how firebase (the database we'll likely use) works
+    - Created the domain specific object Account for referencing by the group. Still needs to be improved.
+    - Attempted to make a console tester for Account. Helped work out some issues, created others.
