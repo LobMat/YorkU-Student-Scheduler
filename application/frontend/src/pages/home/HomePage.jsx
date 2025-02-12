@@ -42,6 +42,7 @@ const MainPage = () => {
     fetch(`http://localhost:3000/courses/init?data=${encodeURIComponent(JSON.stringify(prefs.current))}`, {method: 'GET'})
     .then(response => response.json())
     .then(data => initList(data.courseObjectList));
+    
   }, [])
 
   

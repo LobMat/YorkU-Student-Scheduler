@@ -48,11 +48,10 @@ const SearchBar = () => {
             sectionChoice: 0,
             sectionPreferences: data.courseObject.sections.map(section=>({
               uniqueActChoice: 0,
-              commonActBlocks:  section.commonActs.map(()=>[[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]),
-              uniqueActBlocks:  section.uniqueActs.map(()=>[[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]),
+              commonActBlocks:  section.commonActs.map((act)=>({name: act.actName, times: [[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]})),
+              uniqueActBlocks:  section.uniqueActs.map((act)=>({name: act.actName, times: [[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]})),
             }))
           }
-
           writeLocal('coursePrefs', prefs.current);
           pushCourse(data.courseObject);
 

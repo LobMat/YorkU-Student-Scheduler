@@ -60,7 +60,7 @@ const ActivityItem = ({ course, type, pos }) => {
   
   //#region - initialization
   const { 
-    hooks:    {prefs}, 
+    hooks:    {prefs, courses}, 
     setters:  {setPref, setCourseValue},
     getters:  {getPref}
   } = useMainContext();
@@ -70,12 +70,12 @@ const ActivityItem = ({ course, type, pos }) => {
  
   //#region - handlers
   const displayMap = useMemo(() => { 
-    return getPref(code, [`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}]`])?.[0];
+    return getPref(code, [`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}]`])?.[0]?.times;
   }, [course])
 
   const handleChange = (day, target, newVal) => {
-    setCourseValue(code, [[`blocks[${(type == 'unique')  ? 0 : pos}][${day}][${target}]`, newVal]])
-    setPref(code, [[`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}][${day}][${target}]`, newVal]]);
+    setCourseValue(code, [[`blocks[${pos}].times[${day}][${target}]`, newVal]])
+    setPref(code, [[`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}].times[${day}][${target}]`, newVal]]);
     writeLocal('coursePrefs', prefs.current);
   }
   //#endregion
@@ -83,7 +83,7 @@ const ActivityItem = ({ course, type, pos }) => {
   //#region - html return
   return (
     <div className="activity-item">
-      <h4>{course?.sections[course.sectionChoice]?.[`${type}Acts`]?.[pos].name}</h4>
+      <h4>{course?.sections[course.sectionChoice]?.[`${type}Acts`]?.[pos]?.actName}</h4>
      
       {daysOfWeek.map((day, index) => (
         
