@@ -1,13 +1,11 @@
-
-
 .igrid {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-  }
+}
 
-.igrid-col { 
+.igrid-col {
     box-sizing: border-box;
     width: 20%;
     display: flex;
@@ -15,29 +13,34 @@
     flex: 1;
 }
 
-.igrid-col > div {
+.igrid-col>div {
     flex: 1 1 20%;
     width: 100%;
     box-sizing: border-box;
-    border: 0.1px  solid #494545;
+    border: 0.1px solid #494545;
     border-bottom-color: #1B1616;
     border-left-style: hidden;
-
-    
 }
 
-.igrid-col > div:hover{
+.igrid-col>div:hover {
     border-color: #BC6464;
     border-style: solid;
-    
 }
 
-.igrid-col > :nth-child(even) {
+.igrid-col> :nth-child(even) {
     margin-top: -0.1px;
     margin-bottom: -0.1px;
-    border-top-color:#312D2D;
+    border-top-color: #312D2D;
 }
 
-.igrid-col > :last-child {
-    border-bottom-color:#494545;
+.igrid-col> :last-child {
+    border-bottom-color: #494545;
+}
+
+/* Highlighted time blocks */
+.igrid-cell.highlighted {
+    background-color: rgba(188, 100, 100, 0.6);
+    /* Light red highlight */
+    border-color: #BC6464;
+    /* Ensure it matches hover effect */
 }

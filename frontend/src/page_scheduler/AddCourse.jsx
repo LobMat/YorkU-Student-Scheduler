@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import InteractiveGrid from './InteractiveGrid';
 
 function AddCourse() {
     const [showTextbox, setShowTextbox] = useState(false);
@@ -7,14 +8,35 @@ function AddCourse() {
     const [endTime, setEndTime] = useState('');
     const [section, setSection] = useState('');
     const [courses, setCourses] = useState([]);
+    const [type, setType] = useState('')
+    const [weekday, setWeekday] = useState('');
+    const [startNum, setStartNum] = useState(0)
+    const [endNum, setEndNum] = useState(0)
 
-    const changeStartTime = (e) => setStartTime(e.target.value);
-    const changeEndTime = (e) => setEndTime(e.target.value);
+    const changeStartTime = (e) => {
+        setStartTime(e.target.value);
+        setStartNum(timeToValue(e.target.value))
+    }
+    console.log("start: ", startNum)
+    const changeEndTime = (e) => {
+        setEndTime(e.target.value)
+        setEndNum(timeToValue(e.target.value))
+    };
+    console.log("end: ", endNum)
+
     const changeCourseName = (e) => setCourseName(e.target.value);
     const changeSection = (e) => setSection(e.target.value);
+    const changeType = (e) => setType(e.target.value);
+    const changeWeekday = (e) => setWeekday(e.target.value);
+
+    const timeToValue = (time) => {
+        const [hours, minutes] = time.split(":").map(Number);
+        return hours + (minutes / 60);
+    };
+
 
     const addCourse = () => {
-        if (!courseName || !section || !startTime || !endTime) {
+        if (!courseName || !section || !startTime || !endTime || !type || !weekday) {
             alert("Please fill out all fields.");
             return;
         }
@@ -22,12 +44,22 @@ function AddCourse() {
         /* each course is added to the courses array. you can access attributes of a course 
         by referencing a specific attribute. ex: courses[0].name, courses[0].startTime etc.
         */
-        const newCourse = { name: courseName, section, startTime, endTime };
-        setCourses([...courses, newCourse]); // Add course to state
+        const newCourse = { name: courseName, section, type, weekday, startTime, endTime, startNum, endNum };
+
+        setCourses(prevCourses => {
+            const updatedCourses = [...prevCourses, newCourse];
+            console.log("Updated courses:", updatedCourses); // Logs correctly
+            return updatedCourses;
+        });
+
         setCourseName("");
         setSection("");
         setStartTime("");
         setEndTime("");
+        setType("");
+        setWeekday("");
+        setStartNum(0)
+        setEndNum(0);
         setShowTextbox(false);
     };
 
@@ -42,11 +74,12 @@ function AddCourse() {
                 Add Course
             </button>
 
+
             {!showTextbox && <div style={styles.coursesContainer}>
                 {courses.map((course, index) => (
                     <div key={index} style={styles.courseItem}>
-                        <strong>{course.name}</strong>
-                        <p> (Section {course.section}) </p>
+                        <strong>{course.name}</strong> {course.section}
+                        <p> {course.type}</p>
                         {course.startTime} - {course.endTime}
                     </div>
                 ))}
@@ -60,6 +93,20 @@ function AddCourse() {
                     <div style={styles.textboxContainer}>
                         <input style={styles.smallbox} type="text" placeholder="Section" value={section} onChange={changeSection} />
                     </div>
+                    <select style={styles.dropdown} value={weekday} onChange={changeWeekday}>
+                        <option value="">Day:</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                    </select>
+                    <select style={styles.dropdown} value={type} onChange={changeType}>
+                        <option value="">Type:</option>
+                        <option value="Lecture">Lecture</option>
+                        <option value="Tutorial">Tutorial</option>
+                        <option value="Lab">Lab</option>
+                    </select>
                     <div style={styles.timeContainer}>
                         <select style={styles.dropdown} value={startTime} onChange={changeStartTime}>
                             <option value="">Start Time</option>
@@ -121,6 +168,7 @@ function AddCourse() {
                             <option value="21:00">9:00 PM</option>
                         </select>
                     </div>
+
                     <button
                         style={styles.button}
                         onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
@@ -131,6 +179,8 @@ function AddCourse() {
                     </button>
                 </>
             )}
+
+
         </div>
     );
 }
