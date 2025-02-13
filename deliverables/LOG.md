@@ -39,12 +39,12 @@
 | Develop a UI to visualize these statistics in a user-friendly format (1h).                    | 1h | 1h |
 <br/>
 
-### Create a Friends List & Add Friends (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.35 days* | Actual:  )
+### Create a Friends List & Add Friends (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.35 days* | Actual: *~0.3 days* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Implement a search bar UI for finding and adding friends.                                     | 1h | 1h |
 | Develop the backend logic for friend request handling, covering multiple interaction types.   | 4h | 3h |
-| Write unit tests for friend request functionality.                                            | 2h | |
+| Write unit tests for friend request functionality.                                            | 2h | 2h |
 | Implement a frontend display for confirmed friends in the UI.                                 | 1h | 1h |  
 <br/>
 
@@ -129,6 +129,9 @@ FEB 7th 2025 (220 mins)
  Feb 10th 2025 (180 mins)
  - frontend page for friends list added
  - dev tools tested.
+
+Feb 12th 2025 (120 mins)
+- unit tests for adding friends
 
  ### Mirza
 Feb 11th 2025 (150 mins) 
