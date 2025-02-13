@@ -1,8 +1,15 @@
 {
   "dependencies": {
     "firebase-admin": "^13.1.0"
+
   },
   "overrides": {
     "node-fetch": "^3.0.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }

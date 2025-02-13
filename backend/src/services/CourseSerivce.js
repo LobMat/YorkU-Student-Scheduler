@@ -1,4 +1,4 @@
-const Course = require('../business-objects/Course');
+const { Course, Section, Activity } = require('../business-objects/Course');
 const Database = require('../database/StubDatabase');
 
 
@@ -29,3 +29,4 @@ class CourseService {
 
 
 }
+module.exports = CourseService;

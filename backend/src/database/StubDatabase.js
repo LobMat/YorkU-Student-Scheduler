@@ -13,7 +13,8 @@ const Course = require('../business-objects/Course.js');
 class StubDatabase extends DatabaseInterface {
 
     static collections = new Map();
-    static {
+    static {this.reset()}
+    static async reset() {
         collections.set("accounts", new Map());       // collection of accounts. each account document is identified by its username.
         collections.set("courses", new Map());        // collection of courses. each course document is identified by its course code (e.g. EECS 2311, ENG 2001). 
         collections.set("instructors", new Map());    // collection of instructors. each instructor is identified by their name.
