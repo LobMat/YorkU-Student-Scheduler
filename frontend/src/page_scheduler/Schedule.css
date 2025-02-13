@@ -1,0 +1,50 @@
+.schedule {
+
+  width: 41%; 
+  height: 83%;
+  margin-left: 5em;
+  margin-top: 5em;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 85fr 375fr;
+  grid-template-rows: 30fr 780fr;
+
+}
+
+.schedule > .days {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+     border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+     background-color: #3A2C1E; 
+     
+}
+.schedule > .days p {
+    flex: 1;
+    font-family: 'Inconsolata', sans-serif;
+    font-size: 0.88em;
+    font-style: bold;
+}
+
+.schedule > .times {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+.schedule > .times p {
+  flex: 1;
+  padding-right: 10%;
+  padding-top: 15%;
+  text-align: end;
+
+
+  box-sizing: border-box;
+  background: linear-gradient(-90deg, #792A2A 0%, #591919 45%, #1B1616 99%);
+}
+.schedule > .times p:nth-child(even){
+  background: linear-gradient(-90deg, #A34848 0%, #5B2222 45%, #1B1616 99%);
+}
