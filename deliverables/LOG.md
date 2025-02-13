@@ -3,14 +3,14 @@
 <h1 style="text-align: right"> Iteration 1 </h1>
 
 ## USER STORIES
-### Block Out Times for Courses & Personal Activities - (Assigned to: *Kunle* | Priority: *High* | Expected: *0.5 days* | Actual:  )
+### Block Out Times for Courses & Personal Activities - (Assigned to: *Kunle* | Priority: *High* | Expected: *0.5 days* | Actual: *0.3333 days* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Implement a search bar UI for finding and selecting courses.                                  | 1.5h | 1h |
 | Create API endpoints and controllers to fetch course data.                                    | 2h   | 2h |
 | Implement backend service logic to format course data for frontend.                           | 1.5h | 1h |
 | Develop dropdown menus to configure course preferences.                                       | 2h   | 1h |
-| Write unit tests to validate course selection and scheduling functionality.                   | 1h   |  | 
+| Write unit tests to validate course selection and scheduling functionality.                   | 1h   | 3h | 
 <br/>
 
 ### Visualize a Weekly Schedule - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 days* | Actual: *~0.4 days* )
@@ -103,6 +103,8 @@ FEB 7th 2025 (220 mins)
    to the frontend using an express route.
  - You can change the selected section, start time, and duration for each activity on each day of the week.
  - This can now simply be implemented to have features which show it visually for Caleb's user story.
+FEB 11th 2025 (180 mins)
+- unit testing for both course services.
 
  ### Mateo
  Feb 8th 2025 (350 mins)
