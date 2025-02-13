@@ -4,68 +4,45 @@
 
 //const Course = require("./Course"); // for some imlpementation later
 
-//import StubDatabase from "../database/StubDatabase";
-
 class Account {
   // constructor for making an account
-  constructor(username, password, courses) {
+  constructor(username, password, email, enrolements, friends) {
     this.username = username;
     this.password = password;
-    this.courses = courses;
+    this.email = email;
+    this.enrolements = enrolements;
+    this.friends = friends;
   }
 
-  // this function just creates a new account with the info entered and saves it to the DB
-  static makeNewAccount(username, password, database) {
-    if (database.getAccountByUsername(username) == undefined) {
-      let courses = [];
-      return new Account(username, password, courses);
-    } else {
-      console.log("An Account with that username already exists.");
-    }
+  // method for adding a course
+  addEnroledCourse(course) {
+    this.enrolements.push(course);
   }
 
-  static login(username, password, database) {
-    if (database.getAccountByUsername(username) != undefined) {
-      const accountData = database.getAccountByUsername(username);
-      if (accountData.password == password) {
-        return new Account(username, password, accountData.courses);
-      } else {
-        console.log("Password Incorrect!");
-      }
-    } else {
-      console.log("No such user found!");
-    }
+  // method for getting courses
+  getCourses() {
+    return this.enrolements;
   }
-}
 
-// method for adding a course
-function addCourse(course) {
-  this.courses.push(course);
-}
+  // method for changing username
+  changeUsername(username) {
+    this.username = username;
+  }
 
-// method for getting courses
-function getCourses() {
-  return this.courses;
-}
+  // method for changing password
+  changePassword(password) {
+    this.password = password;
+  }
 
-// method for changing username
-function changeUsername(username) {
-  this.username = username;
-}
+  // method for getting password
+  getPassword() {
+    return this.password;
+  }
 
-// method for changing password
-function changePassword(password) {
-  this.password = password;
-}
-
-// method for getting password
-function getPassword() {
-  return this.password;
-}
-
-// method for getting username
-function getUsername() {
-  return this.username;
+  // method for getting username
+  getUsername() {
+    return this.username;
+  }
 }
 
 module.exports = Account;
