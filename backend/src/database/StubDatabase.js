@@ -21,7 +21,7 @@ class StubDatabase extends DatabaseInterface {
         collections.set("reviews", new Map());        // collection of reviews. reviews do not have unique identifiers. Instead, they are sorted into lists by common fields. 
     }
   
-    static async create(target, key, value) {
+    static async write(target, key, value) {
         this.collections.get(target).set(key, value);
     }
 

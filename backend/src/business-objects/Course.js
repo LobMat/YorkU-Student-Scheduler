@@ -4,16 +4,27 @@
 // const db = admin.firestore();
 
 class Course {
-  constructor(courseCode, courseTitle) {
+  constructor(courseCode, courseTitle, sectionList = [], reviewList = [], difficulty = 0, quality = 0) {
     this.courseCode = courseCode;
     this.courseTitle = courseTitle;
 
-    this.sectionList = [];
-    this.reviewList = [];
+    this.sectionList = sectionList;
+    this.reviewList = reviewList;
 
-    this.difficulty = 0;
-    this.quality = 0;
+    this.difficulty = difficulty;
+    this.quality = quality;
   }
+
+  getLiteral() {
+    return {
+      title:        this.courseTitle,
+      sections:     this.sections,
+      reviews:      this.reviewList,
+      difficulty:   this.difficulty,
+      quality:      this.quality
+    }
+  }
+
 
   addSection(newSection) {
     this.sectionList.forEach((section) => {

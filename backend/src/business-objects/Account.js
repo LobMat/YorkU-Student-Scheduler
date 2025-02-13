@@ -5,9 +5,14 @@ class Account {
     this.password = password;
 
     this.friendList = [];
-    this.selectionList = []; //courses selected with the currently chosen section and that sections activity info.
+    this.courseSelections = []; //courses selected with the currently chosen section and that sections activity info.
+    
+
   }
+  
 }
 
 
-module.exports = Account;
+
+ 
+module.exports = Account;  

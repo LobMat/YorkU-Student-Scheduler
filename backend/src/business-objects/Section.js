@@ -3,11 +3,16 @@ class Section {
     this.letter = letter;
     this.term = term;
     this.instructor = instructor,
-    this.activities = [];
+    this.subsections = [];
+    this.commonActivities = [];
   }
 
-  addActivity(activity){ 
-    this.activities.push(activity);
+  addSubsection(name, catNum){ 
+    this.subsections.push({catNum, name});
+  }
+
+  addCommonActivity(name){
+    this.commonActivities.push(name);
   }
 }
 
