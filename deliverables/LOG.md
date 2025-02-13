@@ -48,12 +48,12 @@
 | Implement a frontend display for confirmed friends in the UI.                                 | 1h | 1h |  
 <br/>
 
-### Leave Reviews on Courses (Assigned to: *Zayn* | Priority: *Medium* | Expected: *0.20 days* | Actual:  )
+### Leave Reviews on Courses (Assigned to: *Zayn* | Priority: *Medium* | Expected: *0.20 days* | Actual: *~0.20 days* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
 | Implement frontend UI for writing and submitting course reviews.                              | 2h | 2h |
 | Develop backend logic to store reviews in the database.                                       | 1h | 1h |
-| Write unit tests for review submission functionality.                                         | 2h | |
+| Write unit tests for review submission functionality.                                         | 2h | 2h |
 ***
 ## Team Meetings
 ### January 20th (90 minutes)
@@ -121,6 +121,9 @@ FEB 11th 2025 (180 mins)
  ### Zayn
  Feb 9th 2025 (180 mins)
  - backend and ui for writing reviews, fully functional.
+
+Feb 13th 2025 (120 mins)
+- review unit tests written and passed.
 
  ### Ahmet 
  Feb 9th 2025 (120 mins)
