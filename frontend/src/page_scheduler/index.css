@@ -33,9 +33,9 @@ body, html, #root {
   grid-template-rows: 9.63fr 90.37fr;
 }
 
-#root > .headbar {
-  grid-column: span 2;
-  background: #292424;
+#sect2 {
+  border-left: 3px solid #A34848;
+  display: flex;
 }
 
 a {

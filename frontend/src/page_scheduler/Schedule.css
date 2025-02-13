@@ -1,8 +1,9 @@
 .schedule {
 
-  width: 32%; 
+  width: 41%; 
   height: 83%;
-  margin: 0;
+  margin-left: 5em;
+  margin-top: 5em;
   padding: 0;
 
   display: grid;

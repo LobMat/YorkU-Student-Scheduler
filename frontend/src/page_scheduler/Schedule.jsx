@@ -1,12 +1,12 @@
 import InteractiveGrid from './InteractiveGrid.jsx'
 import './Schedule.css'
 
-function Schedule() {
+function Schedule(props) {
 
   return (
     <>
       <div className="schedule">
-        <div></div>
+        <div>{props.term}</div>
         <div className="days">
             <p>Mon</p>
             <p>Tues</p>

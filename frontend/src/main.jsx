@@ -7,9 +7,10 @@ import Schedule from './page_scheduler/Schedule.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Header />
-    <div id='d1'>1</div>
-    <div id='d2'>
-      <Schedule />
+    <div id='sect1'></div>
+    <div id='sect2'>
+      <Schedule term="FALL"/>
+      <Schedule term="WINTER"/>
     </div>
   </StrictMode>,
 )

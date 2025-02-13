@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import Grid2 from 'react';
-//import './Header.css'
+
+import yustLogo from '../assets/mylogo.svg';
+import './Header.css'
+
 
 function Header() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <div className="headbar">
-        <p>heyyy this my text ho</p>
+        <img src={yustLogo} className="logo" />
       </div>
       
     </>
