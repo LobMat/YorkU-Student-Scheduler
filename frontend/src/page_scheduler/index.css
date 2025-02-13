@@ -11,22 +11,26 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
-body, html, #root {
-  width: 100%;
-  height: 100%;
-
+* {
   margin: 0;
   padding: 0;
+}
+body, html, #root {
+  width: 100vw;
+  height: 100vh;
+
+  
 }
 
 #root {
   background: #1B1616;
   text-align: center;
   display: grid;
-  grid-template-columns: 48fr 144fr;
-  grid-template-rows: 104fr 976fr;
+  grid-template-columns: 25fr 75fr;
+  grid-template-rows: 9.63fr 90.37fr;
 }
 
 #root > .headbar {
