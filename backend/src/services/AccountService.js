@@ -2,7 +2,7 @@ const Account = require("../business-objects/Account");
 const Database = require("../database/StubDatabase");
 
 class AccountService {
-  // this function just creates a new account with the info entered and saves it to the DB
+  // this function saves an account to the DB
   static async createAccount(account) {
     if (Database.read("accounts", account.username) != null) {
       throw new Error("Account with username already exists.");
@@ -18,7 +18,7 @@ class AccountService {
       Database.create("accounts", key, fields);
     }
   }
-
+  // this function fetches user info from the DB based on a login.
   static async login(username, password) {
     let data = Database.read("accounts", username);
     if (!data) return null;
