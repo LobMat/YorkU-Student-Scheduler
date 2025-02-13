@@ -6,7 +6,7 @@ function AddCourse() {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [section, setSection] = useState('');
-    const [courses, setCourses] = useState([]); // Store added courses
+    const [courses, setCourses] = useState([]);
 
     const changeStartTime = (e) => setStartTime(e.target.value);
     const changeEndTime = (e) => setEndTime(e.target.value);
@@ -19,12 +19,16 @@ function AddCourse() {
             return;
         }
 
+        /* each course is added to the courses array. you can access attributes of a course 
+        by referencing a specific attribute. ex: courses[0].name, courses[0].startTime etc.
+        */
         const newCourse = { name: courseName, section, startTime, endTime };
         setCourses([...courses, newCourse]); // Add course to state
         setCourseName("");
         setSection("");
         setStartTime("");
         setEndTime("");
+        setShowTextbox(false);
     };
 
     return (
@@ -41,7 +45,9 @@ function AddCourse() {
             {!showTextbox && <div style={styles.coursesContainer}>
                 {courses.map((course, index) => (
                     <div key={index} style={styles.courseItem}>
-                        <strong>{course.name}</strong> (Section {course.section}) | {course.startTime} - {course.endTime}
+                        <strong>{course.name}</strong>
+                        <p> (Section {course.section}) </p>
+                        {course.startTime} - {course.endTime}
                     </div>
                 ))}
             </div>
@@ -176,7 +182,7 @@ const styles = {
     timeContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
     },
     coursesContainer: {
         marginTop: '20px',
