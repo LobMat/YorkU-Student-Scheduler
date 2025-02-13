@@ -42,6 +42,11 @@ class Account {
     this.password = password;
   }
 
+  // method for changing email
+  changeEmail(email) {
+    this.email = email;
+  }
+
   // method for getting password
   getPassword() {
     return this.password;
@@ -50,6 +55,11 @@ class Account {
   // method for getting username
   getUsername() {
     return this.username;
+  }
+
+  // method for getting email
+  getEmail() {
+    return this.email;
   }
 }
 
