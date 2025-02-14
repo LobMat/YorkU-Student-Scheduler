@@ -61,3 +61,15 @@ February 10th (150 minutes):
   Feb 13th (180 mins)
     -Spent about 2 hours making the friend service, and another hour fixing bugs and issues in my code via test cases.
     -Created a tester and a seperate FriendService file, this service file will allow users to add each other
+
+#ZAYN ALI LOG#
+  Feb 13th (180 mins)
+    -Spent 3 hours implementing reviews and ensuring all files were integrated correctly
+    -Fixed bugs and syntax errors in some code 
+    -Began learning Jest to create test case for reviews
+
+#ZAYN ALI LOG#
+  Feb 14th (120 mins)
+    -Created test case for reviews and made comprehensive tests for all classes related to reviews
+    -Fixed bugs when test cases failed until they succeeded
+    -Committed all finished work 
