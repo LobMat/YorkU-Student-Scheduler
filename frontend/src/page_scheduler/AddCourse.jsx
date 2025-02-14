@@ -12,7 +12,14 @@ function AddCourse() {
     const [weekday, setWeekday] = useState('');
     const [startNum, setStartNum] = useState(0)
     const [endNum, setEndNum] = useState(0)
-
+    const changeCourseName = (e) => setCourseName(e.target.value);
+    const changeSection = (e) => setSection(e.target.value);
+    const changeType = (e) => setType(e.target.value);
+    const changeWeekday = (e) => setWeekday(e.target.value);
+    const timeToValue = (time) => {
+        const [hours, minutes] = time.split(":").map(Number);
+        return hours + (minutes / 60);
+    };
     const changeStartTime = (e) => {
         setStartTime(e.target.value);
         setStartNum(timeToValue(e.target.value))
@@ -24,17 +31,6 @@ function AddCourse() {
     };
     console.log("end: ", endNum)
 
-    const changeCourseName = (e) => setCourseName(e.target.value);
-    const changeSection = (e) => setSection(e.target.value);
-    const changeType = (e) => setType(e.target.value);
-    const changeWeekday = (e) => setWeekday(e.target.value);
-
-    const timeToValue = (time) => {
-        const [hours, minutes] = time.split(":").map(Number);
-        return hours + (minutes / 60);
-    };
-
-
     const addCourse = () => {
         if (!courseName || !section || !startTime || !endTime || !type || !weekday) {
             alert("Please fill out all fields.");
@@ -44,7 +40,7 @@ function AddCourse() {
         /* each course is added to the courses array. you can access attributes of a course 
         by referencing a specific attribute. ex: courses[0].name, courses[0].startTime etc.
         */
-        const newCourse = { name: courseName, section, type, weekday, startTime, endTime, startNum, endNum };
+        const newCourse = { name: courseName, section, type, weekday, startTime, endTime, startNum, endNum, term };
 
         setCourses(prevCourses => {
             const updatedCourses = [...prevCourses, newCourse];

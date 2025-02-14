@@ -1,6 +1,32 @@
 import './InteractiveGrid.css'
+import { useEffect } from "react";
 
-function InteractiveGrid() {
+
+function InteractiveGrid({ term, courses }) {
+  useEffect(() => {
+    const gridCells = document.querySelectorAll(".igrid div");
+
+    gridCells.forEach(cell => {
+      const cellDay = cell.getAttribute("data-day");
+      const cellValue = parseFloat(cell.getAttribute("data-value"));
+
+
+      // Reset previous colors
+      cell.style.backgroundColor = "";
+      courses.forEach(course => {
+        console.log("course term: ", course.term)
+        console.log("calendar term: ", term)
+        if (course.weekday === cellDay && course.term === term && course.startNum <= cellValue && course.endNum > cellValue) {
+          cell.style.backgroundColor = "#F24255"; // Color for occupied slots
+        }
+      });
+    });
+  }, [courses, term]);
+
+
+
+
+
   return (
     <>
       <div className="igrid">
