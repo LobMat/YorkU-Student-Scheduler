@@ -50,3 +50,14 @@ February 10th (150 minutes):
     - Spent just over 2 and a half hours learning the basics of how firebase (the database we'll likely use) works
     - Created the domain specific object Account for referencing by the group. Still needs to be improved.
     - Attempted to make a console tester for Account. Helped work out some issues, created others.
+
+#AHMET KARACA LOG#
+  Feb 12th (150 mins)
+    -Spent around two hours learning the basics of VSC, GitHub Desktop and JS.
+    -Tried out different methods to approach the friend list program
+    -Found a way to do it, left it for tomorrow.
+
+#AHMET KARACA LOG#
+  Feb 13th (180 mins)
+    -Spent about 2 hours making the friend service, and another hour fixing bugs and issues in my code via test cases.
+    -Created a tester and a seperate FriendService file, this service file will allow users to add each other
