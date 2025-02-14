@@ -84,6 +84,14 @@ class Account {
   getReviews(courseCode) {
     return this.reviews[courseCode] || [];
   }
+
+  static makeNewAccount(username, password, database) {
+    if (database.read("accounts", username) != null) {
+      return null; // Account with username already exists
+    } else {
+      return new Account(username, password, "", [], []);
+    }
+  }
 }
 
 module.exports = Account;
