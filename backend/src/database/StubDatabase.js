@@ -8,7 +8,6 @@
 // This means that switching to the firestore database will require little syntactical change in other programs containing logic.
 
 const DatabaseInterface = require('./dbInterface');
-const Course = require('../models/Course.js');
 
 class StubDatabase extends DatabaseInterface {
 

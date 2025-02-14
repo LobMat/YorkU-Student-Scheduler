@@ -1,19 +1,20 @@
 class CourseUtils {
 
-  static newSection(sectionLetter, termLetter, instructorName, subsects = [], commonActs = []) {
+  static newSection(sectionLetter, termLetter, directorName, subsects = [], commonActs = []) {
     return {
       sect:           sectionLetter,
       term:           termLetter,
-      inst:           instructorName, 
+      director:       directorName, 
       subsects:       subsects,
       commonActs:     commonActs, 
     };
   }
   
-  static newActivity(activityName, catalogueNumber = "") {
+  static newActivity(activityName, catalogueNumber = "", instructorName = "") {
     return {
-      name:    activityName,
-      cata:    catalogueNumber,
+      name:       activityName,
+      cata:       catalogueNumber,
+      instructor: instructorName,
     }
   }
 
@@ -22,11 +23,11 @@ class CourseUtils {
   }
 
   static findActivity(section, activityName) {
-      return activityList(section).find((activity) => activity.name == activityName)
+      return this.activityList(section).find((activity) => activity.name == activityName)
   }
   
-  static addActivity(section, activityName, catalogueNumber = "") { 
-    const newActivity = Activities.newActivity(activityName, catalogueNumber);
+  static addActivity(section, activityName, catalogueNumber = "", instructorName = "") { 
+    const newActivity = this.newActivity(activityName, catalogueNumber, instructorName);
     ((catalogueNumber != "") ? section.subsects : section.commonActs).push(newActivity)
   }
 

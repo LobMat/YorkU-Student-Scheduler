@@ -31,13 +31,14 @@ class Course {
     return (!section) ? null : section;
   }
 
-  addSection(sectionLetter, termLetter, instructorName) {
-    const newSection = CourseUtils.newSection(sectionLetter, termLetter, instructorName)
+  addSection(sectionLetter, termLetter, directorName) {
+    const newSection = CourseUtils.newSection(sectionLetter, termLetter, directorName)
     this.sectionList.push(newSection);
+    return newSection;
   }
 }
 
-module.exports = Course;
+module.exports = { Course, CourseUtils };
 
 
 
