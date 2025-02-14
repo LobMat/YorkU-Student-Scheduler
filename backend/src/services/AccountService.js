@@ -12,8 +12,9 @@ class AccountService {
         username: account.username,
         password: account.password,
         email: account.email,
-        enrolements: [],
-        friends: [],
+        enrolements: account.enrolements,
+        friends: account.friends,
+        pendingRequests: account.pendingRequests,
       };
       Database.create("accounts", key, fields);
     }

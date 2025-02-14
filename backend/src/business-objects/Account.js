@@ -1,19 +1,23 @@
 /* This is for the framework of how accounts work.
  * Each account has 5 fields to store. The username, password, email, courses enrolled in, and friends.
- * Friends is another collection of friend objects, username, email, and password are strings, and enrolements is an array of specified courses (by section).
+ * Friends is another collection of friend objects, username, email, and password are strings, and enrollments is an array of specified courses (by section).
  */
-//const Course = require("./Course"); // for some imlpementation later
+//const Course = require("./Course"); // for some implementation later
 
 class Account {
   // constructor for making an account
-  constructor(username, password, email, enrollments, friends) {
+  constructor(username, password, email, enrollments, friends, pendingList) {
     this.username = username;
     this.password = password;
     this.email = email;
     this.enrollments = enrollments;
     this.friends = friends;
+    this.pendingList = pendingList;
   }
 
+  getPendingList(){
+    return this.pendingList;
+  }
   // method for adding a course
   addEnrolledCourse(course) {
     this.enrollments.push(course);
