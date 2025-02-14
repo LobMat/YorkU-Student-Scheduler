@@ -13,29 +13,28 @@ const Course = require('../business-objects/Course.js');
 class StubDatabase extends DatabaseInterface {
 
     static collections = new Map();
-    static {
-        this.collections.set("accounts", new Map());       // collection of accounts. each account document is identified by its username.
-        this.collections.set("courses", new Map());        // collection of courses. each course document is identified by its course code (e.g. EECS 2311, ENG 2001). 
-        this.collections.set("instructors", new Map());    // collection of instructors. each instructor is identified by their name.
-        this.collections.set("reviews", new Map());        // collection of reviews. reviews do not have unique identifiers. Instead, they are sorted into lists by common fields. 
-    }
-
-    static async init() {
-        // Initialize the database (if needed)
+    static {this.reset()}
+    static async reset() {
+        collections.set("accounts", new Map());       // collection of accounts. each account document is identified by its username.
+        collections.set("courses", new Map());        // collection of courses. each course document is identified by its course code (e.g. EECS 2311, ENG 2001). 
+        collections.set("instructors", new Map());    // collection of instructors. each instructor is identified by their name.
+        collections.set("reviews", new Map());        // collection of reviews. reviews do not have unique identifiers. Instead, they are sorted into lists by common fields. 
     }
   
-    static async create(target, key, value) {
+    static async write(target, key, value) {
         this.collections.get(target).set(key, value);
     }
 
     static async read(target, key) {
-        const value = this.collections.get(target).get(key);
+        value = this.collections.get(target).get(key);
         return (!value) ? null : value;
     }
 
     static async delete(target, key) {
-        this.collections.get(target).delete(key);
+        this.collections.delete("key");
     }
+
+
 }
 
 module.exports = StubDatabase;
