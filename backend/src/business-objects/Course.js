@@ -59,8 +59,8 @@ class Course {
   }
 
   // method for adding a review to the professor
-  addReviewToProfessor(section, review) {
-    const sectionObj = this.getSection(section);
+  addReviewToProfessor(sectionLetter, review) {
+    const sectionObj = this.getSection(sectionLetter);
     if (sectionObj && sectionObj.professor) {
       sectionObj.professor.addReview(review);
     }
