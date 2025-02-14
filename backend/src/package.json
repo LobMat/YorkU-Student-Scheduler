@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "cheerio": "^1.0.0",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "puppeteer-real-browser": "^1.4.0"
-  }
-}
