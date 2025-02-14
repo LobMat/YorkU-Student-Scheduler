@@ -3,6 +3,8 @@
 // admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
 // const db = admin.firestore();
 
+const Course = require('./Course');
+
 class Instructor {
   constructor(instructorName) {
     this.instructorName = instructorName;
@@ -17,6 +19,10 @@ class Instructor {
 
   getSection(letter) {
     return this.sectionList.find((section) => section.letter == letter);
+  }
+
+  getInstructorName(){
+    return this.instructorName;
   }
 
   async save() {
@@ -38,6 +44,38 @@ class Instructor {
     const data = getCourseRef(courseName).data();
     return new Course(courseName, data.sections);
   }
+
+  // method for adding a review
+  addReview(review) {
+    this.reviewList.push(review);
+    this.updateInstructorRatings();
+  }
+
+  // method for getting all reviews
+  getReviews() {
+    return this.reviewList;
+  }
+
+  // method for updating instructor ratings based on reviews
+  updateInstructorRatings() {
+    const totalReviews = this.reviewList.length;
+    if (totalReviews === 0) {
+      this.difficulty = 0;
+      this.quality = 0;
+      return;
+    }
+
+    let totalDifficulty = 0;
+    let totalQuality = 0;
+
+    this.reviewList.forEach((review) => {
+      totalDifficulty += review.difficulty;
+      totalQuality += review.quality;
+    });
+
+    this.difficulty = totalDifficulty / totalReviews;
+    this.quality = totalQuality / totalReviews;
+  }
 }
 
-module.exports = Course;
+module.exports = Instructor;

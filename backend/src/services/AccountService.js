@@ -14,6 +14,7 @@ class AccountService {
         email: account.email,
         enrolements: [],
         friends: [],
+        reviews: [], // Add reviews field
       };
       Database.create("accounts", key, fields);
     }
@@ -23,7 +24,7 @@ class AccountService {
     let data = Database.read("accounts", username);
     if (!data) return null;
     if (password != data.password) throw new Error("Password is incorrect.");
-    let { username, password, email, enrolements, friends } = data;
-    return new Account(username, password, email, enrolements, friends);
+    let { username, password, email, enrolements, friends, reviews } = data; // Include reviews
+    return new Account(username, password, email, enrolements, friends, reviews); // Pass reviews to Account constructor
   }
 }

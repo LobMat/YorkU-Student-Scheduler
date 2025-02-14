@@ -2,7 +2,7 @@ const Course = require('../business-objects/Instructor');
 const Database = require('../database/StubDatabase');
 
 
-class CourseService {
+class InstructorService {
 
     static async create(instructor) {
         let key = instructor.instructorName;
