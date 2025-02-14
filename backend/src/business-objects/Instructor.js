@@ -3,6 +3,8 @@
 // admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
 // const db = admin.firestore();
 
+const Course = require('./Course');
+
 class Instructor {
   constructor(instructorName) {
     this.instructorName = instructorName;
@@ -17,6 +19,10 @@ class Instructor {
 
   getSection(letter) {
     return this.sectionList.find((section) => section.letter == letter);
+  }
+
+  getInstructorName(){
+    return this.instructorName;
   }
 
   async save() {
@@ -38,7 +44,6 @@ class Instructor {
     const data = getCourseRef(courseName).data();
     return new Course(courseName, data.sections);
   }
-
 
   // method for adding a review
   addReview(review) {
@@ -73,4 +78,4 @@ class Instructor {
   }
 }
 
-module.exports = Course;
+module.exports = Instructor;
