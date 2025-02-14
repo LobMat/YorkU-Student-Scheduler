@@ -29,12 +29,18 @@ body, html, #root {
   background: #1B1616;
   text-align: center;
   display: grid;
-  grid-template-columns: 25fr 75fr;
+  grid-template-columns: 30fr 70fr;
   grid-template-rows: 9.63fr 90.37fr;
 }
 
+#left-body {
+  overflow-y: auto; /* Enable vertical scrolling */
+  height: 100%;  
+}
 #sect2 {
   border-left: 3px solid #A34848;
+  height: 100%; 
+  overflow: hidden; 
   display: flex;
 }
 

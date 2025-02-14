@@ -16,7 +16,7 @@ class Course {
   getLiteral() {
     return {
       title:        this.courseTitle,
-      sections:     this.sections,
+      sections:     this.sectionList,
       reviews:      this.reviewList,
       difficulty:   this.difficulty,
       quality:      this.quality

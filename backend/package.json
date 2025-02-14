@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "firebase-admin": "^13.1.0"
-
   },
   "overrides": {
     "node-fetch": "^3.0.0"
@@ -10,6 +11,6 @@
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "^24.9.0"
+    "jest": "^29.7.0"
   }
 }

@@ -13,6 +13,9 @@ class StubDatabase extends DatabaseInterface {
 
     static collections;
     
+    static {
+        this.init();
+    }
     static async init() {
         this.collections  = new Map();
         this.collections.set("accounts", new Map());       // collection of accounts. each account document is identified by its username.

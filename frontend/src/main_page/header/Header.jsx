@@ -1,5 +1,5 @@
 
-import yustLogo from '../assets/mylogo.svg';
+import yustLogo from '../../assets/mylogo.svg';
 import './Header.css'
 
 

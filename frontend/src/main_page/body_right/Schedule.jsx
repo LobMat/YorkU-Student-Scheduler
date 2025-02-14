@@ -1,4 +1,4 @@
-import InteractiveGrid from './InteractiveGrid.jsx'
+import TimeGrid from './TimeGrid.jsx'
 import './Schedule.css'
 
 function Schedule(props) {
@@ -29,7 +29,7 @@ function Schedule(props) {
           <p>7:00</p>
           <p>8:00</p>
         </div>
-        <InteractiveGrid term={props.term} courses={props.courses} />
+        <TimeGrid term={props.term} />
       </div>
 
     </>

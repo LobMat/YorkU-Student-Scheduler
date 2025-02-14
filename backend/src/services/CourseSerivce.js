@@ -9,8 +9,7 @@ class CourseRepository {
 
     static async readCourse(courseCode) {
         const courseLiteral = await Database.read("courses", courseCode);
-        if (!courseLiteral)  return null //throw error, course does not exist.
-        else                 return Course.getCourseFromData(courseLiteral)
+        return courseLiteral;
     }
 
     static async readSection(courseCode, sectionLetter) {
