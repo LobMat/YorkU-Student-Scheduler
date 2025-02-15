@@ -33,7 +33,9 @@ February 10th (150 minutes):
 - Discussed the required order of completion for each user story.
 - Discussed the other required coding, including how we'd implement interfaces and stub database.
 
-
+Feburuary 14th (~210 minutes):
+- After everyone was working on different branches, we used this meeting to reorganize the code in a push with some finalized structure and merge all our work.
+- finished up wiki.
 
 #CALEB JONES LOG#
   Feb 10th (300 mins)
@@ -42,6 +44,18 @@ February 10th (150 minutes):
     - I have also created some domain specific objects for the group to reference (Course, Section). They need to
       be improved
     - I am brainstorming exactly what needs to domain specific objects.
+
+  Feb 12th (240 mins)
+    - stub database completed.
+    - Started with jest unit testing and playing around with React structure for site. 
+    - Created the outline for the site that we have now including my visual schedule for my user story and room for other group members to add their own UI
+
+  Feb 13th(540 mins) 
+    - spent a lot of time working on creating API routes between front and back-end, but sadly they will not work for what we have so far. More restructuring needs to be done
+
+  Feb 14th(170 mins) 
+    - aside from group meeting, spent a lot of time testing that code still works. Also tried to format our node modules into one folder to meet the project requirements, which has been leading to very large commits (sorry).
+    - finalized wiki and readme for TA accessibility.
 
 #AYOKUNLEMI FAKUADE LOG#
   Feb 10th (60 mins)
