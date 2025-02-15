@@ -200,8 +200,8 @@ function Main() {
                 </button>
               </>
             )}
-            <div style={{ position: "absolute", top: "20px", right: "20px", width: "250px", backgroundColor: "#222", color: "white", padding: "10px", borderRadius: "8px" }}>
-                <StatTracker courses={courses} />
+            <div style={{ position: 'absolute', bottom: '0px', width: "325px", backgroundColor: "#222", color: "white", padding: "10px", borderRadius: "8px" }}>
+              <StatTracker courses={courses} />
             </div>
 
           </div>
@@ -211,7 +211,7 @@ function Main() {
 
 
 
-        
+
         </div>
         <div id='sect2'>
 
