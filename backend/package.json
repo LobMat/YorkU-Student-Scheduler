@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "firebase-admin": "^13.1.0"
-  },
-  "overrides": {
-    "node-fetch": "^3.0.0"
-  }
-}
