@@ -83,6 +83,13 @@ February 10th (150 minutes):
     - Had to remodel all my main.jsx code because variables cannot be passed within child classes.
     - Routed courses from main file to calendar file and now displayed courses on calendar.
 
+#MIRZA BAIG LOG#
+Feb 13th (150 mins)
+	-	Spent 2.5 hours debugging why courses state was not properly updating across components.
+	- Realized that the issue was due to the way React state updates asynchronously.
+	-	Implemented a useEffect hook to track changes in courses and re-render StatTracker correctly.
+	-	Successfully passed course data from AddCourse to StatTracker, confirming updates through console logs
+
 #ZAYN ALI LOG#
   Feb 14th (120 mins)
     -Created test case for reviews and made comprehensive tests for all classes related to reviews
@@ -95,3 +102,10 @@ February 10th (150 minutes):
     - Finalized design for main UI display. 
     - Added a Term option for course to show them in Fall or Winter.
     - Fixed bug fixes that occured from placing courses at certain times.
+
+#MIRZA BAIG LOG#
+Feb 14th (180 mins)
+	-	Spent 3 hours integrating StatTracker into Main.jsx to ensure it displayed real-time updates.
+	- Debugged an issue where the totalLectureHours was always showing 0 due to missing startNum and endNum values.
+	-	Refactored the function that converts time into numerical values to ensure calculations were accurate.
+	- Verified everything was working by adding multiple courses and checking the logs for correct state changes.
