@@ -13,6 +13,33 @@ class Account {
     this.reviewList = reviewList;
     
   }
+  getUsername() {
+    return this.username;
+  }
+
+  getPassword() {
+    return this.password;
+  }
+
+  getEmail() {
+    return this.email;
+  }
+
+  getEnrolledCourses() {
+    return this.courseSelectionList;
+  }
+
+  getFriendList() {
+    return this.friendsList;
+  }
+
+  getPendingRequests() {
+    return this.pendingList;
+  }
+
+  setPassword(newPassword) {
+    this.password = newPassword;
+  }
 
   getLiteral() {
     return {
