@@ -2,31 +2,26 @@ import React, { useEffect, useState } from "react";
 
 const StatTracker = ({ courses }) => {
     console.log("Courses updated:")
-    //const [stats, setStats] = useState({ totalLectureHours: 0, totalCommuteHours: 0 });
     const [stats, setStats] = useState({ totalLectureHours: 0 });
-    // Function to calculate total lecture & commute time
     const calculateTotalTime = (schedule) => {
         let totalLectureMinutes = 0;
-        //let totalCommuteMinutes = 0;
 
         schedule.forEach(course => {
-            const start = course.startNum || 0;  // ✅ Default to 0 if undefined
-            const end = course.endNum || 0;  // ✅ Default to 0 if undefined
-            totalLectureMinutes += (end - start) * 60; // Convert to minutes
-            //totalCommuteMinutes += 40; // Assume 40 min commute per lecture
+            const start = course.startNum || 0;
+            const end = course.endNum || 0;
+            totalLectureMinutes += (end - start) * 60;
         });
 
         return {
             totalLectureHours: (totalLectureMinutes / 60).toFixed(2),
-            //totalCommuteHours: (totalCommuteMinutes / 60).toFixed(2)
         };
     };
 
     useEffect(() => {
 
         const totals = calculateTotalTime(courses);
-        setStats(totals);  // ✅ Always update stats
-    }, [courses]);  // ✅ Runs whenever `courses` updates
+        setStats(totals);
+    }, [courses]);
 
     return (
         <div style={styles.container}>
@@ -40,7 +35,6 @@ const StatTracker = ({ courses }) => {
 const styles = {
     container: {
         textAlign: "center",
-        marginTop: "20px",
         padding: "10px",
         border: "1px solid #ccc",
         borderRadius: "5px",
