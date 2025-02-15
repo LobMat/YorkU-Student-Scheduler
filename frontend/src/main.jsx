@@ -36,6 +36,14 @@ function Main() {
   };
 
   const addCourse = () => {
+    if (startNum === endNum) {
+      alert("Sessions must be at least 30 minutes long.")
+      return;
+    }
+    if (startNum > endNum) {
+      alert("End time cannot be earlier than start time.");
+      return;
+    }
     if (!courseName || !section || !startTime || !endTime || !type || !weekday || !term) {
       alert("Please fill out all fields.");
       return;
