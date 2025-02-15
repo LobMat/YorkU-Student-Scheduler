@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import InteractiveGrid from './InteractiveGrid';
+import StatTracker from "./StatTracker"; // ✅ Importing StatTracker
 
 function AddCourse() {
     const [showTextbox, setShowTextbox] = useState(false);
@@ -175,6 +176,10 @@ function AddCourse() {
                     </button>
                 </>
             )}
+            {/* ✅ Add StatTracker Here */}
+            <div style={{ position: "absolute", top: "20px", right: "20px", width: "250px", backgroundColor: "#222", color: "white", padding: "10px", borderRadius: "8px" }}>
+                <StatTracker courses={courses} />
+            </div>
 
 
         </div>
