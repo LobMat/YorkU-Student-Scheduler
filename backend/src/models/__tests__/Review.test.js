@@ -1,8 +1,8 @@
-const Review = require('../src/business-objects/Review');
-const Account = require("../src/business-objects/Account");
-const Course = require('../src/business-objects/Course');
-const Section = require('../src/business-objects/Section');
-const Instructor = require('../src/business-objects/Instructor');
+
+const Account = require("../Account");
+const Course = require('../Course');
+const Section = require('../Section');
+const Instructor = require('../Instructor');
 const StubDatabase = require('../src/database/StubDatabase');
 
 beforeAll(async () => {
