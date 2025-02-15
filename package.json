@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "workspaces": [
+      "frontend",
+      "backend",
+      "data-collection"
+    ],
+    "scripts": {
+      "test": "jest"
+    },
+    "devDependencies": {
+      "jest": "^29.7.0"
+    }
+
+}
