@@ -4,6 +4,8 @@ import './page_scheduler/index.css'
 import Header from './page_scheduler/Header.jsx'
 import Schedule from './page_scheduler/Schedule.jsx'
 import AddCourse from './page_scheduler/AddCourse.jsx'
+import StatTracker from './page_scheduler/StatTracker.jsx'
+
 function Main() {
 
   const [showTextbox, setShowTextbox] = useState(false);
@@ -197,7 +199,10 @@ function Main() {
                 </button>
               </>
             )}
-
+            {/* ✅ Add StatTracker Here */}
+            <div style={{ position: "absolute", top: "20px", right: "20px", width: "250px", backgroundColor: "#222", color: "white", padding: "10px", borderRadius: "8px" }}>
+                <StatTracker courses={courses} />
+            </div>
 
           </div>
 
@@ -206,9 +211,10 @@ function Main() {
 
 
 
-
+        
         </div>
         <div id='sect2'>
+
           <Schedule term="FALL" courses={courses} />
           <Schedule term="WINTER" courses={courses} />
         </div>

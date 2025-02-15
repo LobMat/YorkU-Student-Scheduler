@@ -14,8 +14,8 @@ function InteractiveGrid({ term, courses }) {
       // Reset previous colors
       cell.style.backgroundColor = "";
       courses.forEach(course => {
-        console.log("course term: ", course.term)
-        console.log("calendar term: ", term)
+        //console.log("course term: ", course.term)
+        //console.log("calendar term: ", term)
         if (course.weekday === cellDay && course.term === term && course.startNum <= cellValue && course.endNum > cellValue) {
           cell.style.backgroundColor = "#F24255"; // Color for occupied slots
         }
