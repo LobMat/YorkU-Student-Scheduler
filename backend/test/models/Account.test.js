@@ -1,7 +1,4 @@
-// const { default: test } = require("node:test");
 const { Account } = require("../../src/models/Account");
-// const { get } = require("http");
-// const { AccountUtils } = require("../../src/models/Account");
 
 test("Create a new account", () => {
   let newAccount = new Account(
@@ -51,6 +48,65 @@ test("Check pending list", () => {
     []
   );
   newAccount.addPendingRequest("john");
+  expect(newAccount.getPendingRequests()).toContain("john");
+});
+
+test("Remove a friend from the account", () => {
+  let newAccount = new Account(
+    "ahmet",
+    "ahmetkrc@hotmail.com",
+    "123pass",
+    [],
+    ["john"]
+  );
+  newAccount.removeFriend("john");
+  expect(newAccount.getFriendList()).not.toContain("john");
+});
+
+test("Remove a pending request", () => {
+  let newAccount = new Account(
+    "ahmet",
+    "ahmetkrc@hotmail.com",
+    "123pass",
+    [],
+    [],
+    ["john"]
+  );
+  newAccount.removePendingRequest("john");
+  expect(newAccount.getPendingRequests()).not.toContain("john");
+});
+
+test("Get a friend from the friend list", () => {
+  let newAccount = new Account(
+    "ahmet",
+    "ahmetkrc@hotmail.com",
+    "123pass",
+    [],
+    ["john"]
+  );
+  expect(newAccount.getFriend("john")).toBe("john");
+});
+
+test("Check if a friend exists in the friend list", () => {
+  let newAccount = new Account(
+    "ahmet",
+    "ahmetkrc@hotmail.com",
+    "123pass",
+    [],
+    ["john"]
+  );
+  expect(newAccount.getFriendList()).toContain("john");
+});
+
+test("Check if a pending request exists in the pending list", () => {
+  let newAccount = new Account(
+    "ahmet",
+    "ahmetkrc@hotmail.com",
+    "123pass",
+    [],
+    [],
+    ["john"]
+  );
   expect(newAccount.getPendingRequests()).toContain("john");
 });
 
