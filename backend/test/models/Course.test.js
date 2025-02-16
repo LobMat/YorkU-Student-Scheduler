@@ -1,9 +1,9 @@
 // this test file is testing the creation and manipulation of Course business objects, encompasing the Course class, the Section class, and the Activity class. 
 
-const { Course, Section, Activity }  = require('../../models/Course');
+const { Course, Section, Activity }  = require('../../src/models/Course');
 
 test('create an empty \'Course\' business object.', () => {
-    course1 = new Course("EECS 2101", "Fundamentals of Data Structures")
+    let course1 = new Course("EECS 2101", "Fundamentals of Data Structures");
     
     expect(course1.courseCode).toBe("EECS 2101");
     expect(course1.courseTitle).toBe("Fundamentals of Data Structures");
@@ -14,10 +14,10 @@ test('create an empty \'Course\' business object.', () => {
 })
 
 test('create empty sections and add them to a \'Course\' business object.', () => {
-    course1 = new Course("EECS 2101", "Fundamentals of Data Structures");
+    let course1 = new Course("EECS 2101", "Fundamentals of Data Structures");
     
     // adding one section to the course.
-    section1 = new Section("X", "W", "Jackie Wang");
+    let section1 = new Section("X", "W", "Jackie Wang");
     course1.addSection(section1);
 
     expect(course1.sectionList.length).toBe(1);
@@ -26,7 +26,7 @@ test('create empty sections and add them to a \'Course\' business object.', () =
     expect(course1.sectionList[0].instructor).toBe("Jackie Wang");
 
     // adding a second section to the course.
-    section2 = new Section("Z", "W", "Jackie Wang");
+    let section2 = new Section("Z", "W", "Jackie Wang");
     course1.addSection(section2);
     expect(course1.sectionList.length).toBe(2);
     expect(course1.sectionList[1].letter).toBe("Z");
@@ -35,21 +35,21 @@ test('create empty sections and add them to a \'Course\' business object.', () =
 })
 
 test('attempt to add two sections with the same letter.', () => {
-    course1 = new Course("EECS 2101", "Fundamentals of Data Structures");
+    let course1 = new Course("EECS 2101", "Fundamentals of Data Structures");
     
     // adding one section to the course.
-    section1 = new Section("X", "W", "Jackie Wang");
+    let section1 = new Section("X", "W", "Jackie Wang");
     course1.addSection(section1);
 
      // adding another section to the course with the same name.
-    section2 = new Section("X", "W", "Jackie Wang");
+    let section2 = new Section("X", "W", "Jackie Wang");
     expect(() => { course1.addSection(section2); }).toThrowError("ERROR: Section with this letter already exists in this course.");
     expect(course1.sectionList.length).toBe(1);
 })
 
 test('create activities with and without catalogue numbers and add them to a section.', () => {
     
-    section1 = new Section("X", "W", "Jackie Wang");
+    let section1 = new Section("X", "W", "Jackie Wang");
     section1.addActivity(new Activity("LECT01"));
     section1.addActivity(new Activity("LAB01", "XZ9C31"));
     section1.addActivity(new Activity("LAB02", "XZ9C32"));
@@ -65,7 +65,7 @@ test('create activities with and without catalogue numbers and add them to a sec
 })
 
 test('attempt to add two activities with the same name to a section.', () => {
-    section1 = new Section("X", "W", "Jackie Wang");
+    let section1 = new Section("X", "W", "Jackie Wang");
 
     section1.addActivity(new Activity("LECT01"));
     expect(() => { section1.addActivity(new Activity("LECT01", "XZ9C31")); }).toThrowError("ERROR: Activity with this name already exists in this section.");
@@ -75,7 +75,7 @@ test('attempt to add two activities with the same name to a section.', () => {
 })
 
 test('attempt to add two activities with the same catalogue number to a section.', () => {
-    section1 = new Section("X", "W", "Jackie Wang");
+    let section1 = new Section("X", "W", "Jackie Wang");
 
     section1.addActivity(new Activity("LAB01", "XZ9C31"));
     expect(() => { section1.addActivity(new Activity("LAB02", "XZ9C31")); }).toThrowError("ERROR: Activity with this catalogue number already exists in this section.");

@@ -1,6 +1,6 @@
-const Database = require('../../data/StubDatabase');
-const { Account, AccountUtils } = require('../../models/Account');
-const { AccountRepository } = require('../../services/AccountService');
+const Database = require('../../src/data/StubDatabase');
+const { Account, AccountUtils } = require('../../src/models/Account');
+const { AccountRepository } = require('../../src/services/AccountService');
 
 var userCollection;
 

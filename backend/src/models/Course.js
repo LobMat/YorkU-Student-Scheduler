@@ -3,7 +3,7 @@
 // admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
 // const db = admin.firestore();
 
-const Section = require("./Section");
+// const Section = require("./Section");
 const Review = require("./Review"); // Import the Review class
 
 class Course {
@@ -18,6 +18,11 @@ class Course {
   }
 
   addSection(section) {
+    if (this.getSection(section.letter)) {
+      throw new Error(
+        "ERROR: Section with this letter already exists in this course."
+      );
+    }
     this.sectionList.push(Object.assign({}, section));
   }
 
@@ -75,4 +80,38 @@ class Enrolments {
   }
 }
 
-module.exports = Course;
+class Section {
+  constructor(letter, term, instructor, activities = []) {
+    this.letter = letter;
+    this.term = term;
+    this.instructor = instructor;
+    this.activities = activities;
+  }
+
+  // method for adding an activity to the section
+  addActivity(activity) {
+    if (this.getActivity(activity.name)) {
+      throw new Error("ERROR: Activity with this name already exists in this section.");
+    }
+    if (activity.cat) {
+      if (this.activities.find((act) => act.cat == activity.cat)) {
+        throw new Error("ERROR: Activity with this catalogue number already exists in this section.");
+      }
+    }
+    this.activities.push(activity);
+  }
+
+  // method for getting an activity by name
+  getActivity(name) {
+    return this.activities.find((activity) => activity.name == name);
+  }
+}
+
+class Activity {
+  constructor(name, cat = "") {
+    this.name = name;
+    this.cat = cat;
+  }
+}
+
+module.exports = { Course, Section, Activity };
