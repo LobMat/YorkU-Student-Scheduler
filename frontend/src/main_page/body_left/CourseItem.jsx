@@ -2,24 +2,36 @@ import React, { useMemo, useEffect, useState } from "react";
 import ActivityList from "./ActivityList";
 
 const CourseItem = ({ course }) => {
-  const [sectionIndex, setSectionIndex] = useState(0);
-  const [selectedSection, setSelectedSection] = useState(course.data.sections[0]);
 
+
+  const [sectionIndex, setSectionIndex] = useState(0);  
   const [subsectIndex, setSubsectIndex] = useState(0);
-  const [selectedSubsect, setSelectedSubsect] = useState(course.data.sections[0].subsects[0]);
 
+  const [selection, setSelection] = useState({
+    sect: course.data.sections[0], 
+    subsect: course.data.sections[0].subsects[0]
+  });
+
+
+  const courseActivities = useMemo(() => [
+    ...selection.sect.commonActs,
+    selection.subsect
+  ].map((activity) => (activity.name)), [selection.sect, selection.subsect]);
+  
 
 
   useEffect(() => {
-    const newSection = course.data.sections[sectionIndex];
-    setSelectedSection(newSection);
-  }, [sectionIndex])
+    setSelection((prev) => {
+      return {...prev, sect: course.data.sections[sectionIndex]};
+    });
+    setSubsectIndex(0);
+  }, [sectionIndex]);
 
   useEffect(() => {
-    const subsect = selectedSection.subsects[subsectIndex];
-    setSelectedSubsect(subsect);
-  }, [subsectIndex])
-
+    setSelection((prev) => {
+      return {...prev, subsect: course.data.sections[sectionIndex].subsects[subsectIndex]};
+    });
+  }, [subsectIndex]);
   
  
   return (
@@ -28,7 +40,6 @@ const CourseItem = ({ course }) => {
       {/* Section dropdown */}
       <select onChange={(e) => {
         setSectionIndex(Number(e.target.value));
-        setSubsectIndex(0);
       }}>
         
       
@@ -40,7 +51,7 @@ const CourseItem = ({ course }) => {
       </select>
       <p className="course-title">{course.data.title}</p>
       <select onChange={(e) => setSubsectIndex(Number(e.target.value))} value={subsectIndex}>
-        {selectedSection.subsects.map((subsection, index) => (
+        {selection.sect.subsects.map((subsection, index) => (
           
         <option key={index} value={index}>
           {subsection.name}
@@ -48,17 +59,13 @@ const CourseItem = ({ course }) => {
       ))}
       </select>
 
-      <ActivityList 
-        courseActivities={[
-          ...selectedSection.commonActs,
-             selectedSubsect,
-        ].map((activity) => ({
-          act: activity,
-          code: course.code,
-          sect: selectedSection.sect,
-          term: selectedSection.term,
-  }))}
-/>
+      <ActivityList atts={{
+        code: course.code,
+        sect: selection.sect.sect,
+        term: selection.sect.term
+        }} 
+        courseActivities={courseActivities} 
+      />
     </div>
   );
 };

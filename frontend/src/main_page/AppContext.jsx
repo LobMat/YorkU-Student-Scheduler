@@ -1,10 +1,11 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
 const AppContext = createContext();
+
 
 export function AppProvider({ children }) {
   const [courses, setCourses] = useState([]);
   const [activities, setActivities] = useState([]);
-
+  
   const addCourse = async (query) => {
     try {
         const response = await fetch(`http://localhost:5000/courses/${query}`)
@@ -28,7 +29,7 @@ export function AppProvider({ children }) {
   };
 
   return (
-    <AppContext.Provider value={{ courses, setCourses, activities, setActivities, addCourse }}>
+    <AppContext.Provider value={{ courses, setCourses, activities, setActivities, addCourse}}>
       {children}
     </AppContext.Provider>
   );

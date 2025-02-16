@@ -1,13 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ActivityItem from "./ActivityItem";
 
 
-const ActivityList = ({courseActivities = []}) => {
+const ActivityList = ({atts, courseActivities = []}) => {
+
   return (
     <div className="act-list">
       <div className="common-list">
-        {courseActivities.map((activity, index) => (
-          <ActivityItem key={index} activity={activity} />
+        {courseActivities.map((actName, index) => (
+
+          <ActivityItem key={index} atts={atts} actName={actName} />
         ))}
         
       </div>

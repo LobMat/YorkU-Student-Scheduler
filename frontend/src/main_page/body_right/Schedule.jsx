@@ -1,12 +1,12 @@
-import TimeGrid from './TimeGrid.jsx'
+import InteractiveGrid from './InteractiveGrid.jsx'
+
 import './Schedule.css'
 
-function Schedule(props) {
-  () => console.log("props.term: ", props.term)
+function Schedule({term}) {
   return (
     <>
       <div className="schedule">
-        <div>{props.term}</div>
+        <div>{term}</div>
         <div className="days">
           <p>Mon</p>
           <p>Tues</p>
@@ -29,7 +29,7 @@ function Schedule(props) {
           <p>7:00</p>
           <p>8:00</p>
         </div>
-        <TimeGrid term={props.term} />
+        <InteractiveGrid scheduleTerm={term.charAt(0)}/>
       </div>
 
     </>
