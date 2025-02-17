@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const AccountRoutes = require('./routes/AccountRoutes');
 const writeCourseData = require("./database/DummyData");
 const {CourseRepository} = require("./services/CourseSerivce");
 const app = express();
@@ -10,6 +11,7 @@ app.use(cors({
     methods: ['GET', 'POST'],
 }));
 app.use(express.json());
+app.use('/accounts', AccountRoutes)
 
 writeCourseData();
 

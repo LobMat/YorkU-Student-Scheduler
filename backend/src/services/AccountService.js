@@ -41,18 +41,22 @@ class AccountService {
         if (await this.emailExists(email))      errFlags[1] = 1;
         if (password1 != password2)             errFlags[2] = 1;
 
-        if (errFlags.includes(1)) {
-            let errorMessage = "Registration Failed:\n";
-            if (errFlags[0]) errorMessage += "An account with this username already exists.\n";
-            if (errFlags[1])errorMessage += "An account with this email already exists.\n";
-            if (errFlags[2])errorMessage += "Passwords do not match.\n";
-            errorMessage = errorMessage.substring(0, errorMessage.length-1);
-            throw new Error(errorMessage);
-        }
+        // if (errFlags.includes(1)) {
+        //     let errorMessage = "Registration Failed:\n";
+        //     if (errFlags[0]) errorMessage += "An account with this username already exists.\n";
+        //     if (errFlags[1])errorMessage += "An account with this email already exists.\n";
+        //     if (errFlags[2])errorMessage += "Passwords do not match.\n";
+        //     errorMessage = errorMessage.substring(0, errorMessage.length-1);
+        //     throw new Error(errorMessage);
+        // }
+        
+        
+        if (errFlags.includes(1))
+            return {acc: null, err: errFlags};
         
         const newAccount = new Account(username, email, password1);
         await AccountRepository.writeAccount(newAccount)
-        return newAccount;
+        return { acc: newAccount, err: null };
     }
 
     static async login(field, password) {
