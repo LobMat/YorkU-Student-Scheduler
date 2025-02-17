@@ -1,6 +1,3 @@
-const Database = require('../database/StubDatabase');
-const AccountUtils = require('../utils/AccountUtils');
-
 class Account {
 
   constructor(username, email, password, courseSelectionList = [], friendsList = [], reviewList = []) {
@@ -37,6 +34,39 @@ class Account {
 
 }
 
+class AccountUtils {
+  static newPreference(course, sect=course.sectionList[0].sect, act=sectionList[0].activityList(), savedTimes = []) {
+    return {
+      course:         course,
+      sectChoice:     sect,
+      actChoice:      act,
+      savedTimes:     savedTimes,
+    };
+  }
+  static updatePrefSection(course, sect){
+    
+  }
+  static updateActivitySavedTime(sect, sec, instructorName = "") {
+    return {
+      name:       activityName,
+      cata:       catalogueNumber,
+      instructor: instructorName,
+    }
+  }
+
+  static activityList(section) {
+      return section.commonActs.concat(section.subsects);
+  }
+
+  static findActivity(section, activityName) {
+      return this.activityList(section).find((activity) => activity.name == activityName)
+  }
+  
+  static addActivity(section, activityName, catalogueNumber = "", instructorName = "") { 
+    const newActivity = this.newActivity(activityName, catalogueNumber, instructorName);
+    ((catalogueNumber != "") ? section.subsects : section.commonActs).push(newActivity)
+  }
+}
 module.exports = Account;
 
 

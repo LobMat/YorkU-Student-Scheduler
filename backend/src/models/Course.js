@@ -1,5 +1,3 @@
-const Database = require('../database/StubDatabase');
-const CourseUtils = require('../utils/CourseUtils');
 
 class Course {
   constructor(courseCode, courseTitle, sectionList = [], reviewList = [], difficulty = 0, quality = 0) {
@@ -35,6 +33,39 @@ class Course {
     const newSection = CourseUtils.newSection(sectionLetter, termLetter, directorName)
     this.sectionList.push(newSection);
     return newSection;
+  }
+}
+
+//handle logic for sections and activities (data unique to courses) without creating new objects to keep everything literal. 
+class CourseUtils {
+  static newSection(sectionLetter, termLetter, directorName, subsects = [], commonActs = []) {
+    return {
+      sect:           sectionLetter,
+      term:           termLetter,
+      director:       directorName, 
+      subsects:       subsects,
+      commonActs:     commonActs, 
+    };
+  }
+  static newActivity(activityName, catalogueNumber = "", instructorName = "") {
+    return {
+      name:       activityName,
+      cata:       catalogueNumber,
+      instructor: instructorName,
+    }
+  }
+
+  static activityList(section) {
+      return section.commonActs.concat(section.subsects);
+  }
+
+  static findActivity(section, activityName) {
+      return this.activityList(section).find((activity) => activity.name == activityName)
+  }
+  
+  static addActivity(section, activityName, catalogueNumber = "", instructorName = "") { 
+    const newActivity = this.newActivity(activityName, catalogueNumber, instructorName);
+    ((catalogueNumber != "") ? section.subsects : section.commonActs).push(newActivity)
   }
 }
 

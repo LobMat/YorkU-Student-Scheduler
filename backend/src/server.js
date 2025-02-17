@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const AccountRoutes = require('./routes/AccountRoutes');
+const accountRouter = require('./routes/accountRouter');
 const writeCourseData = require("./database/DummyData");
-const {CourseRepository} = require("./services/CourseSerivce");
+const courseRepository = require("./repositories/courseRepository");
 const app = express();
 const PORT = 5000;
 
@@ -11,7 +11,8 @@ app.use(cors({
     methods: ['GET', 'POST'],
 }));
 app.use(express.json());
-app.use('/accounts', AccountRoutes)
+
+app.use('/accounts', accountRouter);    //use account routes on the endpoint /accounts
 
 writeCourseData();
 
@@ -22,7 +23,7 @@ app.get("/api/test", (req, res) => {
 app.get('/courses/:name', async (req, res) => {
     const courseCode = req.params.name;
 
-    const course = await CourseRepository.readCourse(courseCode); // Assuming a hashmap stores courses
+    const course = await courseRepository.readCourse(courseCode); // Assuming a hashmap stores courses
     if (course != null) {
         res.json(course);
     } else {

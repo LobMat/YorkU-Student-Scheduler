@@ -1,5 +1,4 @@
 class CourseUtils {
-
   static newSection(sectionLetter, termLetter, directorName, subsects = [], commonActs = []) {
     return {
       sect:           sectionLetter,
@@ -43,7 +42,6 @@ class CourseUtils {
   }
 }
 
- 
 
 
 module.exports = CourseUtils;

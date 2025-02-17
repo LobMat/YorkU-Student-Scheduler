@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
+import  { useNavigate } from 'react-router-dom'
 import './RegisterPage.css'
 
 function RegisterPage() {
-
+  const navigate = useNavigate();  
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -11,7 +12,7 @@ function RegisterPage() {
   });
 
   const handleChange = (e) => {
-
+    
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -27,10 +28,15 @@ function RegisterPage() {
       body: JSON.stringify({ username, email, password, confirmPassword}),
     });
 
-    const result = await response.json();
-    if (!result.ok) {
+    if (!response.ok) {
+      const result = await response.json();
+     
       console.log('err!')
-      localStorage.setItem('errFlags', result.err);
+      localStorage.setItem('errFlags', JSON.stringify(result.err));
+      window.location.reload();
+      console.log(result)
+    } else {
+      navigate('/success')
     }
     // Here you can validate the form data and send it to your backend
     console.log({ username, email, password, confirmPassword });
@@ -40,6 +46,9 @@ function RegisterPage() {
     <div className="registration-page">
       <div className="form-container">
           <form onSubmit={handleSubmit}>
+      <p>{
+        JSON.parse(localStorage.getItem('errFlags'))[0]
+      }</p>    
       <label htmlFor="username">Username</label>
       <input
         type="text"
@@ -49,7 +58,9 @@ function RegisterPage() {
         onChange={handleChange}
         required
       />
-
+            <p>{
+        JSON.parse(localStorage.getItem('errFlags'))[1]
+      }</p>    
       <label htmlFor="email">Email</label>
       <input
         type="email"
@@ -60,6 +71,9 @@ function RegisterPage() {
         required
       />
 
+<p>{
+        JSON.parse(localStorage.getItem('errFlags'))[2]
+      }</p>    
       <label htmlFor="password">Password</label>
       <input
         type="password"
@@ -69,7 +83,6 @@ function RegisterPage() {
         onChange={handleChange}
         required
       />
-
       <label htmlFor="confirmPassword">Confirm Password</label>
       <input
         type="password"

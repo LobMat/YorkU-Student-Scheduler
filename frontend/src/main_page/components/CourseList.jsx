@@ -2,6 +2,8 @@ import React, {useContext, useState} from "react";
 import useApp from '../../AppContext';
 import CourseItem from "./CourseItem";
 
+
+
 const CourseList = () => {
   const { courses } = useApp();
 

@@ -22,6 +22,11 @@ export function AppProvider({ children }) {
         const course = {code: query, data: await response.json()};
         if (course) {
             setCourses((prevCourses) => [...prevCourses, course]);
+            const cpl = JSON.parse(localStorage.getItem('coursePrefList')) || {};
+            cpl[query] = {};
+            cpl[query].sectPref = course.data.sections[0].sect;
+            cpl[query].actPref = course.data.sections[0].subsects[0].name;
+            localStorage.setItem('coursePrefList', JSON.stringify(cpl));
         }
     } catch (error) {
         console.error("Error adding course.", error);

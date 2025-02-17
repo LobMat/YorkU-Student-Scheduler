@@ -1,7 +1,7 @@
-const StubDatabase = require("./StubDatabase");
+
 const { Course, CourseUtils } = require("../models/Course");
 
-const { CourseRepository } = require("../services/CourseSerivce")
+const courseRepository = require("../repositories/courseRepository.js")
 async function writeCourseData() {
 
     const c1 = new Course("EECS2311", "Software Development Project");
@@ -11,7 +11,7 @@ async function writeCourseData() {
     const c1s2 = c1.addSection("Z", "W", "Hadi Hemmati");
     CourseUtils.addActivity(c1s2, "LECT01", "", "Hadi Hemmati");
     CourseUtils.addActivity(c1s2, "LAB 01", "U65T02");
-    CourseRepository.writeCourse(c1);
+    courseRepository.writeCourse(c1);
 
     
     const c2 = new Course("EECS2200", "Electrical Circuits");
@@ -29,7 +29,7 @@ async function writeCourseData() {
     CourseUtils.addActivity(c2s2, "LAB 03", "U19W04");
     CourseUtils.addActivity(c2s2, "LAB 04", "U19W05");
     CourseUtils.addActivity(c2s2, "LAB 05", "U19W06");
-    CourseRepository.writeCourse(c2);
+    courseRepository.writeCourse(c2);
 
 
     //
@@ -55,7 +55,7 @@ async function writeCourseData() {
     const c3s6 = c3.addSection("Z", "W", "Jackie Wang");
     CourseUtils.addActivity(c3s6, "LECT01", "B78Q01", "Jackie Wang");
 
-    CourseRepository.writeCourse(c3);
+    courseRepository.writeCourse(c3);
 
 
     //
@@ -72,7 +72,7 @@ async function writeCourseData() {
     CourseUtils.addActivity(c4s2, "LECT01", "", "Sunila Akbar");
     CourseUtils.addActivity(c4s2, "LAB 01", "E95V02");
     CourseUtils.addActivity(c4s2, "LAB 02", "E95V03");
-    CourseRepository.writeCourse(c4);
+    courseRepository.writeCourse(c4);
 
 
     //
@@ -114,7 +114,7 @@ async function writeCourseData() {
     CourseUtils.addActivity(c5s7, "LAB 01", "D89T02");
     CourseUtils.addActivity(c5s7, "LAB 02", "D89T03");
 
-    CourseRepository.writeCourse(c5);
+    courseRepository.writeCourse(c5);
 
 
 

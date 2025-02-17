@@ -1,5 +1,8 @@
 import React, {useContext, useState} from "react";
 import useApp from '../../AppContext';
+
+
+
 function SearchBar () {
     
     const { addCourse } = useApp();

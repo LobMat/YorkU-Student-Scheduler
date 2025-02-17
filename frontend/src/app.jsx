@@ -19,7 +19,7 @@ createRoot(document.getElementById('root')).render(
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            <li><a href="/register" onClick={()=> localStorage.setItem('errFlags', JSON.stringify(["","",""]))}>Register</a></li>
         </ul>
       </nav>
 
