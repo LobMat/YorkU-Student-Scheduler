@@ -68,6 +68,11 @@ Feburuary 14th (~210 minutes):
     - Created the domain specific object Account for referencing by the group. Still needs to be improved.
     - Attempted to make a console tester for Account. Helped work out some issues, created others.
 
+  Feb 15th (70 mins)
+    - Spent time reviewing Jest unit tests and project structure.
+    - Fixed some require statements for the tests.
+    - Added/changed components in the required files so the unit testing ran smoothly with no failures.
+
 #AHMET KARACA LOG#
   Feb 12th (150 mins)
     -Spent around two hours learning the basics of VSC, GitHub Desktop and JS.
