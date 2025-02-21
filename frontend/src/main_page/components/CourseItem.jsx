@@ -1,57 +1,64 @@
 import React, { useMemo, useEffect, useState } from "react";
+import useApp from '../../AppContext';
 import ActivityList from "./ActivityList";
+import { useMountedEffect } from "../MainPageHooks";
 
+//IDEA: pass in the useState function as courseHook. on useState update,
 const CourseItem = ({ course }) => {
 
-
-  const [sectionIndex, setSectionIndex] = useState(0);  
+  const { prefObject, setPrefObject, prefs } = useApp();
+  const [sectionIndex, setSectionIndex] = useState(0);
   const [subsectIndex, setSubsectIndex] = useState(0);
-
-  const [selection, setSelection] = useState({
-    sect: course.data.sections[0], 
-    subsect: course.data.sections[0].subsects[0]
-  });
-
-
-  const courseActivities = useMemo(() => [
-    ...selection.sect.commonActs,
-    selection.subsect
-  ].map((activity) => (activity.name)), [selection.sect, selection.subsect]);
+  // info for the overall course, update when the course updates (for some reason)
+  const { code, title, sections } = useMemo (() => ({
+    code:     course.code,
+    title:    course.title,
+    sections: course.sections,
+  }), [course]);
   
+  useMountedEffect(()=> {
+    setSectionIndex(prefs.curSec(code));
+    setSubsectIndex(prefs.curSub(code));
+  },[code])
+  
+  // info for the section of this course, updated when the sectionPref is changed.
+  const { subsectList } = useMemo(() => ({
+    subsectList: sections[sectionIndex]?.subsects || [],
+  }), [sectionIndex])
 
 
-  useEffect(() => {
-    setSelection((prev) => {
-      return {...prev, sect: course.data.sections[sectionIndex]};
-    });
-    setSubsectIndex(0);
+  // handle section index update.
+  useMountedEffect(() => {
+    prefs.setSectionChoice(code, sectionIndex)
   }, [sectionIndex]);
 
-  useEffect(() => {
-    setSelection((prev) => {
-      return {...prev, subsect: course.data.sections[sectionIndex].subsects[subsectIndex]};
-    });
-  }, [subsectIndex]);
+  useMountedEffect(() => {
+    setSubsectIndex(prefs.curSub(code));
+  }, [prefObject[code].sectChoice])
   
- 
+  useMountedEffect(() => { 
+    prefs.setSubsectChoice(code, subsectIndex); 
+  }, [subsectIndex]);
+
+
   return (
     <div className="course-item">
-      <p className="course-code">{course.code}</p>
+      <p className="course-code">{code}</p>
       {/* Section dropdown */}
       <select onChange={(e) => {
         setSectionIndex(Number(e.target.value));
-      }}>
+      }} value={sectionIndex}>
         
       
-        {course.data.sections.map((section, index) => (
+        {sections.map((section, index) => (
           <option key={index} value={index}>
             Term {section.term} Section {section.sect}
           </option>
         ))}
       </select>
-      <p className="course-title">{course.data.title}</p>
+      <p className="course-title">{title}</p>
       <select onChange={(e) => setSubsectIndex(Number(e.target.value))} value={subsectIndex}>
-        {selection.sect.subsects.map((subsection, index) => (
+        {subsectList.map((subsection, index) => (
           
         <option key={index} value={index}>
           {subsection.name}
@@ -60,11 +67,12 @@ const CourseItem = ({ course }) => {
       </select>
 
       <ActivityList atts={{
-        code: course.code,
-        sect: selection.sect.sect,
-        term: selection.sect.term
+        code: code,
+        sectIndex: sectionIndex,
+        subsectIndex: subsectIndex,
         }} 
-        courseActivities={courseActivities} 
+        subsect={subsectList[subsectIndex]}
+        commonActs={sections[sectionIndex]?.commonActs} 
       />
     </div>
   );

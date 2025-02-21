@@ -5,12 +5,12 @@ import CourseItem from "./CourseItem";
 
 
 const CourseList = () => {
-  const { courses } = useApp();
+  const { courseList } = useApp();
 
   return (
     <div className="course-list">
       <ul>
-      {courses.map((course, index) => (
+      {courseList.map((course, index) => (
         <CourseItem key={index} course={course} />
       ))}
        </ul>

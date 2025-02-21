@@ -1,40 +1,68 @@
 import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
 const AppContext = createContext();
-
-
+const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+import { PrefLogic } from "./main_page/MainPageLogic";
+import useCourseList from "./main_page/useCourseList";
 export function AppProvider({ children }) {
-  const [courses, setCourses] = useState([]);
-  const [activities, setActivities] = useState([]);
-  
-  const addCourse = async (query) => {
-    try {
-        const response = await fetch(`http://localhost:5000/courses/${query}`)
-        if (!response.ok) {
-            alert("Course not found.")
-            throw new Error("Course not found");
-        }
-            
-        if (courses.find(course => course.code == query)) {
-            alert("You have added this course!")
-            throw new Error("You already have added this course.")
-        }
 
-        const course = {code: query, data: await response.json()};
-        if (course) {
-            setCourses((prevCourses) => [...prevCourses, course]);
-            const cpl = JSON.parse(localStorage.getItem('coursePrefList')) || {};
-            cpl[query] = {};
-            cpl[query].sectPref = course.data.sections[0].sect;
-            cpl[query].actPref = course.data.sections[0].subsects[0].name;
-            localStorage.setItem('coursePrefList', JSON.stringify(cpl));
-        }
-    } catch (error) {
-        console.error("Error adding course.", error);
-    }
-  };
+
+  //constant course data, not updated ever.
+  const {courseList,
+         prefObject,
+         setPrefObject,
+         addNewCourse} = useCourseList();
+  
+  //account-based preferences.
+  
+  const prefs = {
+    curSec:(code) => prefObject[code]?.sectChoice,
+    curSub:(code) => prefObject[code]?.sectPrefs[prefs.curSec(code)].subsectChoice,
+    setSectionChoice: (code, newSec) => {
+      if (newSec != prefs.curSec(code)) {
+        setPrefObject((prev) => ({
+          ...prev,
+          [code]: {...prev[code], sectChoice: newSec }
+        }))
+      }
+    },
+    //given a course, update the prefered subsection for the current section. If changed.
+    setSubsectChoice: (code, newSub) => {
+      if (newSub != prefs.curSub(code))  {
+        setPrefObject((prev) => ({
+          ...prev,
+          [code]: {
+            ...prev[code], 
+            sectPrefs: prev[code].sectPrefs.map((sect, i) =>
+                i === prefs.curSec(code) ? {...sect, subsectChoice: newSub } : sect
+            ), 
+          },
+        }))
+      }
+    },
+      
+    setActivityTime: (code,  type, pos, timeMap) => {
+      setPrefObject((prev) => ({
+        ...prev,
+        [code]: {
+          ...prev[code], 
+          sectPrefs: prev[code].sectPrefs.map((sect, i) =>
+            i === prefs.curSec(code) ? ({
+              ...sect, 
+              [`${type}ActTimes`]: 
+                sect[`${type}ActTimes`].map((time,j) => j === pos ? timeMap : time)
+            }) : sect
+          ), 
+        },
+      }))
+    },
+  }
+
+  useEffect(() => {
+    localStorage.setItem('coursePrefList', JSON.stringify(prefObject));
+  }, [prefObject]);
 
   return (
-    <AppContext.Provider value={{ courses, setCourses, activities, setActivities, addCourse}}>
+    <AppContext.Provider value={{daysOfWeek, courseList, prefObject, setPrefObject, addNewCourse, prefs}}>
       {children}
     </AppContext.Provider>
   );
