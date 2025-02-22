@@ -1,6 +1,4 @@
-<style>h2,h3,h4 { border-bottom: 0; } </style>
-<style>h3,h4 { font-weight: normal; } </style>
-<h1 style="text-align: right"> Iteration 1 </h1>
+# Iteration 1
 
 ## USER STORIES
 ### Block Out Times for Courses & Personal Activities - (Assigned to: *Kunle* | Priority: *High* | Expected: *0.5 days* | Actual: *0.3333 days* )
@@ -142,3 +140,57 @@ Feb 12th 2025 (120 mins)
 Feb 11th 2025 (150 mins) 
 - implemented the schedule time between and during logic 
 - implemented the time spent UI
+
+
+# Iteration 2
+## USER STORIES
+### Viewing Reviews - (Assigned to: *Zayn* | Priority: *High* | Expected: *0.5 days* | Actual: )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Design the display of reviews made by other users in the review page.                         | 1.5h |  |
+| Design database calls to fetch review data from database.                                     | 2h   |  |
+| Display retrived reviews from database on review page.                                        | 1.5h |  |
+<br/>
+
+### Improved Friend Features - (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.5 day* | Actual:  )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Created users to simulate the addition of friends.                                            | 0.5h | |
+| Created backend methods to allow users to send a request to other users.                      | 1h   | |
+| Wrote more methods to accept or deny incoming friend requests.                                | 2h   | |
+| Wrote unit tests to ensure friend requests are sent.                                          | 2h   | |
+
+### Easier Time Selection - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 day* | Actual:  )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Implemented updating course preferences by dragging and drop time selections of a course.     | 4-5h | |
+| Modified course selection UI to allow the user to pick preferred times dynamically.           | 3h   | |
+| Test for errors in schedule overlap, handle edge cases.                                       | 2h   | |
+
+### Time Average Option - (Assigned to: *Mirza* | Priority: *Low* | Expected: *1 day* | Actual: )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Configured frontend displays to toggle options to display average courses.                    | 4h   | |
+| Designed backend code to accumulate frequency of given courses.                               | 4h   | |
+| Configured algorithms to calculate time averages for each courses.                            | 3h   | |
+
+### Viewing Friends Schedules - (Assigned to: *Mateo* | Priority: *Medium* | Expected: *0.5 day* | Actual: )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Configured backend methods to access courses in a friend's schedule.                          | 3h   | |
+| Designed frontend pages to display a friend's schedule.                                       | 2h   | |
+| Designed frontend components to render schedules of friends.                                  | 2h   | |
+
+### More Schedule Options - (Assigned to: *Kunle* | Priority: *Medium* | Expected: *0.5 day* | Actual: )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Created frontend components for a user to enter details of custom activities.     | 2h | |
+| Refined UI for custom activity picker.            | 3h   | |
+| Handled routing of custom activities to be displayed on the schedule.             | 2h   | |
+| Write backend functionality to access custom activities.                         | 3h   |  |
+
+## Team Meetings
+### Feb 21st (120 minutes)
+* Came up with iteration 2 user stories.
+* discussed what our goals were for this iteration's workflow, and how we can improve on the previous iteration's workflow.
+* discussed database implementation ideas for iteration 2. 
