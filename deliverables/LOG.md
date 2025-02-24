@@ -194,3 +194,6 @@ Feb 11th 2025 (150 mins)
 * Came up with iteration 2 user stories.
 * discussed what our goals were for this iteration's workflow, and how we can improve on the previous iteration's workflow.
 * discussed database implementation ideas for iteration 2. 
+### Feb 24th (45 mins)
+* quick check-in to see how busy people are and when if they will be able to manage the work.
+* did not discuss project much other than database implementation concerns.
