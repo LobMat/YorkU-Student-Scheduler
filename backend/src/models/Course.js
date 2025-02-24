@@ -38,13 +38,13 @@ class Course {
 
 //handle logic for sections and activities (data unique to courses) without creating new objects to keep everything literal. 
 class CourseUtils {
-  static newSection(sectionLetter, termLetter, directorName, subsects = [], commonActs = []) {
+  static newSection(sectionLetter, termLetter, directorName, commonActs = [], uniqueActs = []) {
     return {
       sect:           sectionLetter,
       term:           termLetter,
       director:       directorName, 
-      subsects:       subsects,
       commonActs:     commonActs, 
+      uniqueActs:     uniqueActs,
     };
   }
   static newActivity(activityName, catalogueNumber = "", instructorName = "") {
@@ -56,7 +56,7 @@ class CourseUtils {
   }
 
   static activityList(section) {
-      return section.commonActs.concat(section.subsects);
+      return section.commonActs.concat(section.uniqueActs);
   }
 
   static findActivity(section, activityName) {
@@ -65,7 +65,7 @@ class CourseUtils {
   
   static addActivity(section, activityName, catalogueNumber = "", instructorName = "") { 
     const newActivity = this.newActivity(activityName, catalogueNumber, instructorName);
-    ((catalogueNumber != "") ? section.subsects : section.commonActs).push(newActivity)
+    ((catalogueNumber != "") ? section.uniqueActs : section.commonActs).push(newActivity)
   }
 }
 

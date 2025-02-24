@@ -1,30 +1,30 @@
 class Account {
 
-  constructor(username, email, password, courseSelectionList = [], friendsList = [], reviewList = []) {
+  constructor(username, email, password, coursePrefObject = {}, friendsList = [], reviewList = []) {
     this.username = username;
     this.email = email;
     this.password = password
 
-    this.courseSelectionList = courseSelectionList;
+    this.coursePrefObject = coursePrefObject;
     this.friendsList = friendsList;
     this.reviewList = reviewList;
   }
 
   getLiteral() {
     return {
-      password:        this.password,
-      selections:      this.courseSelectionList,
-      friends:         this.friendsList,
-      reviews:         this.reviewList,
+      password:         this.password,
+      allCoursePrefs:      this.coursePrefObject,
+      friends:          this.friendsList,
+      reviews:          this.reviewList,
     }
   }
+
   static getAccountFromData(key, data) {
     const index = key.indexOf("|");
     return new Account(key.substring(0, index), key.substring(index+1), data.password, data.selections, data.friends, data.reviews);
   }
   addFriend(friendName) {
-  
-    //console.log(this.friendsList);
+    
     this.friendsList.push(friendName);
   }
 

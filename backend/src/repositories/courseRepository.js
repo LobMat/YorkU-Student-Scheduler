@@ -5,6 +5,18 @@ const courseRepository = {
     await StubDatabase.write("courses", course.courseCode, course.getLiteral());
   },
 
+  readCourse2: async (code) => {
+    const courseLiteral = await StubDatabase.read("courses", code);
+    return new Course(
+      code, 
+      courseLiteral.title, 
+      courseLiteral.sections, 
+      courseLiteral.reviews, 
+      courseLiteral.difficulty, 
+      courseLiteral.quality
+    );
+  },
+
   readCourse: async (code) => {
     const courseLiteral = await StubDatabase.read("courses", code);
     return courseLiteral;

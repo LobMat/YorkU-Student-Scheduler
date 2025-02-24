@@ -1,18 +1,18 @@
-import { AppProvider }  from './AppContext';
+
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import "./app.css"
 import yustLogo from './assets/mylogo.svg';
 
-import MainPage from './main_page/MainPage.jsx';
-import LoginPage from './login/LoginPage.jsx';
-import RegisterPage from './register/RegisterPage.jsx';
+import MainPage from './pages/scheduling/Scheduling.jsx';
+import LoginPage from './pages/login/LoginPage.jsx';
+import RegisterPage from './pages/register/RegisterPage.jsx';
 
 
 
 createRoot(document.getElementById('root')).render(
-  <AppProvider>
+  <>
     <Router>
       <nav className = 'headbar'>
         <img src={yustLogo} className="logo" /> 
@@ -31,6 +31,6 @@ createRoot(document.getElementById('root')).render(
       </Routes>
     </Router>
 
-  </AppProvider>
+  </>
 );
 

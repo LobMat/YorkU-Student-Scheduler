@@ -1,11 +1,12 @@
 import {act, useMemo} from "react";
-import { useApp} from '../../AppContext.jsx'
+
+import {useMainContext} from '../Scheduling';
 const days = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
 
 // 'InteractiveGrid.jsx' : React component containing the grid part of a schedule. and the activities within it.
 function InteractiveGrid({scheduleTerm}) {
   
-  const {activities} = useApp();  // Context variables
+  const {activities} = useMainContext();  // Context variables
   const blocks = [];              // array containing all divs genererated in this function.
 
   // Updates matrix when activities array changes.  

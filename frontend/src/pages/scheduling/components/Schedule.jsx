@@ -1,5 +1,5 @@
 import InteractiveGrid from './InteractiveGrid.jsx'
-
+import {useMainContext} from '../Scheduling.jsx'
 import '../styles/Schedule.css'
 
 function Schedule({term}) {
@@ -31,7 +31,6 @@ function Schedule({term}) {
         </div>
         <InteractiveGrid scheduleTerm={term.charAt(0)}/>
       </div>
-
     </>
   )
 }
