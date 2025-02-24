@@ -1,17 +1,25 @@
-import React, { createContext, useContext, useRef, useState, useEffect } from "react";
-import { useObjectList, useObjectMap, useObjectRef, useMountedEffect } from "../../hooks/yst-hooks";
-import CourseItem from "./components/CourseItem";
-import SearchBar from "./components/SearchBar";
-import Schedule from "./components/Schedule";
-import './styles/LeftBody.css'
-
+//#region - imports
+  //#region - functionnal imports
+  import { createContext, useContext, useEffect } from "react"; //react hooks
+  import { useObjectList, useObjectMap, useObjectRef } from "../../hooks/yst-hooks";  //custom hooks
+  //#endregion
+  //#region - component imports
+  import CourseItem from "./components/CourseItem";
+  import SearchBar from "./components/SearchBar";
+  import Schedule from "./components/Schedule";
+  //#endregion
+  //#region - style imports
+  import './styles/LeftBody.css'
+  //#endregion
+  //#region - context creation
 const SchedulingContext = createContext();
 export const useMainContext = () => useContext(SchedulingContext);
+//#endregion
+//
 
+const MainPage = () => {
 
-function MainPage() {
-
-  //#region -- instantiation 
+  //#region - instantiation 
 
   // custom hook instantiation
   const [prefs, getPref, setPref, clear] = useObjectRef(JSON.parse(localStorage.getItem('coursePrefs') ?? '{}'));
@@ -23,10 +31,9 @@ function MainPage() {
   const getters = {getPref, getCourseValue, getActValue};
   const setters = {setPref, setCourseValue, pushCourse, setActValue, pushAct};
   const dev = {clear, initList, initObj};
-
   //#endregion
-  
-  //on mount, load course objects from existing preferences.
+
+  //#region - handlers
   useEffect(() => {
     fetch(`http://localhost:5000/courses/init?data=${encodeURIComponent(JSON.stringify(prefs))}`)
       .then(response => response.json())
@@ -40,7 +47,9 @@ function MainPage() {
         throw new Error(error.message);
       })
   }, [])
+  //#endregion
 
+  //#region - html return
   return(
     <SchedulingContext.Provider value={{hooks, getters, setters, dev}}>
       <div id='left-body'>
@@ -63,6 +72,12 @@ function MainPage() {
 
     </SchedulingContext.Provider>
   );
+  //#endregion
+
 }
+
 export default MainPage
 
+function x (){
+  
+}

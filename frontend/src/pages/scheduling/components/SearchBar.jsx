@@ -1,7 +1,10 @@
+//#region - imports
 import { useState } from "react";
 import { useMainContext } from '../Scheduling';
+//#endregion
 
-function SearchBar () {
+const SearchBar = () => {
+  
   //#region - initialization
   const [query, setQuery] = useState("");
   
@@ -12,6 +15,7 @@ function SearchBar () {
   } = useMainContext();
   //#endregion
 
+  //#region - handlers
   const handleSearch = async () => {
     if (!query.trim()) return;
     try {
@@ -64,6 +68,7 @@ function SearchBar () {
     }
     setQuery("");
   }
+  //#endregion
 
   //#region - html return
   return(
@@ -78,6 +83,7 @@ function SearchBar () {
     </div>
   )
   //#endregion
+
 }
 
 export default SearchBar;

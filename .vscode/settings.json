@@ -1,0 +1,7 @@
+{
+  "betterFolding.foldClosingBrackets": true,
+  "betterFolding.foldClosingTags": false,
+  "betterFolding.showFoldedBodyLinesCount": false,
+  "betterFolding.showFoldedBrackets": true,
+  "betterFolding.showOnlyRegionsDescriptions": true
+}

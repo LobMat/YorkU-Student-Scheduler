@@ -120,4 +120,5 @@ const ActivityItem = ({ course, type, pos }) => {
   //#endregion
 
 }
+
 export default ActivityItem;

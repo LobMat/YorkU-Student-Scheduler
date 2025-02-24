@@ -1,4 +1,4 @@
-import {act, useMemo} from "react";
+import { useMemo} from "react";
 
 import {useMainContext} from '../Scheduling';
 const days = ["Monday","Tuesday","Wednesday","Thursday","Friday"];
