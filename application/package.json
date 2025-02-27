@@ -5,8 +5,11 @@
     "frontend"
   ],
   "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "server": "node backend/src/server",
     "build": "cd frontend && npm run build",
-    "pkg": "npm run build && pkg . --targets node18-win,node18-macos,node18-linux --output runnable/yst-scheduling-tool"
+    "pkg": "npm run build && pkg . --targets node18-win,node18-macos,node18-linux --output runnable/yst-scheduling-tool",
+    "setup-db": "psql -U postgres -f backend/database/ystTestDB_builder.sql"
   },
   "bin": "backend/src/server.js",
   "pkg": {

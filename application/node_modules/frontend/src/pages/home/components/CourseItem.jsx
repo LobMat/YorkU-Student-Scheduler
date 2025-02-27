@@ -1,31 +1,66 @@
+import { writeLocal } from "../../../logic/BrowserStorage";
 import { useMainContext } from "../HomePage";
 import ActivityItem from "./ActivityItem";
 const CourseItem = ({ course }) => {
 
   //#region - instantiation
-  const {setCourseValue, getCourseValue} = useMainContext();
+  const {
+    hooks: { prefs },
+    setters: { setPref, setCourseValue },
+    getters: { getPref, getCourseValue }
+  } = useMainContext();
+
   const {code, title} = course;
   //#endregion
 
   //#region - handlers
+  
+  // *** HANDLE COURSE SECTION CHANGE *** //
   const handleSectionChange = (newSection) => {
+    // load preferences (fp) and data (fd) for the new section
+    const [fp] = getPref(code, [`sectionPreferences[${newSection}]`]);
     const [fd] = getCourseValue(code, [`sections[${newSection}]`]);
 
+    // course hook update for section  
     setCourseValue(code, [
-      ['sectionChoice', newSection],
-      ['uniqueActs', fd.uniqueActs],
-      ['uniqueActChoice', 0],
+      ['sectionChoice', newSection],          // new section dropdown selection
+      ['uniqueActs', fd.uniqueActs],       // unique activity dropdown options 
+      ['uniqueActChoice', fp.uniqueActChoice],   // unique activity dropdown initial selection
+      ['blocks', fp.commonActBlocks.concat(fp.uniqueActBlocks[fp.uniqueActChoice])]
     ]);
 
+    // update preference ref hook
+    setPref(code, [
+      ['sectionChoice', newSection]
+    ]);
+
+    // write to local storage
+    writeLocal('coursePrefs', prefs.current);
   }
   
-  const handleUniqueActChange = (newUniqueAct) => {
+  // *** HANDLE SECTION UNIQUE ACTIVITY SELECTION *** //
+  const handleUniqueActChange = (newUniqueActivity) => {
+    // load preferences (fp) for the currently selected section.
+    const [fp] = getPref(code, [`sectionPreferences[${course?.sectionChoice}]`]);
+
+    // course hook update for new unique activity
     setCourseValue(code, [
-      ['uniqueActChoice', newUniqueAct],
+      ['uniqueActChoice', newUniqueActivity],
+      ['blocks', fp.commonActBlocks.concat(fp.uniqueActBlocks[newUniqueActivity])]
     ]);
+
+
+    // preference reference update for unique activity
+    setPref(code, [
+      [`sectionPreferences[${course?.sectionChoice}].uniqueActChoice`, newUniqueActivity]
+    ]);
+
+    // write prefs to local storage
+    writeLocal('coursePrefs', prefs.current);
   }
   //#endregion
 
+  
   //#region - html return
   return (
     <div className="course-item">

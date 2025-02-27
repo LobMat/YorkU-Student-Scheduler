@@ -1,0 +1,44 @@
+.reviewSection > form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reviewSection > form > label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.reviewSection > input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.reviewSection > textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.reviewSection > form > button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ff8888;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reviewSection > form > button:hover {
+  background-color: #ad5656;
+}

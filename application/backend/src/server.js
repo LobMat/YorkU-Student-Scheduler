@@ -6,7 +6,7 @@ const courseRouter = require("./routes/courseRouter");
 const accountRouter = require("./routes/accountRouter");
 const reviewRouter = require("./routes/reviewRouter");
 
-const {writeCourseData, writeAccountData} = require('./database/WriteDummyData');
+const {writeCourseData, writeAccountData} = require('../database/WriteDummyData');
 
 const app = express();
 const port = 3000;
