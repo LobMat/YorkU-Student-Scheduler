@@ -197,3 +197,20 @@ Feb 11th 2025 (150 mins)
 ### Feb 24th (45 mins)
 * quick check-in to see how busy people are and when if they will be able to manage the work.
 * did not discuss project much other than database implementation concerns.
+
+## Personal Logs
+### Mateo 
+Feb 23rd 2025 (80 mins)
+* PostgreSQL research and playing around.
+* learned about common implementations in Node.js projects.
+* learned how to create simple SQL databases
+
+Feb 26th 2025 (120 mins)
+* began playing around with how a PostgreSQL would look in our database
+* created an outline and started to implement it into the actual repository.
+
+Feb 27th 2025 (180 mins)
+* created robust methods which enable our program to work easily with database
+* sadly, some method calls had to be changed from our Stub implementation, so Stub implementation was also adjusted for integration testing.
+
+
