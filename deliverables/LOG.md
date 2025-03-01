@@ -160,12 +160,12 @@ Feb 11th 2025 (150 mins)
 | Wrote more methods to accept or deny incoming friend requests.                                | 2h   | |
 | Wrote unit tests to ensure friend requests are sent.                                          | 2h   | |
 
-### Easier Time Selection - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 day* | Actual:  )
+### Easier Time Selection - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 day* | Actual: *0.3 day* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Implemented updating course preferences by dragging and drop time selections of a course.     | 4-5h | |
-| Modified course selection UI to allow the user to pick preferred times dynamically.           | 3h   | |
-| Test for errors in schedule overlap, handle edge cases.                                       | 2h   | |
+| Implemented updating course preferences by dragging and drop time selections of a course.     | 4h   | 3h |
+| Modified course selection UI to allow the user to pick preferred times dynamically.           | 2h   | 1h |
+| Test for errors in schedule overlap, handle edge cases.                                       | 2h   | 1h |
 
 ### Time Average Option - (Assigned to: *Mirza* | Priority: *Low* | Expected: *1 day* | Actual: )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
@@ -213,4 +213,9 @@ Feb 27th 2025 (180 mins)
 * created robust methods which enable our program to work easily with database
 * sadly, some method calls had to be changed from our Stub implementation, so Stub implementation was also adjusted for integration testing.
 
+### Caleb
+March 1st (300 minutes)
+* spent all day working on drag and drop feature.
+* in the process, fixed some bugs with how activites are mapped to the grid.
+* overall, the visual schedule functions much better than it did previously.
 
