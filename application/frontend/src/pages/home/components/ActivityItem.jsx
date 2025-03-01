@@ -1,6 +1,12 @@
+
 //#region - imports
-import { useMemo } from "react";
 import {useMainContext} from '../HomePage'
+import dropdown from '../../../assets/dropdown.svg';
+import pointer from '../../../assets/pointer.svg';
+import close from '../../../assets/close.svg'
+import { useAppContext } from '../../../App';
+import '../styles/Overlay.css'
+import { useMemo, useState} from "react";
 import { writeLocal } from "../../../logic/BrowserStorage";
 //#endregion
 //#region - global constants
@@ -56,17 +62,69 @@ const daysOfWeek = [
 ];
 //#endregion
 
+//activity name and two buttons. 
 const ActivityItem = ({ course, type, pos }) => {
+  //#region - instantiation
+  const {sectionChoice} = course ?? {};
+  const { setters:  {setHoveredCourse}} = useMainContext();
+  const {setOverlayIsActive} = useAppContext();
+  const [overlayIsActive, setOverlayIsActiveLocal] = useState(false);
   
-  //#region - initialization
-  const { 
+  const pointerClick = () => {
+    if (course?.sections[sectionChoice]?.termChar == 'F') {
+      setOverlayIsActive(2);
+    } else {
+      setOverlayIsActive(3);
+    }
+    setHoveredCourse(
+      {
+        code: course?.code, 
+        sectionChoice: course?.sectionChoice,
+        type: type,
+        pos: pos,
+      }
+    );
+    //create popup.
+  }
+
+  const dropdownClick = () => {
+    setOverlayIsActiveLocal(1);
+    setOverlayIsActive(1);
+  }
+  
+  const closePopUp =() => {
+    setOverlayIsActiveLocal(0);
+    setOverlayIsActive(0);
+    setHoveredCourse(undefined);
+  }
+
+  //#endregion
+
+  return (
+    <div className="activity-item">
+      <h4>{course?.sections[sectionChoice]?.[`${type}Acts`]?.[pos]?.actName}</h4>
+      <button onClick={()=>dropdownClick()}><img src={dropdown} className="dropdown-button"/></button>
+      <button onClick={()=>pointerClick()}><img src={pointer} className="drag-button" /></button>
+      {(overlayIsActive == 1) ? <DropdownPopup course={course} type={type} pos={pos} cmd={()=>closePopUp()}/> :  <></>}
+    </div>
+  
+  );
+}
+export default ActivityItem;
+
+// this component holds the popup which gives the user drop-down options for setting course times
+const DropdownPopup = ({course, type, pos, cmd}) => {
+
+   //#region - initialization
+   const { 
     hooks:    {prefs, courses}, 
     setters:  {setPref, setCourseValue},
-    getters:  {getPref}
+    getters:  {getPref, getCourseValue}
   } = useMainContext();
   
   const code = course?.code
   //#endregion
+  const [blockPos] = (type == 'unique') ? [pos] : getCourseValue(code, [`sections[${course.sectionChoice}].commonActs.length`]);
  
   //#region - handlers
   const displayMap = useMemo(() => { 
@@ -74,17 +132,20 @@ const ActivityItem = ({ course, type, pos }) => {
   }, [course])
 
   const handleChange = (day, target, newVal) => {
-    setCourseValue(code, [[`blocks[${pos}].times[${day}][${target}]`, newVal]])
+    
     setPref(code, [[`sectionPreferences[${course?.sectionChoice}].${type}ActBlocks[${pos}].times[${day}][${target}]`, newVal]]);
+    const [fp] = getPref(code, [`sectionPreferences[${course.sectionChoice}]`]);
+    setCourseValue(code, [['blocks', fp.commonActBlocks.concat(fp.uniqueActBlocks[fp.uniqueActChoice])]])
     writeLocal('coursePrefs', prefs.current);
   }
   //#endregion
 
   //#region - html return
   return (
-    <div className="activity-item">
-      <h4>{course?.sections[course.sectionChoice]?.[`${type}Acts`]?.[pos]?.actName}</h4>
-     
+    <div className="dropdown-popup">
+      <div className="popupHeader">
+      <h4>{course?.sections[course.sectionChoice]?.[`${type}Acts`]?.[pos]?.actName}</h4><button onClick={()=>cmd()}><img src={close} className="add-button"/></button>
+      </div>
       {daysOfWeek.map((day, index) => (
         
         <div key={day} className="activity-day">
@@ -121,5 +182,3 @@ const ActivityItem = ({ course, type, pos }) => {
   //#endregion
 
 }
-
-export default ActivityItem;

@@ -1,6 +1,7 @@
 import { writeLocal } from "../../../logic/BrowserStorage";
 import { useMainContext } from "../HomePage";
 import ActivityItem from "./ActivityItem";
+import '../styles/Overlay.css'
 const CourseItem = ({ course }) => {
 
   //#region - instantiation

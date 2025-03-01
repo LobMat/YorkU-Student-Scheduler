@@ -2,8 +2,7 @@ import InteractiveGrid from './InteractiveGrid.jsx'
 import '../styles/Schedule.css'
 import { useMainContext } from '../HomePage.jsx'
 import { useMemo } from 'react';
-import Stats from './Stats.jsx';
-function Schedule({term}) {
+function Schedule({term, bool}) {
 
   const termChar = term.charAt(0);
   const {
@@ -23,7 +22,6 @@ function Schedule({term}) {
       //check that extracted term matches input term
       if (sectionData.termChar == termChar) {
         const [blocks] = getCourseValue(code, [`blocks`]);
-        console.log(blocks)
         
         //iterate through each activity
         blocks.forEach((block) => {
@@ -62,7 +60,7 @@ function Schedule({term}) {
 
   return (
     <>
-      <div className="schedule">
+      <div className={`schedule ${(bool)?'focused':''}`} >
         <div>{term}</div>
         <div className="days">
           <p>Mon</p>
@@ -86,8 +84,7 @@ function Schedule({term}) {
           <p>7:00</p>
           <p>8:00</p>
         </div>
-        <InteractiveGrid termSchedule={termSchedule}/>
-        <Stats termSchedule={termSchedule}/>
+        <InteractiveGrid termSchedule={termSchedule} bool={bool}/>
       </div>
     </>
   )

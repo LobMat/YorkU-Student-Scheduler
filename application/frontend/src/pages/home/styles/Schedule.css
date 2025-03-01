@@ -10,7 +10,10 @@
   grid-template-columns: 85fr 375fr;
   grid-template-rows: 30fr 780fr;
 }
+.schedule.focused {
+  position: relative;
 
+}
 /* weekdays bar at the top of schedule*/
 .schedule > .days {
   display: flex;
@@ -29,6 +32,7 @@
     font-family: 'Inconsolata', sans-serif;
     font-size: 0.88em;
     font-style: bold;
+    
 }
 
 /* sidebar for schedule */
@@ -77,26 +81,15 @@ border-color: #bc6464;
 
 /* activity on grid common styles */
 .activity-slot {
-position: relative;
-box-sizing:border-box;
-align-self: center;
-align-content: center;
-justify-self: center;
-justify-content: center;
-height: calc(100%);
-width: calc(100%);
-min-height: 0;
-font-size: 12px;
-border-style: solid;
-border-radius: 10px;
-}
-.stats {
-  grid-column: span 2 ;
-}
-.stats-grid{
-  color:#b0a4a4;
-  text-align: left;
-  display: grid;
-  grid-template-columns: auto auto auto; /* Adjust column width */
-  gap: 1ch; /* Optional space between columns */
+  box-sizing:border-box;
+  align-self: center;
+  align-content: center;
+  justify-self: center;
+  justify-content: center;
+  height: calc(100%);
+  width: calc(100%);
+  min-height: 0;
+  font-size: 12px;
+  border-style: solid;
+  border-radius: 10px;
 }

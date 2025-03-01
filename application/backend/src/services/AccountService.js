@@ -48,7 +48,7 @@ class AccountService {
 
   // 3) update the preference object for a given account.
   static async storeCoursePrefs(username, prefs){
-    const account = Account.getInstance(username, await accountRepository.readAccount(username));
+    const account = Account.getInstance(await accountRepository.readAccount(username));
     account.coursePreferenceMap = prefs;
     await accountRepository.writeAccount(account);
   }
@@ -65,12 +65,12 @@ class AccountService {
     const senderData = await accountRepository.readAccount(senderKey);
     if (!senderData) return `bad call: sender doesnt exist`;
 
-    const sender = Account.getInstance(senderKey, senderData);
+    const sender = Account.getInstance(senderData);
 
     const receiverKey = await accountRepository.getKeyFromUsername(receiverUsername);
     if (!receiverKey) return 4;
     
-    const receiver = Account.getInstance(receiverKey, await accountRepository.readAccount(receiverKey));
+    const receiver = Account.getInstance(await accountRepository.readAccount(receiverKey));
 
     if (receiver.friendsList && receiver.friendsList.includes(sender.username))
         return 3;
@@ -101,7 +101,7 @@ class AccountService {
   }
 
   static async clearFriendsList(key){
-    const account = Account.getAccountFromData(key, await accountRepository.readAccount(key));
+    const account = Account.getInstance(await accountRepository.readAccount(key));
 
     account.friendsList = [];
     

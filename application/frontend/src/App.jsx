@@ -1,5 +1,5 @@
 //#region - react imports
-import { createContext, useContext, memo, useState, useRef, useEffect } from 'react';
+import { createContext, useContext, memo, useState, useRef, useEffect, React } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //#endregion
@@ -34,7 +34,18 @@ function App () {
   const appHasMounted = useRef(false);                      // check for page mounted
   const [navDep, navTrig] = useTrigger();                   // trigger when a page is navigated to.
   const [hasSignedIn, setHasSignedIn] = useState(false);    // this hook is updated when navigation is set to false.
-  
+  const [overlayIsActive, setOverlayIsActive] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setOverlayIsActive(0);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [])
   // mount/navigation effect -- check login status
   useEffect(() => {
     appHasMounted.current = true;
@@ -75,9 +86,17 @@ function App () {
   //#endregion
   
   //#region - html return
-  return (
-    <AppContext.Provider value={{navDep, navTrig, hasSignedIn}}>
+  
+  document.onnkeydown =  function (evt) {
+    evt = evt || window.Event;
+    if (evt.keyCode == 27 || "key" in evt && (evt.key == "Escape" || evt.key == "Esc")){
+      setOverlayIsActive(false);
+    }
+  }
 
+  return (
+    <AppContext.Provider value={{navDep, navTrig, hasSignedIn,overlayIsActive, setOverlayIsActive}}>
+      {(overlayIsActive > 0) ? <><div className='overlay'/></> : <></>}
       <Router>
         <nav className = 'headbar'>
           <img src={yustLogo} className="logo" /> 

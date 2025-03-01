@@ -1,5 +1,5 @@
 //#region - imports
-  import { createContext, useContext, useEffect, useRef} from "react";     // react hooks
+  import { createContext, useContext, useEffect, useRef, useState} from "react";     // react hooks
   import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
   import { useMountedEffect } from "../../logic/CustomEffects";
   import { readLocal, POST } from "../../logic/BrowserStorage";
@@ -13,6 +13,7 @@
 //#region - context creation
 const SchedulingContext = createContext();
 export const useMainContext = () => useContext(SchedulingContext);
+import './styles/Overlay.css'
 //#endregion
 
 const MainPage = () => {
@@ -24,12 +25,14 @@ const MainPage = () => {
   // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
- 
+  const {overlayIsActive} = useAppContext();
+  const [hoveredCourse, setHoveredCourse] = useState(undefined);
+  
   
   // organize context variables into sections:
-  const hooks = {courses, prefs};
+  const hooks = {courses, prefs, hoveredCourse};
   const getters = {getCourseValue, getPref};
-  const setters = {setCourseValue, pushCourse, setPref};
+  const setters = {setCourseValue, pushCourse, setPref,setHoveredCourse};
   const dev = {initList, initMap};
 
   // page mount effect: load local preferences, add courses.
@@ -98,9 +101,10 @@ const MainPage = () => {
         </div>
       </div>
       <div id='right-body'>
-        <Schedule term="FALL"/>
-        <Schedule term="WINTER" />
+        <Schedule term="FALL" bool={overlayIsActive==2}/>
+        <Schedule term="WINTER" bool={overlayIsActive==3}/>
       </div>
+
 
     </SchedulingContext.Provider>
   );

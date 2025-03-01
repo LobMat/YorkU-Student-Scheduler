@@ -32,19 +32,11 @@
   justify-self: flex-end;
 }
 
-.leftBody > button:hover {
+.left-body > button:hover {
   background-color: #666;
 }
 
 /* Dropdown styling */
-select {
-  background-color: #111;
-  color: #fff;
-  border: 2px solid #aaa;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  width: 100%;
-}
 
 /* Grid-based activity layout */
 .activity-list {
@@ -52,12 +44,6 @@ select {
   grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
   gap: 0.5rem;
   padding: 0.5rem;
-}
-
-/* Checkbox styling */
-input[type="checkbox"] {
-  transform: scale(1.2);
-  margin-right: 0.5rem;
 }
 
 /* Time input styling */
@@ -113,6 +99,7 @@ select {
   border-radius: 0.25rem; /* Rounded corners */
   background-color: #fff;
   color: #333;
+  width: auto;
  
 }
 .act-list {
@@ -123,6 +110,7 @@ select {
   gap: 1rem;
   
 }
+
 .activity-item {
   margin-top: 1rem;
   margin-right: 0.6rem;
@@ -131,15 +119,43 @@ select {
   border-radius: 0.75rem;
   background-color: #444;
   display: flex;
-  flex-direction: column;
-  grid-template-columns: 1fr auto auto auto;
-  align-items: start;
+  flex-direction: row;
+  align-items: center; /* Ensures vertical alignment of buttons and text */
   gap: 1rem;
+  height: auto; /* Automatically adjusts based on content */
+}
+
+.activity-item h4 {
+  margin: 0; /* Removes default margins */
+  padding: 0; /* Removes default padding */
+  flex-grow: 1; /* Ensures the text takes as much space as possible */
+  text-align: left; /* Aligns text to the right */
+  height: 1rem;
+  justify-self: center;
+}
+.activity-item > button {
+  width: auto; /* Let the button grow based on content */
+  height: 3rem; /* Set the height to match the text height */
+  align-self: stretch; /* Stretches to match the height of the container */
+  aspect-ratio: 1; /* Makes buttons square */
+  border-radius: 4px;
+  border-color: #ff6f61;
+  background-color: transparent; /* Optional: background for the buttons */
+  padding: 0.25rem; /* Adjust padding to your liking */
+}
+
+.activity-item > button > img {
+  width: 100%; /* Makes image fill the button */
+  height: 100%; /* Keeps image square */
+  object-fit: contain; /* Ensures the image stays inside the button */
+}
+
+.activity-item > button:hover {
+  background-color: #ff6e6124;
 }
 .activity-day {
   display: flex;
+  width: 50%;
   align-items: center;
   gap: 0.5rem;
 }
-
-
