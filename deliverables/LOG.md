@@ -223,3 +223,14 @@ March 1st (300 minutes)
 * in the process, fixed some bugs with how activites are mapped to the grid.
 * overall, the visual schedule functions much better than it did previously.
 
+### Kunle
+Feb 28 2025 (180 mins) 
+* Reviewed scheduling algorithms for courses in preparation for custom activities
+* Additionally reviewed back-end functionality for courses.
+* Began to design UI for user inputted custom activities.
+
+March 1st 2025 (220 mins)
+* Finished styling for user-selected custom activities
+* Passed user-selected activities to the proper pages for handling
+* Integrated custom activities to the interactive grid so they can show on the schedule.
+* Wrote custom activities to local storage.
