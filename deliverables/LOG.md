@@ -174,20 +174,20 @@ Feb 11th 2025 (150 mins)
 | Designed backend code to accumulate frequency of given courses.                               | 4h   | |
 | Configured algorithms to calculate time averages for each courses.                            | 3h   | |
 
-### Viewing Friends Schedules - (Assigned to: *Mateo* | Priority: *Medium* | Expected: *0.5 day* | Actual: )
+### Viewing Friends Schedules - (Assigned to: *Mateo* | Priority: *Medium* | Expected: *0.5 day* | Actual: *0.25 day*)
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Configured backend methods to access courses in a friend's schedule.                          | 3h   | |
-| Designed frontend pages to display a friend's schedule.                                       | 2h   | |
-| Designed frontend components to render schedules of friends.                                  | 2h   | |
+| Configured backend methods to access courses in a friend's schedule.                          | 3h   | 2h |
+| Designed frontend pages to display a friend's schedule.                                       | 2h   | 2h |
+| Designed frontend components to render schedules of friends.                                  | 2h   | 1h |
 
 ### More Schedule Options - (Assigned to: *Kunle* | Priority: *Medium* | Expected: *0.5 day* | Actual: )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Created frontend components for a user to enter details of custom activities.     | 2h | |
-| Refined UI for custom activity picker.            | 3h   | |
-| Handled routing of custom activities to be displayed on the schedule.             | 2h   | |
-| Write backend functionality to access custom activities.                         | 3h   |  |
+| Created frontend components for a user to enter details of custom activities.     | 2h   |  |
+| Refined UI for custom activity picker.                                            | 3h   |  |
+| Handled routing of custom activities to be displayed on the schedule.             | 2h   |  |
+| Write backend functionality to access custom activities.                          | 3h   |  |
 
 ## Team Meetings
 ### Feb 21st (120 minutes)
@@ -212,6 +212,10 @@ Feb 26th 2025 (120 mins)
 Feb 27th 2025 (180 mins)
 * created robust methods which enable our program to work easily with database
 * sadly, some method calls had to be changed from our Stub implementation, so Stub implementation was also adjusted for integration testing.
+
+March 1st 2025 (180 mins)
+* Finished user story allowing users to see their friends' schedules
+* tested it with current database implementation, and it works well.
 
 ### Caleb
 March 1st (300 minutes)
