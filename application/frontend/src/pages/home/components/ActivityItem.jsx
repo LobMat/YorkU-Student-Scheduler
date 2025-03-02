@@ -67,14 +67,14 @@ const ActivityItem = ({ course, type, pos }) => {
   //#region - instantiation
   const {sectionChoice} = course ?? {};
   const { setters:  {setHoveredCourse}} = useMainContext();
-  const {setOverlayIsActive} = useAppContext();
+  const {overlay: {setOverlayState}} = useAppContext();
   const [overlayIsActive, setOverlayIsActiveLocal] = useState(false);
   
   const pointerClick = () => {
     if (course?.sections[sectionChoice]?.termChar == 'F') {
-      setOverlayIsActive(2);
+      setOverlayState(2);
     } else {
-      setOverlayIsActive(3);
+      setOverlayState(3);
     }
     setHoveredCourse(
       {
@@ -89,12 +89,12 @@ const ActivityItem = ({ course, type, pos }) => {
 
   const dropdownClick = () => {
     setOverlayIsActiveLocal(1);
-    setOverlayIsActive(1);
+    setOverlayState(1);
   }
   
   const closePopUp =() => {
     setOverlayIsActiveLocal(0);
-    setOverlayIsActive(0);
+    setOverlayState(0);
     setHoveredCourse(undefined);
   }
 

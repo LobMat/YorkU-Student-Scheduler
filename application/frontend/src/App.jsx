@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 //#endregion
 //#region - custom logic imports
 import {readLocal, writeSession, POST, deleteLocal} from './logic/BrowserStorage.js'
-import { useTrigger } from './logic/CustomStates.js'
+import { useObjectList, useTrigger } from './logic/CustomStates.js'
 //#endregion
 //#region - assets and styles
 import "./App.css"
@@ -16,6 +16,7 @@ import yustLogo from './assets/mylogo.svg';
   import LoginPage from './pages/login/LoginPage.jsx';
   import RegisterPage from './pages/register/RegisterPage.jsx';
   import Friends from './pages/friends/Friends.jsx';
+  import ComparePage from './pages/compare/ComparePage.jsx';
 import ReviewPage from './pages/review/ReviewPage.jsx';
   //#endregion
 
@@ -31,14 +32,41 @@ function App () {
   // upon the mounting of the app (which should only occur on site entry/refresh), reinstantiate
   // global state variables and run effects.
 
-  const appHasMounted = useRef(false);                      // check for page mounted
-  const [navDep, navTrig] = useTrigger();                   // trigger when a page is navigated to.
-  const [hasSignedIn, setHasSignedIn] = useState(false);    // this hook is updated when navigation is set to false.
-  const [overlayIsActive, setOverlayIsActive] = useState(0);
+  // sign-in/page loading states
+  const appHasMounted = useRef(false);                                       
+  const [navigationDependency, navigationTrigger] = useTrigger();                        
+  const [hasSignedIn, setHasSignedIn] = useState(false);          
+  const [overlayState, setOverlayState] = useState(0); 
 
+
+  //#region - repeat fetch calls:
+  const courseListFromPrefs = (prefObject) => {
+    return fetch(`http://localhost:3000/courses/init?data=${encodeURIComponent(JSON.stringify(prefObject))}`, {method: 'GET'})
+    .then(response => response.json())
+    .then(data => data.courseObjectList);
+  }
+
+  const loadFriendsList = () => {
+    const qp = new URLSearchParams();
+    qp.append('user', `${readLocal('id')}`);
+    
+    return fetch(`http://localhost:3000/accounts/getFriends?${qp.toString()}`, {method: "GET"})
+    .then(response => response.json())
+    .then(data => data.friends)
+    .catch(error => {
+      throw new Error(error.message);
+    })
+  }
+  //#endregion
+  
+  // organization:
+  const fetchMethods = {courseListFromPrefs, loadFriendsList};
+  const navigation = {navigationDependency, navigationTrigger, hasSignedIn};
+  const overlay = {overlayState, setOverlayState};
+  
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "Escape") setOverlayIsActive(0);
+      if (e.key === "Escape") setOverlayState(0);
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -46,7 +74,7 @@ function App () {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [])
-  // mount/navigation effect -- check login status
+
   useEffect(() => {
     appHasMounted.current = true;
     const localAccKey = readLocal('id');
@@ -61,7 +89,9 @@ function App () {
         }
       })
     }
-  }, [navDep]);
+  }, [navigationDependency]);
+
+
   
   //memoized component based on mount status and login status determining which links to be displayed
   const ShownLinks = memo(function ShownLinks({hasSignedIn}) {
@@ -80,23 +110,17 @@ function App () {
       return(<>
         <li><a href="/friends">Friends</a></li>
         <li><a href="/review">Review</a></li>
+        <li><a href="/compare">Compare</a></li>
       </>)
     }
   });
   //#endregion
   
   //#region - html return
-  
-  document.onnkeydown =  function (evt) {
-    evt = evt || window.Event;
-    if (evt.keyCode == 27 || "key" in evt && (evt.key == "Escape" || evt.key == "Esc")){
-      setOverlayIsActive(false);
-    }
-  }
 
   return (
-    <AppContext.Provider value={{navDep, navTrig, hasSignedIn,overlayIsActive, setOverlayIsActive}}>
-      {(overlayIsActive > 0) ? <><div className='overlay'/></> : <></>}
+    <AppContext.Provider value={{fetchMethods, navigation, overlay}}>
+      {(overlayState > 0) ? <><div className='overlay'/></> : <></>}
       <Router>
         <nav className = 'headbar'>
           <img src={yustLogo} className="logo" /> 
@@ -112,6 +136,7 @@ function App () {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/friends" element={<Friends />}/>
           <Route path="/review" element={<ReviewPage />}/>
+          <Route path="/compare" element={<ComparePage />} />
         </Routes>
   
       </Router>
@@ -121,5 +146,4 @@ function App () {
   //#endregion
 
 } 
-
 createRoot(document.getElementById('root')).render(<><App /></>);

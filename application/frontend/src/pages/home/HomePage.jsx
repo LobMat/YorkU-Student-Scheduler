@@ -20,77 +20,64 @@ const MainPage = () => {
 
   //#region - instantiation
   
-  const {navTrig, hasSignedIn} = useAppContext();
-  const signInBool = useRef(hasSignedIn);
   // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
-  const {overlayIsActive} = useAppContext();
   const [hoveredCourse, setHoveredCourse] = useState(undefined);
+
+  const {
+    fetchMethods: {courseListFromPrefs},
+    navigation: {hasSignedIn, navigationTrigger}, 
+    overlay: {overlayState}
+  } = useAppContext();
   
+  const signInBool = useRef(hasSignedIn);
+  const timeTilSave = useRef(-1);
   
   // organize context variables into sections:
-  const hooks = {courses, prefs, hoveredCourse};
+  const hooks =   {courses, prefs, hoveredCourse};
   const getters = {getCourseValue, getPref};
-  const setters = {setCourseValue, pushCourse, setPref,setHoveredCourse};
-  const dev = {initList, initMap};
+  const setters = {setCourseValue, pushCourse, setPref, setHoveredCourse};
+  const dev =     {initList, initMap};
 
-  // page mount effect: load local preferences, add courses.
 
+  //#region - effects
+
+  // do on page mount
   useEffect(() => {
-    navTrig();
-    // read local prefs into the reference, append this to get request.
-    initMap(readLocal('coursePrefs'));
+    navigationTrigger();                  // check for valid sign in
+    initMap(readLocal('coursePrefs'));    // load local prefs into reference
+    courseListFromPrefs(prefs.current).then(list => initList(list));   // set UI state to store the data
 
-    //fetch request for list of course objects in the pref object.
-    fetch(`http://localhost:3000/courses/init?data=${encodeURIComponent(JSON.stringify(prefs.current))}`, {method: 'GET'})
-    .then(response => response.json())
-    .then(data => initList(data.courseObjectList));
-    
-  }, [])
-
-  
-  useEffect(()=> {
-    signInBool.current = hasSignedIn
-  },[hasSignedIn])
-  //#endregion
-  
-  //#region - course preference update handler
-
-  // effect which sets a timer. every one second decrement it as long as its over -1. when it reaches zero,
-  // store account preferences changes in the database.
-  const timeTilSave = useRef(-1);
-  useEffect(() => {
+    // set-up the course preference map database storage interval:
     const interval = setInterval(() => {
       if (timeTilSave.current > -1) {
         if (signInBool.current && timeTilSave.current == 0) {
-          const id = readLocal('id');
-          fetch(`http://localhost:3000/accounts/store`, POST({username: id, prefs: readLocal('coursePrefs')}));
+          fetch(`http://localhost:3000/accounts/store`, POST({username: readLocal('id'), prefs: readLocal('coursePrefs')}));
         }
         timeTilSave.current -= 1;
-      }
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      }   
+    }, 1000)
 
-  // effect which resets timer on course change if timer inactive and user is signed in.
+    return () => { clearInterval(interval) };
+  }, [])
+
+  // do upon sign-in state change
+  useEffect(()=> { signInBool.current = hasSignedIn }, [hasSignedIn])
+
+  // course database write timer reset if logged in
   useMountedEffect(() => {
     if (signInBool.current && timeTilSave.current == -1) {
-      timeTilSave.current = 5;
+      timeTilSave.current = 3;
     }
   }, [courses]);
-
   //#endregion
 
   //#region - html return
   return(
     <SchedulingContext.Provider value={{hooks, getters, setters, dev}}>
       <div id='left-body'>
-
         <SearchBar />
-
         <div className="course-list">
           <ul>
             {
@@ -101,8 +88,8 @@ const MainPage = () => {
         </div>
       </div>
       <div id='right-body'>
-        <Schedule term="FALL" bool={overlayIsActive==2}/>
-        <Schedule term="WINTER" bool={overlayIsActive==3}/>
+        <Schedule term="FALL" bool={overlayState==2}/>
+        <Schedule term="WINTER" bool={overlayState==3}/>
       </div>
 
 

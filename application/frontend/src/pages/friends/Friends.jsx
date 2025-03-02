@@ -22,30 +22,26 @@ const Friends = () => {
   //#region - instantiation 
 
   const navigate = useNavigate();
-  const {navTrig, hasSignedIn} = useAppContext();
   const [friendsList, setFriendsList] = useState([]);
-  useEffect(()=>{navTrig()},[]);
+
+  const {
+    fetchMethods: {loadFriendsList},
+    navigation: {hasSignedIn, navigationTrigger}, 
+  } = useAppContext();
+
 
   //#endregion
   
   //#region - mount effects
+
+  //navigation trigger on mount
+  useEffect(() => { navigationTrigger() }, []);
+
   useMountedEffect(() => {
-  if (!hasSignedIn) {
-    navigate('/')
-  } else {
-    const qp = new URLSearchParams();
-      qp.append('user', `${readLocal('id')}`);
-      
-      fetch(`http://localhost:3000/accounts/getFriends?${qp.toString()}`, {method: "GET"})
-      .then(response => response.json())
-      .then(data => {
-        if (data) {
-          setFriendsList(data.friends);
-        }
-      })
-      .catch(error => {
-        throw new Error(error.message);
-      })
+    if (!hasSignedIn) {
+      navigate('/')
+    } else {
+       loadFriendsList().then(loadedList => setFriendsList(loadedList));
     }
   }, [hasSignedIn])
   //#endregion
