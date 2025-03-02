@@ -26,9 +26,9 @@ const accountRepository = {
   getKeyFromUsername: async (username) => {
     let sql = `SELECT username_email FROM accounts`;
     const allkeys = await RealDatabase.allKeys(sql); // get all keys from the accounts table
-    return Object.values(allkeys.filter((key) =>
-      key.username_email.startsWith(`${username}|`)
-    )[0])[0]; // get the first key that starts with the username
+    return allkeys.filter((key) =>
+      key.username_email.startsWith(`${username}|`) 
+    )[0]; // get the first key that starts with the username
   },
 
   getKeyFromEmail: async (email) => {
