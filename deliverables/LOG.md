@@ -217,6 +217,9 @@ March 1st 2025 (180 mins)
 * Finished user story allowing users to see their friends' schedules
 * tested it with current database implementation, and it works well.
 
+March 2nd 2025 (15 mins)
+* fixed a bug in the database causing null pointer-esque error.
+
 ### Caleb
 March 1st (300 minutes)
 * spent all day working on drag and drop feature.
