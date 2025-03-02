@@ -4,12 +4,13 @@ const Account = require("../models/Account");
 // this file contains the methods which facilitate database communication in the context of account business objects.
 const accountRepository = {
   writeAccount: async (account) => {
-    let sql = `INSERT INTO accounts VALUES ($1, $2, $3, $4, $5, $6)
+    let sql = `INSERT INTO accounts VALUES ($1, $2, $3, $4, $5, $6, $7)
       ON CONFLICT (username_email)
        DO UPDATE SET
         username_email = EXCLUDED.username_email,
         password = EXCLUDED.password,
         "coursePrefs" = EXCLUDED."coursePrefs",
+        "customActs" = EXCLUDED."customActs",
         friends = EXCLUDED.friends,
         requests = EXCLUDED.requests,
         reviews = EXCLUDED.reviews`;

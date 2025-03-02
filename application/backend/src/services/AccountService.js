@@ -47,9 +47,10 @@ class AccountService {
   }
 
   // 3) update the preference object for a given account.
-  static async storeCoursePrefs(username, prefs){
+  static async storePrefsAndCustomActs(username, prefs, customActs){
     const account = Account.getInstance(await accountRepository.readAccount(username));
     account.coursePreferenceMap = prefs;
+    account.customActivityList = customActs;
     await accountRepository.writeAccount(account);
   }
   

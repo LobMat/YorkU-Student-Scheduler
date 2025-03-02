@@ -2,11 +2,12 @@
   import { createContext, useContext, useEffect, useRef, useState} from "react";     // react hooks
   import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
   import { useMountedEffect } from "../../logic/CustomEffects";
-  import { readLocal, POST } from "../../logic/BrowserStorage";
+  import { readLocal, writeLocal, POST } from "../../logic/BrowserStorage";
   import SearchBar from "./components/SearchBar";
   import CourseItem from "./components/CourseItem";
   import Schedule from "./components/Schedule";
   import { useAppContext } from "../../App";
+  import CustomActivities from "./components/CustomActivities";
   import './styles/LeftBody.css'
 //#endregion
 
@@ -24,6 +25,9 @@ const MainPage = () => {
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
   const [hoveredCourse, setHoveredCourse] = useState(undefined);
+  
+  const [customActivityList, setActivityValue, getActivityValue, pushActivity, setCustomActivityList] = useObjectList();
+  //write locally... 
 
   const {
     fetchMethods: {courseListFromPrefs},
@@ -35,7 +39,7 @@ const MainPage = () => {
   const timeTilSave = useRef(-1);
   
   // organize context variables into sections:
-  const hooks =   {courses, prefs, hoveredCourse};
+  const hooks =   {courses, prefs, hoveredCourse, customActivityList};
   const getters = {getCourseValue, getPref};
   const setters = {setCourseValue, pushCourse, setPref, setHoveredCourse};
   const dev =     {initList, initMap};
@@ -47,13 +51,14 @@ const MainPage = () => {
   useEffect(() => {
     navigationTrigger();                  // check for valid sign in
     initMap(readLocal('coursePrefs'));    // load local prefs into reference
+    setCustomActivityList(readLocal('customActs'));
     courseListFromPrefs(prefs.current).then(list => initList(list));   // set UI state to store the data
 
     // set-up the course preference map database storage interval:
     const interval = setInterval(() => {
       if (timeTilSave.current > -1) {
         if (signInBool.current && timeTilSave.current == 0) {
-          fetch(`http://localhost:3000/accounts/store`, POST({username: readLocal('id'), prefs: readLocal('coursePrefs')}));
+          fetch(`http://localhost:3000/accounts/store`, POST({username: readLocal('id'), prefs: readLocal('coursePrefs'), customActs: readLocal('customActs')}));
         }
         timeTilSave.current -= 1;
       }   
@@ -70,8 +75,13 @@ const MainPage = () => {
     if (signInBool.current && timeTilSave.current == -1) {
       timeTilSave.current = 3;
     }
-  }, [courses]);
+  }, [courses, customActivityList]);
   //#endregion
+
+  const getActivity = (activity) => {pushActivity(activity)}
+  useMountedEffect(() => {
+    writeLocal('customActs', customActivityList)
+  }, [customActivityList])
 
   //#region - html return
   return(
@@ -85,6 +95,7 @@ const MainPage = () => {
               <CourseItem key={index} course={course}/>
             )}
           </ul>
+          <CustomActivities onSubmit={getActivity} />
         </div>
       </div>
       <div id='right-body'>

@@ -80,7 +80,7 @@ border-color: #bc6464;
 }
 
 /* activity on grid common styles */
-.activity-slot {
+.activity-slot , .custom-slot {
   box-sizing:border-box;
   align-self: center;
   align-content: center;

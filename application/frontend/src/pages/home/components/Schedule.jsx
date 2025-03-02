@@ -6,7 +6,7 @@ function Schedule({term, bool}) {
 
   const termChar = term.charAt(0);
   const {
-    hooks: {courses},
+    hooks: {courses, customActivityList},
     getters: {getCourseValue}
   } = useMainContext();
 
@@ -47,15 +47,40 @@ function Schedule({term, bool}) {
                   }
                 }
               }
-
             }
           })
         })
-
       }
-    }) 
+    })
+
+      customActivityList?.forEach(activity => {
+        if (activity.semesters.find(sem => sem == termChar) && activity.start < activity.end) {
+          activity.weekdays.forEach(weekday => {
+            let canPopulate = true; 
+            for (let j = 0; j < 2; j++) {
+              for (let k = activity.start; k < activity.end; k++) {
+                if (j == 0 && returnArr[weekday][k]) {
+                  console.log('h');
+                  canPopulate = false;
+                  break;
+                } else if (j == 1 && canPopulate) {
+                  returnArr[weekday][k] = {
+                    isCustom: true,
+                    name: activity.name, 
+                    span: activity.end - activity.start,
+                  };
+                }
+              }
+            }
+          })
+        }
+      }
+    )
+          // iterate twice, first to check if its okay to populate with this activity
+          // second to actually populate with the activity
+ 
     return returnArr;
-  }, [courses]);  
+  }  , [courses, customActivityList]);  
 
 
   return (

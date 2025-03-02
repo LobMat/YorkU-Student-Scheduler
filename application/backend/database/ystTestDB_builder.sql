@@ -26,6 +26,7 @@ CREATE TABLE accounts (
     username_email VARCHAR NOT NULL PRIMARY KEY,
     password VARCHAR NOT NULL,
     "coursePrefs" JSONB,
+    "customActs" JSONB,
     friends VARCHAR[] DEFAULT '{}',
     requests TEXT[] DEFAULT '{}',
     reviews VARCHAR[] DEFAULT '{}'

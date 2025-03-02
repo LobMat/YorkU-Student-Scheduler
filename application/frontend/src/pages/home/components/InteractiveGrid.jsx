@@ -24,7 +24,7 @@ function InteractiveGrid({termSchedule, bool}) {
   
   // context variables
   const { 
-    hooks: {courses, prefs, hoveredCourse},
+    hooks: {courses, prefs, hoveredCourse, customActivityList},
     getters: {getPref},
     setters: {setCourseValue, setPref}
   } = useMainContext(); 
@@ -44,42 +44,60 @@ function InteractiveGrid({termSchedule, bool}) {
         
         // if there is an activity at this slot and it's span is not zero, add a block for this activity
         if (termSchedule[day][slot] && termSchedule[day][slot].span > 0) {
-          
-          //stored data for the course at this position
-          const {courseIndex, sect, act, span} = termSchedule[day][slot];
+          if (termSchedule[day][slot].isCustom) {
+            const {name,  span} = termSchedule[day][slot];
+            tsm.push(
+              <div key={`${day}-${slot}`} className="custom-slot" 
+              style={{  
+                /* style for this specific activity */
+                borderColor: `#2f2f2f`,
+                backgroundColor: `#9e9e9e`,
+                color: `black`,
+                fontSize: `12px`,
+                gridColumn: `${day+1}`,
+                gridRow: `${slot+1}`,
+                gridRowEnd: `span ${span}`,
+              }}
+              >
+                {name}
+              </div>
+            )
+          } else {
+            //stored data for the course at this position
+            const {courseIndex, sect, act, span} = termSchedule[day][slot];
 
-          // create and push activity object
-          tsm.push(
-            <div key={`${day}-${slot}`} className="activity-slot" 
-            style={{  
-              /* style for this specific activity */
-              borderColor: `#${colours[courseIndex].border}`,
-              backgroundColor: `#${colours[courseIndex].bg}`,
-              color: `black`,
-              fontSize: `12px`,
-              gridColumn: `${day+1}`,
-              gridRow: `${slot+1}`,
-              gridRowEnd: `span ${span}`,
-            }}
+            // create and push activity object
+            tsm.push(
+              <div key={`${day}-${slot}`} className="activity-slot" 
+              style={{  
+                /* style for this specific activity */
+                borderColor: `#${colours[courseIndex].border}`,
+                backgroundColor: `#${colours[courseIndex].bg}`,
+                color: `black`,
+                fontSize: `12px`,
+                gridColumn: `${day+1}`,
+                gridRow: `${slot+1}`,
+                gridRowEnd: `span ${span}`,
+              }}
 
-            /* handle right-click event on this component when it represents the hovered activity */
-            onContextMenu={
-              (e)=>{
-                if (bool) {
-                  e.preventDefault()
-                  handleRightClick(day, savedSlot);
+              /* handle right-click event on this component when it represents the hovered activity */
+              onContextMenu={
+                (e)=>{
+                  if (bool) {
+                    e.preventDefault()
+                    handleRightClick(day, savedSlot);
+                  }
                 }
               }
-            }
-            >
-              {(span > 1) ? <>{courses[courseIndex].code}<br /></> : <></>}
-              {(span > 2) ? <>Section {sect}<br /></> : <></>}
-              {act}
-            </div>
-          )
-          slot += span;
-        } 
-        
+              >
+                {(span > 1) ? <>{courses[courseIndex].code}<br /></> : <></>}
+                {(span > 2) ? <>Section {sect}<br /></> : <></>}
+                {act}
+              </div>
+            )
+            } 
+            slot += termSchedule[day][slot].span;
+          }
         // otherwise, add an empty slot
         else {
           tsm.push(
@@ -99,7 +117,7 @@ function InteractiveGrid({termSchedule, bool}) {
     }
     
     return tsm;
-  }, [courses, hoveredCourse]);  
+  }, [hoveredCourse, termSchedule]);  
 
   // #region - handle grid interaction while in overlay mode hovering 
   
@@ -134,7 +152,6 @@ function InteractiveGrid({termSchedule, bool}) {
    
     for (let i = today[1]; i < today[1] + today[2]; i++) {
       if (slot == i) {
-        
         setPref(code, [[`sectionPreferences[${sectionChoice}].${type}ActBlocks[${pos}].times[${day}][0]`, false]]);
         writeLocal('coursePrefs', prefs.current);
         const [fp] = getPref(code, [`sectionPreferences[${sectionChoice}`]);
