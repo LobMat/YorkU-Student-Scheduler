@@ -4,6 +4,7 @@ import { useAppContext } from '../../App';
 import { useMountedEffect } from '../../logic/CustomEffects';
 import './ReviewPage.css'
 import { readSession, writeSession, POST, readLocal } from '../../logic/BrowserStorage';
+import SearchBar from './SearchBar';
 
 function ReviewPage() {
 
@@ -128,20 +129,3 @@ function ReviewPage() {
 
 export default ReviewPage
 
-const SearchBar = ({handleSearch}) => {
-  
-  const [query, setQuery] = useState("");
-
-
-  return(
-    <div className="search-box">
-      <input className="search-input"
-        type="text"
-        placeholder="Enter friend name..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button className="search-button" onClick={()=>handleSearch(query)}>Add</button>
-    </div>
-  )
-}

@@ -22,7 +22,9 @@ const reviewRepository = {
     let sql = `SELECT * FROM reviews WHERE review_id = $1`;
     return await RealDatabase.read(sql, [id]); // return the first row of the result as an object (with values within being the columns).
   },
-
+  allReviews: async () => {
+    return await RealDatabase.allValues(`reviews`); // return the first row of the result as an object (with values within being the columns).
+  },
   nextId: async () => {
     return (await RealDatabase.sizeOf("reviews")) + 1;
   },

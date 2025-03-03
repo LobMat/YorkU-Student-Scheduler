@@ -22,7 +22,7 @@ CREATE TABLE courses(
  quality INT
 );
 
-CREATE TABLE accounts (
+CREATE TABLE accounts(
     username_email VARCHAR NOT NULL PRIMARY KEY,
     password VARCHAR NOT NULL,
     "coursePrefs" JSONB,
