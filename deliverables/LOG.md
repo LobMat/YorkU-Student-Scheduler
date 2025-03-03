@@ -144,12 +144,12 @@ Feb 11th 2025 (150 mins)
 
 # Iteration 2
 ## USER STORIES
-### Viewing Reviews - (Assigned to: *Zayn* | Priority: *High* | Expected: *0.5 days* | Actual: )
+### Viewing Reviews - (Assigned to: *Zayn* | Priority: *High* | Expected: *0.5 days* | Actual: *0.3 days*)
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Design the display of reviews made by other users in the review page.                         | 1.5h |  |
-| Design database calls to fetch review data from database.                                     | 2h   |  |
-| Display retrived reviews from database on review page.                                        | 1.5h |  |
+| Design the display of reviews made by other users in the review page.                         | 1.5h | 1.5h |
+| Design database calls to fetch review data from database.                                     | 2h   | 2h |
+| Display retrived reviews from database on review page.                                        | 1.5h | 2h |
 <br/>
 
 ### Improved Friend Features - (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.5 day* | Actual:  )
@@ -181,13 +181,13 @@ Feb 11th 2025 (150 mins)
 | Designed frontend pages to display a friend's schedule.                                       | 2h   | 2h |
 | Designed frontend components to render schedules of friends.                                  | 2h   | 1h |
 
-### More Schedule Options - (Assigned to: *Kunle* | Priority: *Medium* | Expected: *0.5 day* | Actual: )
+### More Schedule Options - (Assigned to: *Kunle* | Priority: *Medium* | Expected: *0.5 day* | Actual: *0.5 day* )
 | Development Task                             |  Expected Cost      |   Actual Cost       |
 | :--------------------------------------------| :-----------------: | :-----------------: |
-| Created frontend components for a user to enter details of custom activities.     | 2h   |  |
-| Refined UI for custom activity picker.                                            | 3h   |  |
-| Handled routing of custom activities to be displayed on the schedule.             | 2h   |  |
-| Write backend functionality to access custom activities.                          | 3h   |  |
+| Created frontend components for a user to enter details of custom activities.     | 2h   | 2h |
+| Refined UI for custom activity picker.                                            | 3h   | 2h |
+| Handled routing of custom activities to be displayed on the schedule.             | 2h   | 3h |
+| Write backend functionality to access custom activities.                          | 3h   | 3h  |
 
 ## Team Meetings
 ### Feb 21st (120 minutes)
@@ -237,3 +237,9 @@ March 1st 2025 (220 mins)
 * Passed user-selected activities to the proper pages for handling
 * Integrated custom activities to the interactive grid so they can show on the schedule.
 * Wrote custom activities to local storage.
+
+### Zayn
+March 3rd 2025 (240 mins)
+* Created and implemented new endpoints and services for getting review lists based on a given input.
+* Created UI for this system, though it should be polished.
+* Fully functional and implemented atleast for the StubDatabase.
