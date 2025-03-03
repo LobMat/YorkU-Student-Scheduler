@@ -109,7 +109,7 @@ test("Login 4 - log in to an existing email/username with the wrong password.", 
 })
 // #endregion
 
-test("storeCoursePrefs test", async () => {
+test("storePreferences test", async () => {
   StubDatabase.init();
 
   //create and read account instance from database
@@ -117,10 +117,10 @@ test("storeCoursePrefs test", async () => {
   const instance1 = Account.getInstance(key, await accountRepository.readAccount(key));
 
   expect(instance1.coursePreferenceMap).toStrictEqual({});
-  await AccountService.storeCoursePrefs(key, ({
+  await AccountService.storePrefsAndCustomActs(key, ({
     //shortened version of prefrence data
-    'EECS2311': {'sectionChoice': 0, 'uniqueActChoice': 0}
-  }));
+    'EECS2311': {'sectionChoice': 0, 'uniqueActChoice': 0},
+  }), []);
   const instance2 = Account.getInstance(key, await accountRepository.readAccount(key));
 
   expect(instance2.coursePreferenceMap).not.toStrictEqual({});

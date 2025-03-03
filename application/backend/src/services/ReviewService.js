@@ -22,8 +22,6 @@ class ReviewService {
       contentRating
     );
 
-
-
     const courseData = await courseRepository.readCourse(courseCode);
     const accountData = await accountRepository.readAccount(accountId);
     if (!courseData) {
