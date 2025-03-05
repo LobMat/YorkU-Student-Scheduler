@@ -5,7 +5,7 @@ class Account {
 
   //#region - Account business object instance contructor
 
-  constructor(username, email, password, coursePreferenceMap={}, friendsList=[], requestList=[], reviewList=[]) {
+  constructor(username, email, password, coursePreferenceMap={}, friendsList=[], requestList=[], reviewList=[], customActivityList=[]) {
     // parameters required to create a new account
     this.username = username;
     this.email = email;
@@ -16,6 +16,7 @@ class Account {
     this.friendsList = friendsList;
     this.requestList = requestList;
     this.reviewList = reviewList;
+    this.customActivityList = customActivityList;
   }
 
   //#endregion
@@ -23,31 +24,31 @@ class Account {
   //#region - static methods
   
   // converts a passed in Account instance to its equivalent database-friendly object. 
-  static getKeyValue(account) {
-    return {
-      key: `${account.username}|${account.email}`,
-      value: {
-        password:       account.password,
-        coursePrefs:    account.coursePreferenceMap,
-        friends:        account.friendsList,
-        requests:       account.requestList,
-        reviews:        account.reviewList,
-      }
-    }
+  static async getValueArray(account) {
+    return [
+      `${account.username}|${account.email}`,
+      account.password,
+      JSON.stringify(account.coursePreferenceMap),
+      JSON.stringify(account.customActivityList),
+      account.friendsList,
+      account.requestList,
+      account.reviewList,
+    ];
   }
 
   // converts a key-value pair into an Account instance.
-  static getInstance(key, value) {
-    const keyFields = key.split('|');
+  static getInstance(value) {
+    const keyFields = value.username_email.split("|");
     return new Account(
-      keyFields[0],         // username
-      keyFields[1],         // email
-      value.password,       // password
-      value.coursePrefs,    // coursePreferenceMap
-      value.friends,        // friendsList
-      value.requests,       // requestList
-      value.reviews,        // reviewList
-    )
+      keyFields[0], // username
+      keyFields[1], // email
+      value.password, // password
+      value.coursePrefs, // coursePreferenceMap
+      value.customActs,
+      value.friends, // friendsList
+      value.requests, // requestList
+      value.reviews // reviewList
+    );
   }
 
   //#endregion

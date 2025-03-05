@@ -1,0 +1,72 @@
+/* overlay cover (this component is in App.jsx) */
+div.overlay {
+  position: fixed;
+  bottom:0;
+  right:0;
+  background-color: rgba(0, 0, 0, 0.583);
+  width: 100vw;
+  height: 100vh;
+}
+
+/* #region - dropdown for course time selection manually */
+.dropdown-popup {
+  display: flex;
+  flex-direction: column;
+    margin-top: 1rem;
+    margin-right: 0.6rem;
+    padding: 0.75rem;
+    padding-left: 1.25rem;
+    border-radius: 0.75rem;
+    background-color: #444;
+    grid-template-columns: 1fr  auto auto auto;
+    align-items: stretch;
+    gap: 1rem;
+    
+    width: 30vw;
+  height: 15vw;
+    /* set position and center*/
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.dropdown-popup > .popupHeader > button {
+    width: auto; /* Let the button grow based on content */
+    height: 3rem; /* Set the height to match the text height */
+    align-self: stretch; /* Stretches to match the height of the container */
+    aspect-ratio: 1; /* Makes buttons square */
+    border-radius: 4px;
+    border-color: #ff6f61;
+    background-color: transparent; /* Optional: background for the buttons */
+    padding: 0.25rem; /* Adjust padding to your liking */
+    justify-self: right;
+}
+  
+.dropdown-popup > .popupHeader > button > img {
+  width: 100%; /* Makes image fill the button */
+  height: 100%; /* Keeps image square */
+  object-fit: contain; /* Ensures the image stays inside the button */
+}
+.dropdown-popup select {
+  padding: 0.5rem; /* Padding in rem instead of px */
+  font-size: 1rem;
+  border: 0.0625rem solid #ccc; /* Border width with rem */
+  border-radius: 0.25rem; /* Rounded corners */
+  background-color: #fff;
+  color: #333;
+  width: auto;
+}
+.dropdown-popup input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 0.5rem;
+}
+.dropdown-popup > .popupHeader > h4 {
+  justify-self: start;
+}
+.dropdown-popup > .popupHeader {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+/* #endregion */
+

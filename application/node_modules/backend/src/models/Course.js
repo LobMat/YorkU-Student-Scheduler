@@ -22,29 +22,27 @@ class Course {
   //#region - static methods
   
   // converts a passed in Course instance to its equivalent database-friendly object. 
-  static getKeyValue(course) {
-    return {
-      key: course.courseCode,
-      value: {
-        title:        course.courseTitle,
-        sections:     course.sectionList,
-        reviews:      course.reviewList,
-        difficulty:   course.difficultyRating,
-        quality:      course.contentRating
-      }
-    }
+  static async getValueArray(course) {
+    return [
+      course.courseCode,
+      course.courseTitle,
+      JSON.stringify(course.sectionList),
+      course.reviewList,
+      course.difficultyRating,
+      course.contentRating,
+    ];
   }
 
   // converts a key-value pair into a Course instance.
-  static getInstance(key, value) {
+  static getInstance(value) {
     return new Course(
-      key,                // courseCode
-      value.title,        // courseTitle
-      value.sections,     // sectionList
-      value.reviews,      // reviewList
-      value.difficulty,   // difficultyRating
-      value.quality,      // contentRating
-    )
+      value.courseCode, // courseCode
+      value.title, // courseTitle
+      value.sections, // sectionList
+      value.reviews, // reviewList
+      value.difficulty, // difficultyRating
+      value.quality // contentRating
+    );
   }
 
   //#endregion

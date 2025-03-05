@@ -1,0 +1,10 @@
+#compare-left-body {
+  height: 100%; 
+}
+#compare-right-body {
+  border-left: 3px solid #A34848;
+  height: 100%; 
+  padding-right: 25px;
+  display: flex;
+  flex-direction: row;
+}

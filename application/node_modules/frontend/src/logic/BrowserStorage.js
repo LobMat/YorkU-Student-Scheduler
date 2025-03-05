@@ -19,6 +19,10 @@ export const writeLocal =  (key, data) => {
   }
 }
 
+export const deleteLocal = (key) => {
+    localStorage.removeItem(key);
+}
+
 export const readSession =  (key, base=undefined) => {
   try {
     const loadedJSON = sessionStorage.getItem(key);
@@ -36,6 +40,10 @@ export const writeSession =  (key, data) => {
   } catch (error) {
     console.log("Session Storage Write Error: " + error);
   }
+}
+
+export const deleteSession = (key) => {
+  sessionStorage.removeItem(key);
 }
 
 export const POST = (body) => (

@@ -22,29 +22,29 @@ class Review {
   //#region - static methods
   
   // converts a passed in Course instance to its equivalent database-friendly object. 
-  static getKeyValue(review) {
-    return {
-      key: review.reviewID,
-      value: {
-        author:       review.authorUsername,
-        date:         review.postedDate,
-        course:       review.courseCode,
-        difficulty:   review.difficultyRating,
-        quality:      review.contentRating
-      }
-    }
+  static async getValueArray(review) {
+    return [
+      review.reviewID,
+      review.authorUsername,
+      review.postedDate,
+      review.courseCode,
+      review.description,
+      review.difficultyRating,
+      review.contentRating,
+    ];
   }
 
   // converts a key-value pair into a Course instance.
-  static getInstance(key, value) {
-    return new Course(
-      key,                // reviewID
-      value.author,       // authorUsername
-      value.date,         // postedDate
-      value.course,       // courseCode
-      value.difficulty,   // difficultyRating
-      value.quality,      // contentRating
-    )
+  static getInstance(value) {
+    return new Review(
+      value.review_id, // reviewID
+      value.author, // authorUsername
+      value.date, // postedDate
+      value.course, // courseCode
+      value.description, // description
+      value.difficulty, // difficultyRating
+      value.quality // contentRating
+    );
   }
 
   //#endregion

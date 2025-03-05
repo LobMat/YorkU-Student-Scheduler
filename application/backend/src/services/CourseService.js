@@ -5,6 +5,7 @@ const courseRepository = require('../repositories/courseRepository');
 
 class CourseService {  
 
+  // get the nessecary data that the front-end needs to create UI. 
   static async getCourseObject(courseCode) {
     const courseData = await courseRepository.readCourse(courseCode);
     if (!courseData) return undefined;
@@ -19,6 +20,7 @@ class CourseService {
     })
   }
   
+  // get a list of front-end ui data objects based on an account's preference map.
   static async getInitialCourseList(allPrefs) {
     const returnList = [];
   
