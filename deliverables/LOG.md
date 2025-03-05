@@ -1,6 +1,4 @@
-<style>h2,h3,h4 { border-bottom: 0; } </style>
-<style>h3,h4 { font-weight: normal; } </style>
-<h1 style="text-align: right"> Iteration 1 </h1>
+# Iteration 1
 
 ## USER STORIES
 ### Block Out Times for Courses & Personal Activities - (Assigned to: *Kunle* | Priority: *High* | Expected: *0.5 days* | Actual: *0.3333 days* )
@@ -142,3 +140,106 @@ Feb 12th 2025 (120 mins)
 Feb 11th 2025 (150 mins) 
 - implemented the schedule time between and during logic 
 - implemented the time spent UI
+
+
+# Iteration 2
+## USER STORIES
+### Viewing Reviews - (Assigned to: *Zayn* | Priority: *High* | Expected: *0.5 days* | Actual: *0.3 days*)
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Design the display of reviews made by other users in the review page.                         | 1.5h | 1.5h |
+| Design database calls to fetch review data from database.                                     | 2h   | 2h |
+| Display retrived reviews from database on review page.                                        | 1.5h | 2h |
+<br/>
+
+### Improved Friend Features - (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *0.5 day* | Actual:  )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Created users to simulate the addition of friends.                                            | 0.5h | |
+| Created backend methods to allow users to send a request to other users.                      | 1h   | |
+| Wrote more methods to accept or deny incoming friend requests.                                | 2h   | |
+| Wrote unit tests to ensure friend requests are sent.                                          | 2h   | |
+
+### Easier Time Selection - (Assigned to: *Caleb* | Priority: *High* | Expected: *0.5 day* | Actual: *0.3 day* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Implemented updating course preferences by dragging and drop time selections of a course.     | 4h   | 3h |
+| Modified course selection UI to allow the user to pick preferred times dynamically.           | 2h   | 1h |
+| Test for errors in schedule overlap, handle edge cases.                                       | 2h   | 1h |
+
+### Time Average Option - (Assigned to: *Mirza* | Priority: *Low* | Expected: *1 day* | Actual: )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Configured frontend displays to toggle options to display average courses.                    | 4h   | |
+| Designed backend code to accumulate frequency of given courses.                               | 4h   | |
+| Configured algorithms to calculate time averages for each courses.                            | 3h   | |
+
+### Viewing Friends Schedules - (Assigned to: *Mateo* | Priority: *Medium* | Expected: *0.5 day* | Actual: *0.25 day*)
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Configured backend methods to access courses in a friend's schedule.                          | 3h   | 2h |
+| Designed frontend pages to display a friend's schedule.                                       | 2h   | 2h |
+| Designed frontend components to render schedules of friends.                                  | 2h   | 1h |
+
+### More Schedule Options - (Assigned to: *Kunle* | Priority: *Medium* | Expected: *0.5 day* | Actual: *0.5 day* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Created frontend components for a user to enter details of custom activities.     | 2h   | 2h |
+| Refined UI for custom activity picker.                                            | 3h   | 2h |
+| Handled routing of custom activities to be displayed on the schedule.             | 2h   | 3h |
+| Write backend functionality to access custom activities.                          | 3h   | 3h  |
+
+## Team Meetings
+### Feb 21st (120 minutes)
+* Came up with iteration 2 user stories.
+* discussed what our goals were for this iteration's workflow, and how we can improve on the previous iteration's workflow.
+* discussed database implementation ideas for iteration 2. 
+### Feb 24th (45 mins)
+* quick check-in to see how busy people are and when if they will be able to manage the work.
+* did not discuss project much other than database implementation concerns.
+
+## Personal Logs
+### Mateo 
+Feb 23rd 2025 (80 mins)
+* PostgreSQL research and playing around.
+* learned about common implementations in Node.js projects.
+* learned how to create simple SQL databases
+
+Feb 26th 2025 (120 mins)
+* began playing around with how a PostgreSQL would look in our database
+* created an outline and started to implement it into the actual repository.
+
+Feb 27th 2025 (180 mins)
+* created robust methods which enable our program to work easily with database
+* sadly, some method calls had to be changed from our Stub implementation, so Stub implementation was also adjusted for integration testing.
+
+March 1st 2025 (180 mins)
+* Finished user story allowing users to see their friends' schedules
+* tested it with current database implementation, and it works well.
+
+March 2nd 2025 (15 mins)
+* fixed a bug in the database causing null pointer-esque error.
+
+### Caleb
+March 1st (300 minutes)
+* spent all day working on drag and drop feature.
+* in the process, fixed some bugs with how activites are mapped to the grid.
+* overall, the visual schedule functions much better than it did previously.
+
+### Kunle
+Feb 28 2025 (180 mins) 
+* Reviewed scheduling algorithms for courses in preparation for custom activities
+* Additionally reviewed back-end functionality for courses.
+* Began to design UI for user inputted custom activities.
+
+March 1st 2025 (220 mins)
+* Finished styling for user-selected custom activities
+* Passed user-selected activities to the proper pages for handling
+* Integrated custom activities to the interactive grid so they can show on the schedule.
+* Wrote custom activities to local storage.
+
+### Zayn
+March 3rd 2025 (240 mins)
+* Created and implemented new endpoints and services for getting review lists based on a given input.
+* Created UI for this system, though it should be polished.
+* Fully functional and implemented atleast for the StubDatabase.
