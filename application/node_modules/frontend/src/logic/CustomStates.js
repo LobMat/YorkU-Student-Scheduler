@@ -103,7 +103,6 @@ export const useObjectMap = (initial={}) => {
   
     const setValue = (match, updates) => {
       
-
       setMap(prev => ({
         ...prev,
         [match]: (prev[match]) ? recursiveUpdate(updates, prev[match]) : updates,

@@ -10,22 +10,26 @@ function RegisterPage() {
 
   //#region - instantiation 
   const navigate = useNavigate();  
-  const {navDep, navTrig, hasSignedIn} = useAppContext();
+  const {navigation: {hasSignedIn, navigationTrigger}} = useAppContext();
+
+
+  // mount effect, check for valid login
+  useEffect(() => { navigationTrigger() }, []);
+
+  // post-mount effect, check for any changes to login status after first render.
+  useMountedEffect(()=> {
+    if (hasSignedIn) {
+      navigate('/');
+    }
+  }, [hasSignedIn])
+
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     passOne: '',
     passTwo: '',
   });
-
-  useEffect(()=>{navTrig()},[]);
-
-  useMountedEffect(() => {
-    if (hasSignedIn) {
-      navigate('/')
-    } 
-  },[navDep]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });

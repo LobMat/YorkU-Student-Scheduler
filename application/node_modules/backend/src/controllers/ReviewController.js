@@ -14,3 +14,8 @@ exports.writeReviewController = async(req, res) => {
   res.status(resp).json();
 
 }
+exports.getReviewsController = async(req,res) => {
+  const query = req.query.query
+  const response = await ReviewService.getReviews(query);
+  res.status(200).json({response:response});
+}

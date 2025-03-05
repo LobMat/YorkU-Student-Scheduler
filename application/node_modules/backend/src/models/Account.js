@@ -5,7 +5,7 @@ class Account {
 
   //#region - Account business object instance contructor
 
-  constructor(username, email, password, coursePreferenceMap={}, friendsList=[], requestList=[], reviewList=[]) {
+  constructor(username, email, password, coursePreferenceMap={}, friendsList=[], requestList=[], reviewList=[], customActivityList=[]) {
     // parameters required to create a new account
     this.username = username;
     this.email = email;
@@ -16,6 +16,7 @@ class Account {
     this.friendsList = friendsList;
     this.requestList = requestList;
     this.reviewList = reviewList;
+    this.customActivityList = customActivityList;
   }
 
   //#endregion
@@ -28,6 +29,7 @@ class Account {
       `${account.username}|${account.email}`,
       account.password,
       JSON.stringify(account.coursePreferenceMap),
+      JSON.stringify(account.customActivityList),
       account.friendsList,
       account.requestList,
       account.reviewList,
@@ -42,6 +44,7 @@ class Account {
       keyFields[1], // email
       value.password, // password
       value.coursePrefs, // coursePreferenceMap
+      value.customActs,
       value.friends, // friendsList
       value.requests, // requestList
       value.reviews // reviewList

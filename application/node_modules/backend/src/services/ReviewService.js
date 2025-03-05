@@ -22,8 +22,6 @@ class ReviewService {
       contentRating
     );
 
-
-
     const courseData = await courseRepository.readCourse(courseCode);
     const accountData = await accountRepository.readAccount(accountId);
     if (!courseData) {
@@ -33,17 +31,25 @@ class ReviewService {
     } else {
       
       await reviewRepository.writeReview(newRev);
-      const account = Account.getInstance(accountId, accountData);
+      const account = Account.getInstance(accountData);
       account.addReview(reviewId);
       await accountRepository.writeAccount(account);
       
-      const course = Course.getInstance(courseCode, courseData);
+      const course = Course.getInstance(courseData);
       course.addReview(reviewId);
       await courseRepository.writeCourse(course);
     
       return 0;
     }
   }
+
+  //get all reviews matching a query
+  static async getReviews(query) {
+    const revis = Array.from(await reviewRepository.allReviews());
+    return revis.filter(review=>(review.course === query || review.author === query));
+  }
+
+    
 }
 
 module.exports = ReviewService;

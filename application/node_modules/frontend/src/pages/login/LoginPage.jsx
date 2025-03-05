@@ -9,17 +9,19 @@ function LoginPage() {
   //#region - instantiation
   
   const navigate = useNavigate();
-  const {navDep, navTrig, hasSignedIn} = useAppContext();
+
+  const {navigation: {hasSignedIn, navigationTrigger}} = useAppContext();
+
 
   // mount effect, check for valid login
-  useEffect(()=>{navTrig()},[]);
+  useEffect(() => { navigationTrigger() }, []);
 
   // post-mount effect, check for any changes to login status after first render.
   useMountedEffect(()=> {
     if (hasSignedIn) {
       navigate('/');
     }
-  }, [navDep])
+  }, [hasSignedIn])
 
   //hooks for input fields
   const err =  readSession('loginErr') ?? ""; 

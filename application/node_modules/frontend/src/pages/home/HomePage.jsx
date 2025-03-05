@@ -1,93 +1,93 @@
 //#region - imports
-  import { createContext, useContext, useEffect, useRef} from "react";     // react hooks
+  import { createContext, useContext, useEffect, useRef, useState} from "react";     // react hooks
   import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
   import { useMountedEffect } from "../../logic/CustomEffects";
-  import { readLocal, POST } from "../../logic/BrowserStorage";
+  import { readLocal, writeLocal, POST } from "../../logic/BrowserStorage";
   import SearchBar from "./components/SearchBar";
   import CourseItem from "./components/CourseItem";
   import Schedule from "./components/Schedule";
   import { useAppContext } from "../../App";
+  import CustomActivities from "./components/CustomActivities";
   import './styles/LeftBody.css'
 //#endregion
 
 //#region - context creation
 const SchedulingContext = createContext();
 export const useMainContext = () => useContext(SchedulingContext);
+import './styles/Overlay.css'
 //#endregion
 
 const MainPage = () => {
 
   //#region - instantiation
   
-  const {navTrig, hasSignedIn} = useAppContext();
-  const signInBool = useRef(hasSignedIn);
   // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
- 
+  const [hoveredCourse, setHoveredCourse] = useState(undefined);
+  
+  const [customActivityList, setActivityValue, getActivityValue, pushActivity, setCustomActivityList] = useObjectList();
+  //write locally... 
+
+  const {
+    fetchMethods: {courseListFromPrefs},
+    navigation: {hasSignedIn, navigationTrigger}, 
+    overlay: {overlayState}
+  } = useAppContext();
+  
+  const signInBool = useRef(hasSignedIn);
+  const timeTilSave = useRef(-1);
   
   // organize context variables into sections:
-  const hooks = {courses, prefs};
+  const hooks =   {courses, prefs, hoveredCourse, customActivityList};
   const getters = {getCourseValue, getPref};
-  const setters = {setCourseValue, pushCourse, setPref};
-  const dev = {initList, initMap};
+  const setters = {setCourseValue, pushCourse, setPref, setHoveredCourse};
+  const dev =     {initList, initMap};
 
-  // page mount effect: load local preferences, add courses.
 
+  //#region - effects
+
+  // do on page mount
   useEffect(() => {
-    navTrig();
-    // read local prefs into the reference, append this to get request.
-    initMap(readLocal('coursePrefs'));
+    navigationTrigger();                  // check for valid sign in
+    initMap(readLocal('coursePrefs'));    // load local prefs into reference
+    setCustomActivityList(readLocal('customActs'));
+    courseListFromPrefs(prefs.current).then(list => initList(list));   // set UI state to store the data
 
-    //fetch request for list of course objects in the pref object.
-    fetch(`http://localhost:3000/courses/init?data=${encodeURIComponent(JSON.stringify(prefs.current))}`, {method: 'GET'})
-    .then(response => response.json())
-    .then(data => initList(data.courseObjectList));
-    
-  }, [])
-
-  
-  useEffect(()=> {
-    signInBool.current = hasSignedIn
-  },[hasSignedIn])
-  //#endregion
-  
-  //#region - course preference update handler
-
-  // effect which sets a timer. every one second decrement it as long as its over -1. when it reaches zero,
-  // store account preferences changes in the database.
-  const timeTilSave = useRef(-1);
-  useEffect(() => {
+    // set-up the course preference map database storage interval:
     const interval = setInterval(() => {
       if (timeTilSave.current > -1) {
         if (signInBool.current && timeTilSave.current == 0) {
-          const id = readLocal('id');
-          fetch(`http://localhost:3000/accounts/store`, POST({username: id, prefs: readLocal('coursePrefs')}));
+          fetch(`http://localhost:3000/accounts/store`, POST({username: readLocal('id'), prefs: readLocal('coursePrefs'), customActs: readLocal('customActs')}));
         }
         timeTilSave.current -= 1;
-      }
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+      }   
+    }, 1000)
 
-  // effect which resets timer on course change if timer inactive and user is signed in.
+    return () => { clearInterval(interval) };
+  }, [])
+
+  // do upon sign-in state change
+  useEffect(()=> { signInBool.current = hasSignedIn }, [hasSignedIn])
+
+  // course database write timer reset if logged in
   useMountedEffect(() => {
     if (signInBool.current && timeTilSave.current == -1) {
-      timeTilSave.current = 5;
+      timeTilSave.current = 3;
     }
-  }, [courses]);
-
+  }, [courses, customActivityList]);
   //#endregion
+
+  const getActivity = (activity) => {pushActivity(activity)}
+  useMountedEffect(() => {
+    writeLocal('customActs', customActivityList)
+  }, [customActivityList])
 
   //#region - html return
   return(
     <SchedulingContext.Provider value={{hooks, getters, setters, dev}}>
       <div id='left-body'>
-
         <SearchBar />
-
         <div className="course-list">
           <ul>
             {
@@ -95,12 +95,14 @@ const MainPage = () => {
               <CourseItem key={index} course={course}/>
             )}
           </ul>
+          <CustomActivities onSubmit={getActivity} />
         </div>
       </div>
       <div id='right-body'>
-        <Schedule term="FALL"/>
-        <Schedule term="WINTER" />
+        <Schedule term="FALL" bool={overlayState==2}/>
+        <Schedule term="WINTER" bool={overlayState==3}/>
       </div>
+
 
     </SchedulingContext.Provider>
   );

@@ -30,9 +30,9 @@ exports.verifyIDController = async (req, res) => {
   }
 }
 
-exports.storePrefsController = async (req, res) => {
-  const {username, prefs} = req.body;
-  await AccountService.storeCoursePrefs(username, prefs);
+exports.storePrefsAndCustomActsController = async (req, res) => {
+  const {username, prefs, customActs} = req.body;
+  await AccountService.storeCoursePrefs(username, prefs, customActs);
   res.status(200).json();
 }
 
