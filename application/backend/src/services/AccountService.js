@@ -87,6 +87,7 @@ class AccountService {
         await accountRepository.writeAccount(sender);
         
         receiver.addFriend(sender.username);
+        receiver.removeRequest(sender.username); // Add this line to remove the pending request from the receiver
         await accountRepository.writeAccount(receiver);
         return 0;
     } else {
@@ -96,6 +97,87 @@ class AccountService {
     }
   }
 
+  // Given the username of the account (person accepting the request), and the username of the source of the request, add eachother too the friends lists.
+  static async acceptFriendRequest(receiverUsername, senderUsername) {
+    const receiverKey = await accountRepository.getKeyFromUsername(receiverUsername);
+    if (!receiverKey) 
+      throw new Error ("Invalid call!");
+    const receiverData = await accountRepository.readAccount(receiverKey);
+    const receiver = Account.getInstance(receiverData);
+    
+    const senderKey = await accountRepository.getKeyFromUsername(senderUsername);
+    if (!senderKey)
+      throw new Error("The user who sent this request cannot be found.");
+    const senderData = await accountRepository.readAccount(senderKey);
+    const sender = Account.getInstance(senderData);
+
+    if (!receiver.requestList || !receiver.requestList.includes(senderUsername))
+      throw new Error(`${senderUsername} has not sent a friend request.`);
+
+    if (receiver.friendsList.includes(senderUsername))
+      throw new Error(`${receiverUsername} is already your friend.`);
+    
+    // Add each other as friends
+    sender.addFriend(receiverUsername);
+    receiver.addFriend(senderUsername);
+    
+    // Remove the friend request from pendingRequests
+    receiver.removeRequest(senderUsername);
+    sender.removeRequest(receiverUsername);
+    // Save the updated accounts back to the database
+    await accountRepository.writeAccount(sender);
+    await accountRepository.writeAccount(receiver);
+  }
+
+  static async removeFriend(username, friendUsername) {
+    //Check if the user exists
+    const userKey = await accountRepository.getKeyFromUsername(username);
+    if (!userKey) 
+        throw new Error("Invalid call!");
+
+    const userData = await accountRepository.readAccount(userKey);
+    const user = Account.getInstance(userData);
+    //Check if the friend exists    
+    const friendKey = await accountRepository.getKeyFromUsername(friendUsername);
+    if (!friendKey)
+        throw new Error("The user you are trying to remove does not exist.");
+    const friendData = await accountRepository.readAccount(friendKey);
+    const friend = Account.getInstance(friendData);
+
+    if (!user.friendsList || !user.friendsList.includes(friendUsername))
+        throw new Error(`${friendUsername} is not in your friends list.`);
+
+    user.removeFriend(friendUsername);
+    friend.removeFriend(username);
+
+    await accountRepository.writeAccount(user);
+    await accountRepository.writeAccount(friend);
+  }
+  
+  static async denyFriendRequest(username, friendUsername) {
+    //Check if the user exists
+    const userKey = await accountRepository.getKeyFromUsername(username);
+    if (!userKey) 
+        throw new Error("Invalid call!");
+    const userData = await accountRepository.readAccount(userKey);
+    const sender = Account.getInstance(userData);
+
+    //Check if the friend exists
+    const friendKey = await accountRepository.getKeyFromUsername(friendUsername);
+    if (!friendKey)
+        throw new Error("The user you are trying to deny does not exist.");
+    const friendData = await accountRepository.readAccount(friendKey);
+    const receiver = Account.getInstance(friendData);
+    if(!sender.requestList || !sender.requestList.includes(friendUsername))
+        throw new Error(`${friendUsername} has not sent you a friend request.`);
+    else if(sender.requestList.includes(friendUsername))
+    {
+      sender.removeRequest(friendUsername);
+      receiver.removeRequest(username);
+      await accountRepository.writeAccount(sender);
+      await accountRepository.writeAccount(receiver);
+    }
+  }
   //#region - services used in development for quickly checking functionalities of friends list.
   static async getKeyFromUsername(username) {
     return await accountRepository.getKeyFromUsername(username);

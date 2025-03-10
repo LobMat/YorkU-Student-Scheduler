@@ -1,10 +1,28 @@
 const Account = require('../../src/models/Account');
 const AccountService = require('../../src/services/AccountService');
-const accountRepository = require('../../src/repositories/accountRepository')
-const StubDatabase = require('../../database/StubDatabase')
+const accountRepository = require('../../src/repositories/accountRepository');
+const StubDatabase = require('../../database/StubDatabase');
 
 // this file contains test cases for Account business logic in the Service layer.  
 
+const createDummyAccounts = async () => {
+    StubDatabase.init();
+    const caleb = new Account("calebwj", "2005cwj@gmail.com", "caleb1234");
+    const mateo = new Account("mattthews", "mateolobato@gmail.com", "matPass");
+    const kunle = new Account("kunle43", "ayokunlemi@yahoo.com", "nigerianBlessings4!");
+    const ahmet = new Account("ahmetkrc", "ahmetkrc@outlook.com", "ahmet231");
+    await accountRepository.writeAccount(caleb);
+    await accountRepository.writeAccount(mateo);
+    await accountRepository.writeAccount(kunle);
+    await accountRepository.writeAccount(ahmet);
+}
+
+beforeEach(() => {
+    StubDatabase.init();
+});
+
+
+// Existing tests...
 // #region - registration service
 test("Register 1 - successful registration.", async () => {
   StubDatabase.init();
@@ -56,7 +74,7 @@ test("Register 5 - attempt to register an account with all errors", async () => 
   expect(key).toBe(undefined)
 })
 
-//#endregion
+// #endregion
 
 // #region - login service
 test("Login 1 - login to an account that exists using the username", async () => {
@@ -240,4 +258,61 @@ test("Make a friend request call where the sender is already friends with this u
   expect(account2.requestList[0]).toBe(undefined);
 });
 
-//#endregion
+// New tests for accepting, removing, and denying friend requests
+
+// Test for accepting a friend request
+test('AccountService.acceptFriendRequest() #1', async () => {
+    await createDummyAccounts();
+    await AccountService.sendFriendRequest("calebwj", "mattthews");
+
+    await AccountService.acceptFriendRequest("mattthews", "calebwj");
+
+    const updatedCalebKey = await accountRepository.getKeyFromUsername("calebwj");
+    const updatedMateoKey = await accountRepository.getKeyFromUsername("mattthews");
+
+    const updatedCalebData = await accountRepository.readAccount(updatedCalebKey);
+    const updatedMateoData = await accountRepository.readAccount(updatedMateoKey);
+
+    const updatedCaleb = Account.getInstance(updatedCalebData);
+    const updatedMateo = Account.getInstance(updatedMateoData);
+
+    expect(updatedCaleb.getFriendList()).toContain("mattthews");
+    expect(updatedMateo.getFriendList()).toContain("calebwj");
+    expect(updatedMateo.getPendingRequests()).not.toContain("calebwj");
+});
+
+// Test for removing a friend
+test('AccountService.removeFriend() #1', async () => {
+    await createDummyAccounts();
+    await AccountService.sendFriendRequest("calebwj", "mattthews");
+    await AccountService.acceptFriendRequest("mattthews", "calebwj");
+
+    await AccountService.removeFriend("calebwj", "mattthews");
+
+    const updatedCalebKey = await accountRepository.getKeyFromUsername("calebwj");
+    const updatedMateoKey = await accountRepository.getKeyFromUsername("mattthews");
+
+    const updatedCalebData = await accountRepository.readAccount(updatedCalebKey);
+    const updatedMateoData = await accountRepository.readAccount(updatedMateoKey);
+
+    const updatedCaleb = Account.getInstance(updatedCalebData);
+    const updatedMateo = Account.getInstance(updatedMateoData);
+
+    expect(updatedCaleb.getFriendList()).not.toContain("mattthews");
+    expect(updatedMateo.getFriendList()).not.toContain("calebwj");
+});
+
+// Test for denying a friend request
+test('AccountService.denyFriendRequest() #1', async () => {
+    await createDummyAccounts();
+    await AccountService.sendFriendRequest("calebwj", "mattthews");
+
+    await AccountService.denyFriendRequest("mattthews", "calebwj");
+
+    const updatedMateoKey = await accountRepository.getKeyFromUsername("mattthews");
+    const updatedMateoData = await accountRepository.readAccount(updatedMateoKey);
+    const updatedMateo = Account.getInstance(updatedMateoData);
+
+    expect(updatedMateo.getPendingRequests()).not.toContain("calebwj");
+    //#endregion
+});
