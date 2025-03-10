@@ -1,6 +1,6 @@
 // this file contains helper methods for accessing browser storage (local, session)
 
-export const readLocal =  (key, base=undefined) => {
+export const readLocal =  (key, base= "{}") => {
   try {
     const loadedJSON = localStorage.getItem(key);
     const parsedLoaded =  JSON.parse(loadedJSON ?? base);

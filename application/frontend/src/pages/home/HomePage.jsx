@@ -1,5 +1,6 @@
 //#region - imports
-  import { createContext, useContext, useEffect, useRef} from "react";     // react hooks
+  import { useState, createContext, useContext, useEffect, useRef } from "react";    
+  //import { createContext, useContext, useEffect, useRef} from "react";     // react hooks
   import { useObjectList, useObjectRef } from "../../logic/CustomStates"; // custom logic
   import { useMountedEffect } from "../../logic/CustomEffects";
   import { readLocal, POST } from "../../logic/BrowserStorage";
@@ -8,6 +9,7 @@
   import Schedule from "./components/Schedule";
   import { useAppContext } from "../../App";
   import './styles/LeftBody.css'
+  import SuggestedTimes from "./components/SuggestedTimes";
 //#endregion
 
 //#region - context creation
@@ -24,13 +26,32 @@ const MainPage = () => {
   // instantiate hooks
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
- 
-  
+  // State for showing the suggested times modal
+  const [showSuggestedTimes, setShowSuggestedTimes] = useState(false);
+    
   // organize context variables into sections:
   const hooks = {courses, prefs};
   const getters = {getCourseValue, getPref};
   const setters = {setCourseValue, pushCourse, setPref};
   const dev = {initList, initMap};
+
+  const updateCourseTime = (courseName, newTime) => {
+    console.log(`🔄 Updating course ${courseName} to time ${newTime}`);
+
+    setCourses(prevCourses => {
+        const updatedCourses = prevCourses.map(course =>
+            course.code === courseName ? { ...course, startTime: newTime } : course
+        );
+
+        console.log("✅ Updated courses:", updatedCourses);
+        writeLocal("coursePrefs", updatedCourses); // Save changes to local storage
+
+        return updatedCourses;
+    });
+
+    // Ensure Schedule component re-renders by updating preferences
+    setPref(courseName, [["blocks", [{ name: "LECT01", times: [[true, newTime, 2]] }]]]); 
+};
 
   // page mount effect: load local preferences, add courses.
 
@@ -100,6 +121,27 @@ const MainPage = () => {
       <div id='right-body'>
         <Schedule term="FALL"/>
         <Schedule term="WINTER" />
+
+        {/* Button to toggle suggested times modal */}
+        <button className="toggle-suggested-times" onClick={() => setShowSuggestedTimes(true)}>
+          Show Suggested Times
+        </button>
+
+        {/* Show suggested times modal when button is clicked */}
+        {showSuggestedTimes && (
+          <div className="modal">
+            <div className="modal-content">
+              <button className="close-modal" onClick={() => setShowSuggestedTimes(false)}>✖</button>
+              {courses.map((course, index) => (
+                <SuggestedTimes 
+                  key={index} 
+                  courseName={course.code} 
+                  updateCourseTime={updateCourseTime} 
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
     </SchedulingContext.Provider>
