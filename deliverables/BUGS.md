@@ -1,6 +1,7 @@
 ## Bug Reports
-| :--------------       | :---------      |
+
 | Problem report number | *insert # here* |
+| :--------------       | :---------      |
 | Reported by | *insert name* |
 | Date | *insert date* |
 | Program/Component Name | *insert fitting part* |
