@@ -28,13 +28,13 @@ const accountRepository = {
     const allkeys = await RealDatabase.allKeys(sql); // get all keys from the accounts table
     return allkeys.filter((key) =>
       key.username_email.startsWith(`${username}|`) 
-    )[0].username_email; // get the first key that starts with the username
+    )[0]?.username_email; // get the first key that starts with the username
   },
 
   getKeyFromEmail: async (email) => {
     let sql = `SELECT username_email FROM accounts`;
     const allkeys = await RealDatabase.allKeys(sql); // get all keys from the accounts table
-    return allkeys.filter((key) => key.username_email.endsWith(`|${email}`))[0].username_email; // get the first key that ends with the email
+    return allkeys.filter((key) => key.username_email.endsWith(`|${email}`))[0]?.username_email; // get the first key that ends with the email
   },
 };
 

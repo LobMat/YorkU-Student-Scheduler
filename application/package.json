@@ -23,5 +23,8 @@
       "backend/src/repositories/**/*",
       "frontend/dist/**/*"
     ]
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7"
   }
 }

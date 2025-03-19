@@ -1,5 +1,6 @@
 const { Pool } = require("pg");
 const DatabaseInterface = require("./DatabaseInterface");
+require("dotenv").config();
 // This file contains the methods which facilitate database communication in the context of business objects (just review atp).
 class RealDatabase extends DatabaseInterface {
   // Creates a pool object to connect to the database. pool object parameters are subject to change per device (currently are what work on my local machine).
@@ -11,12 +12,12 @@ class RealDatabase extends DatabaseInterface {
   }
   static async init() {
     this.pool = new Pool({
-      connectionString:
-        "postgresql://postgres.mkjowlfewqmbdjbexxxq:QXhyVaRcnqE8iY5W@aws-0-ca-central-1.pooler.supabase.com:6543/postgres",
+      connectionString: process.env.DATABASE_URL,
       max: 10,
       idleTimeoutMillis: 30000, // Close idle pools after 30 seconds
       connectionTimeoutMillis: 2000, // Return an error after 2 seconds if connection could not be established
     });
+    console.log(process.env.DATABASE_URL);
     console.log("Connected to database");
   }
 

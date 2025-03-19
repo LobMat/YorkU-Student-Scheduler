@@ -1,3 +1,4 @@
 .vscode
 /application/frontend/node_modules
 /application/frontend/dist
+/application/.env
