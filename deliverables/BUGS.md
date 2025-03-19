@@ -1,6 +1,6 @@
 ## Bug Reports
 
-| Problem report number | *insert # here* |
+| Problem Report # | *insert # here* |
 | :--------------       | :---------      |
 | Reported by | *insert name* |
 | Date | *insert date* |
