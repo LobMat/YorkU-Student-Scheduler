@@ -69,3 +69,20 @@
 | Resolution | Pending |
 | Resolved by |  |
 
+
+| Problem Report # | 4 |
+| :--------------       | :---------      |
+| Reported by | Zayn |
+| Date | 03/24/2025 |
+| Program/Component Name | YorkU-Account-Scheduler Friend features |
+| Version/Build | Main branch based on iter-2 |
+| Type | code |
+| Can Reproduce? | Yes |
+| Severity | 2 |
+| Priority | medium |
+| Summary | Clear dev command doesn’t remove friends correctly. |
+| Detailed Description | Using the clear dev command when you have one or more friends does remove the friend from your list but on the friends account it lists your account as a friend even though you have just removed this person from your list which will cause issues if trying to send them another friend request. |
+| Suggested Fix | Make it so that the user is removed from other users' friends lists when clearing all their own friends. |
+| Status | open*|
+| Resolution | pending |
+| Resolved by | N/A |
