@@ -1,5 +1,5 @@
-To setup the database, two steps are necessary to be completed. Note: it is assumed that postgreSQL is installed on your machine.
-1. Within `YorkU-Student-Scheduler/application` you must run the script `npm run setup-db` and follow the prompts (simply asks for your postgres default password).
-2. Within `YorkU-Student-Scheduler/application/backend/database/RealDatabase.js` you MUST change the password on line 17 to your own.
+FOR THE TEAM:
+The Database setup is now a bit different since to prevent the key just being placed here I stored it in a .env file. It should be posted in the Discord. Just place it in the application directory.
 
-That's all for the db setup.
+FOR THE TA AND PROF:
+By the time the final deliverable comes around, I can simply just post the key in the file it's needed. I might be flagged by GitHib for security but I have no concerns since it's a very small project.
