@@ -81,7 +81,7 @@
 | Severity | 2 |
 | Priority | medium |
 | Summary | Clear dev command doesn’t remove friends correctly. |
-| Detailed Description | Using the clear dev command when you have one or more friends does remove the friend from your list but on the friends account it lists your account as a friend even though you have just removed this person from your list which will cause issues if trying to send them another friend request. |
+| Detailed Description | Using the clear dev command when you have one or more friends removes the friend from your list, but on the friends account and database still has your account as a friend which will cause issues if you were to send them another friend request. |
 | Suggested Fix | Make it so that the user is removed from other users' friends lists when clearing all their own friends. |
 | Status | open|
 | Resolution | pending |
