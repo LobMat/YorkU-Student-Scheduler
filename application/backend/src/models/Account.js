@@ -1,16 +1,24 @@
-// This file contains the business object for a user account. 
+// This file contains the business object for a user account.
 // It will store related information such as the username, password, email, saved courses, friends, and reviews for this unique account instance.
 
 class Account {
-
   //#region - Account business object instance contructor
 
-  constructor(username, email, password, coursePreferenceMap={}, friendsList=[], requestList=[], reviewList=[], customActivityList=[]) {
+  constructor(
+    username,
+    email,
+    password,
+    coursePreferenceMap = {},
+    friendsList = [],
+    requestList = [],
+    reviewList = [],
+    customActivityList = []
+  ) {
     // parameters required to create a new account
     this.username = username;
     this.email = email;
     this.password = password;
-    
+
     // not required for creation, only used for updating.
     this.coursePreferenceMap = coursePreferenceMap;
     this.friendsList = friendsList;
@@ -22,8 +30,8 @@ class Account {
   //#endregion
 
   //#region - static methods
-  
-  // converts a passed in Account instance to its equivalent database-friendly object. 
+
+  // converts a passed in Account instance to its equivalent database-friendly object.
   static async getValueArray(account) {
     return [
       `${account.username}|${account.email}`,
@@ -44,10 +52,10 @@ class Account {
       keyFields[1], // email
       value.password, // password
       value.coursePrefs, // coursePreferenceMap
-      value.customActs,
       value.friends, // friendsList
       value.requests, // requestList
-      value.reviews // reviewList
+      value.reviews, // reviewList
+      value.customActs // customActivityList
     );
   }
 
@@ -57,7 +65,7 @@ class Account {
 
   // add friend
   addFriend(friendUsername) {
-    this.friendsList.push(friendUsername)
+    this.friendsList.push(friendUsername);
   }
   // remove friend
   removeFriend(friendUsername) {
@@ -78,7 +86,7 @@ class Account {
       this.requestList.splice(senderIndex, 1);
     }
   }
-  
+
   // add reference to a review
   addReview(reviewID) {
     this.reviewList.push(reviewID);
@@ -92,7 +100,6 @@ class Account {
   }
 
   //#endregion
-
 }
 
 module.exports = Account;

@@ -22,8 +22,8 @@ app.use('/courses', courseRouter);
 app.use('/accounts', accountRouter);
 app.use('/reviews', reviewRouter);
 
-writeCourseData();
-writeAccountData();
+//writeCourseData();
+//writeAccountData();
 
 const frontendPath = path.join(__dirname, "..", "..", "frontend", "dist");
 app.use(express.static(frontendPath));
