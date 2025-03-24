@@ -50,3 +50,22 @@
 | Status | resolved |
 | Resolution | fixed |
 | Resolved by | Mateo |
+
+
+| Problem Report # | 3 |
+| :--------------       | :---------      |
+| Reported by | Kunle |
+| Date | 03/24/2025 |
+| Program/Component Name | YorkU-Account-Scheduler Drag and Drop Scheduling |
+| Version/Build | Main branch based on iter-2 |
+| Type | code |
+| Can Reproduce? | Yes |
+| Severity | 2 |
+| Priority | medium |
+| Summary | Issue when adding custom activities that conflict with course components |
+| Detailed Description | When a custom activity is added that conflicts with a course component, the custom activity does not show up. |
+| Suggested Fix | Edit the schedule to account for conflicts, or disallow conflicts. |
+| Status | Open |
+| Resolution | Pending |
+| Resolved by |  |
+
