@@ -58,7 +58,7 @@
 | Date | 03/24/2025 |
 | Program/Component Name | YorkU-Account-Scheduler Drag and Drop Scheduling |
 | Version/Build | Main branch based on iter-2 |
-| Type | code |
+| Type | code/design |
 | Can Reproduce? | Yes |
 | Severity | 2 |
 | Priority | medium |
