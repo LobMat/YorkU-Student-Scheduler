@@ -16,3 +16,37 @@
 | Status | *open, closed, resolved* |
 | Resolution | *pending, fixed, cannot reproduce, duplicate, etc.* |
 | Resolved by | *insert name* |
+
+| Problem Report # | 1 |
+| :--------------       | :---------      |
+| Reported by | Mateo |
+| Date | 03/20/2025 |
+| Program/Component Name | YorkU-Account-Scheduler User Reviews |
+| Version/Build | Main branch based on iter-2 |
+| Type | code |
+| Can Reproduce? | Yes |
+| Severity | 3 |
+| Priority | medium |
+| Summary | Error when adding review |
+| Detailed Description | When trying to add a review on the website, there is an error when trying to add it to the database. Something to do with an incorrect type trying to be added to a field in the reviews table. |
+| Suggested Fix | Either change the type in the table in the DB or change the field to an accepted value when the review object is created. |
+| Status | resolved |
+| Resolution | fixed |
+| Resolved by | Mateo |
+
+| Problem Report # | 2 |
+| :--------------       | :---------      |
+| Reported by | Mateo |
+| Date | 03/22/2025 |
+| Program/Component Name | YorkU-Account-Scheduler User Reviews |
+| Version/Build | Main branch based on iter-2 |
+| Type | code |
+| Can Reproduce? | Yes |
+| Severity | 3 |
+| Priority | medium |
+| Summary | Issue when adding review |
+| Detailed Description | In the database, the array for ids of reviews made by a user gets added to their customActs column. It’s supposed to be added to the array of review ids. |
+| Suggested Fix | Find where the parameters are passed to the DB and correct it. |
+| Status | resolved |
+| Resolution | fixed |
+| Resolved by | Mateo |
