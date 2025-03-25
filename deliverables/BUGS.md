@@ -186,3 +186,37 @@ if a course is a duplicate, calling the backend, building empty course object, a
 | Resolution | Renamed text on button. |
 | Resolved by | Kunle |
 
+| Problem Report # | 11 |
+| :--------------       | :---------      |
+| Reported by | Mirza Baig |
+| Date | 3/24/2025 |
+| Program/Component Name | CustomActivities.jsx |
+| Version/Build | Main branch based on iteration 2 |
+| Type | code |
+| Can Reproduce? | Yes |
+| Severity | 2 |
+| Priority | low |
+| Summary | Custom activity time selection does not register properly, prompting an unnecessary error |
+| Detailed Description | The initialized custom activity time has a bug. When a user tries to apply the custom activity to the schedule with the initialized time selected (8:00 a.m.), the system incorrectly prompts the user to fill out all required fields, even though all fields have already been selected |
+| Suggested Fix | Ensure the system registers the default custom activity time as valid. Update validation logic to recognize pre-selected values and trigger a state update when a time is chosen. Add a re-validation check to prevent unnecessary errors |
+| Status | open |
+| Resolution | pending |
+| Resolved by | n/a |
+
+| Problem Report # | 12 |
+| :--------------       | :---------      |
+| Reported by | Mirza Baig |
+| Date | 3/24/2025 |
+| Program/Component Name | CustomActivities.jsx |
+| Version/Build | Main branch based on iteration 2 |
+| Type | code |
+| Can Reproduce? | Yes |
+| Severity | 2 |
+| Priority | low |
+| Summary | The custom activity form does not reset after adding a new activity |
+| Detailed Description | When a user adds a new custom activity after already adding one before, the custom activity selection box does not reset. Instead, all previously selected checkboxes, times, days, and semesters remain selected. This forces the user to manually deselect each previously chosen option before selecting their new custom activity details. |
+| Suggested Fix | Implement a function to reset all checkboxes, time selections, days, and semester selections when a new custom activity is being added|
+| Status | open |
+| Resolution | pending |
+| Resolved by | n/a |
+
