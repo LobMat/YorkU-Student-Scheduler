@@ -169,3 +169,20 @@ if a course is a duplicate, calling the backend, building empty course object, a
 | Status | open |
 | Resolution | pending|
 | Resolved by | N/A |
+
+| Problem Report # | 10 |
+| :--------------       | :---------      |
+| Reported by | Kunle |
+| Date | 03/24/2025 |
+| Program/Component Name | YorkU-Account-Scheduler LoginPage.jsx |
+| Version/Build | Main branch based on iter-2 |
+| Type | Design |
+| Can Reproduce? | Yes |
+| Severity | 1 |
+| Priority | low |
+| Summary | Login Button |
+| Detailed Description | The button was likely copied over from the registration page, and the original developer forgot to change the name. |
+| Status | Resolved |
+| Resolution | Renamed text on button. |
+| Resolved by | Kunle |
+
