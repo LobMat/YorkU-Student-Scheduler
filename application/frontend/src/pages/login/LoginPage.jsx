@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import  { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../App';
 import { useMountedEffect } from '../../logic/CustomEffects';
 import './LoginPage.css'
@@ -7,24 +7,24 @@ import { readSession, writeSession, writeLocal } from '../../logic/BrowserStorag
 function LoginPage() {
 
   //#region - instantiation
-  
+
   const navigate = useNavigate();
 
-  const {navigation: {hasSignedIn, navigationTrigger}} = useAppContext();
+  const { navigation: { hasSignedIn, navigationTrigger } } = useAppContext();
 
 
   // mount effect, check for valid login
   useEffect(() => { navigationTrigger() }, []);
 
   // post-mount effect, check for any changes to login status after first render.
-  useMountedEffect(()=> {
+  useMountedEffect(() => {
     if (hasSignedIn) {
       navigate('/');
     }
   }, [hasSignedIn])
 
   //hooks for input fields
-  const err =  readSession('loginErr') ?? ""; 
+  const err = readSession('loginErr') ?? "";
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -43,53 +43,53 @@ function LoginPage() {
     const parameters = new URLSearchParams();
     parameters.append('idField', `${formData.username}`);
     parameters.append('password', `${formData.password}`);
-    
+
     // backend call.
     fetch(`http://localhost:3000/accounts/login?${parameters.toString()}`)
-    .then(async response => {
-      const data = await response.json();
-      if (response.status == 200) {
-        writeLocal('id', data.key);
-        writeLocal('coursePrefs', data.prefs);
-        navigate('/');
-      } else {
-        writeSession('loginErr', data.err);
-        window.location.reload();
-      }
-    })
+      .then(async response => {
+        const data = await response.json();
+        if (response.status == 200) {
+          writeLocal('id', data.key);
+          writeLocal('coursePrefs', data.prefs);
+          navigate('/');
+        } else {
+          writeSession('loginErr', data.err);
+          window.location.reload();
+        }
+      })
   }
 
   //#endregion - selection handlers 
-  return(
+  return (
     <div className="login-page">
       <div className="form-container">
-          <form onSubmit={handleSubmit}>
-      <p>{err
-      }</p>    
-      <label htmlFor="username">Username or Email</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-        required
-      />
+        <form onSubmit={handleSubmit}>
+          <p>{err
+          }</p>
+          <label htmlFor="username">Username or Email</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
 
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-        required
-      />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-      <button type="submit">Register</button>
-    </form>
-   </div>
-   </div>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
   );
 }
 export default LoginPage
