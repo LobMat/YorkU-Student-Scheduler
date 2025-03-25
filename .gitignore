@@ -2,3 +2,5 @@
 /application/frontend/node_modules
 /application/frontend/dist
 /application/.env
+/application/node_modules/frontend/node_modules/**
+/application/node_modules/frontend/dist/**

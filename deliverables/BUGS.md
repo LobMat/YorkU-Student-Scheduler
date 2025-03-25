@@ -86,3 +86,70 @@
 | Status | open|
 | Resolution | pending |
 | Resolved by | N/A |
+
+
+| Problem Report # | 5 |
+| :--------------       | :---------      |
+| Reported by | Caleb Jones |
+| Date | 03/24/2025 |
+| Program/Component Name | SearchBar.jsx |
+| Version/Build | Main branch based on iter-2 |
+| Type | code smell |
+| Can Reproduce? | n/a |
+| Severity | 1 |
+| Priority | low |
+| Summary | Long search button handler function. |
+| Detailed Description | One function currently handles validating the query, checking for the special 'clear' command, checking
+if a course is a duplicate, calling the backend, building empty course object, and updating states and local storage. |
+| Suggested Fix | Break this up into smaller functions with clearer responsibilities. |
+| Status | resolved |
+| Resolution | broke up the handler into two handlers: handleClear() and handleAddCourse(). |
+| Resolved by | Caleb Jones |
+
+| Problem Report # | 6 |
+| :--------------       | :---------      |
+| Reported by | Caleb Jones |
+| Date | 03/24/2025 |
+| Program/Component Name | SearchBar.jsx |
+| Version/Build | Main branch based on iter-2 |
+| Type | code smell |
+| Can Reproduce? | n/a |
+| Severity | 1 |
+| Priority | low |
+| Summary | Duplicate code |
+| Detailed Description | Verbose and error-prone code is used to create 5 identical empty time blocks. |
+| Status | resolved |
+| Resolution | create a method for creating default time blocks to return this structure in a more elegant way. |
+| Resolved by | Caleb Jones |
+
+| Problem Report # | 7 |
+| :--------------       | :---------      |
+| Reported by | Caleb Jones |
+| Date | 03/24/2025 |
+| Program/Component Name | SearchBar.jsx |
+| Version/Build | Main branch based on iter-2 |
+| Type | code smell |
+| Can Reproduce? | n/a |
+| Severity | 1 |
+| Priority | low |
+| Summary | Data clumps |
+| Detailed Description | Deep nesting in construction with repetative patterns for creating 'uniqueActs' and 'commonActs'. |
+| Status | resolved |
+| Resolution | create a method for creating section preference object from course object. |
+| Resolved by | Caleb Jones |
+
+| Problem Report # | 8 |
+| :--------------       | :---------      |
+| Reported by | Caleb Jones |
+| Date | 03/24/2025 |
+| Program/Component Name | SearchBar.jsx |
+| Version/Build | Main branch based on iter-2 |
+| Type | code smell |
+| Can Reproduce? | n/a |
+| Severity | 1 |
+| Priority | low |
+| Summary | Console Test |
+| Detailed Description | Console testing in code searching which has not been removed yet. |
+| Status | resolved |
+| Resolution | Removed all console testing. |
+| Resolved by | Caleb Jones |

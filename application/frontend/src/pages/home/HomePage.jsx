@@ -101,6 +101,7 @@ const MainPage = () => {
       <div id='right-body'>
         <Schedule term="FALL" bool={overlayState==2}/>
         <Schedule term="WINTER" bool={overlayState==3}/>
+        
       </div>
 
 

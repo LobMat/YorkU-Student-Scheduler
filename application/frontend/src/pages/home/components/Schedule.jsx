@@ -2,6 +2,7 @@ import InteractiveGrid from './InteractiveGrid.jsx'
 import '../styles/Schedule.css'
 import { useMainContext } from '../HomePage.jsx'
 import { useMemo } from 'react';
+import Stats from './Stats.jsx';
 function Schedule({term, bool}) {
 
   const termChar = term.charAt(0);
@@ -111,6 +112,7 @@ function Schedule({term, bool}) {
         </div>
         <InteractiveGrid termSchedule={termSchedule} bool={bool}/>
       </div>
+      <Stats termSchedule={termSchedule}/>
     </>
   )
 }

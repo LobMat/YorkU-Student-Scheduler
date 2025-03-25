@@ -4,80 +4,89 @@ import { writeLocal } from "../../../logic/BrowserStorage";
 import { useMainContext } from "../HomePage";
 //#endregion
 
+const defaultTimeBlocks = () =>
+  Array.from({ length: 5 }, () => [false, 0, 0]);
+
+const buildSectionPreferences = (section) => ({
+  uniqueActChoice: 0,
+  commonActBlocks: section.commonActs.map((act) => ({
+    name: act.actName,
+    times: defaultTimeBlocks(),
+  })),
+  uniqueActBlocks: section.uniqueActs.map((act) => ({
+    name: act.actName,
+    times: defaultTimeBlocks(),
+  })),
+});
+
+const isClearCommand = (query) => query.trim().toLowerCase() === "clear";
+
 const SearchBar = () => {
-  
-  //#region - initialization
   const [query, setQuery] = useState("");
 
   const {
-    hooks: {prefs}, 
-    setters: {pushCourse},
-    dev: {initList, initMap},
+    hooks: { prefs },
+    setters: { pushCourse },
+    dev: { initList, initMap },
   } = useMainContext();
-         
-  //#endregion
 
-  //#region - handlers
-  const handleSearch = () => {
-    
-    // do nothing on empty query
-    if (!query.trim) return;
-      
-    // testing function: enter clear to empty course list
-    if (query == 'clear') {
-      initList([]);
-      initMap();
-      writeLocal('coursePrefs', {});
-    } 
-    // duplicate course
-    else if (prefs.current[query]) {
-      alert('Course already added.');
+  const handleClear = () => {
+    initList([]);
+    initMap();
+    writeLocal("coursePrefs", {});
+  };
+
+  const handleAddCourse = async () => {
+    const parameters = new URLSearchParams();
+    parameters.append("code", query);
+
+    const response = await fetch(
+      `http://localhost:3000/courses/add?${parameters}`,
+      { method: "GET" }
+    );
+    const data = await response.json();
+
+    if (!data.courseObject) {
+      alert("Course does not exist!");
+      return;
     }
 
-    // add course
-    else {
-      const parameters = new URLSearchParams();
-      parameters.append('code', `${query}`);
-      fetch(`http://localhost:3000/courses/add?${parameters.toString()}`, {method: 'GET'})
-      .then(response => response.json())
-      .then(data => {
-        if (data.courseObject)  {
-          console.log(data.courseObject);  //console test
+    const newPrefs = {
+      sectionChoice: 0,
+      sectionPreferences: data.courseObject.sections.map(buildSectionPreferences),
+    };
 
-          prefs.current[query] = {
-            sectionChoice: 0,
-            sectionPreferences: data.courseObject.sections.map(section=>({
-              uniqueActChoice: 0,
-              commonActBlocks:  section.commonActs.map((act)=>({name: act.actName, times: [[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]})),
-              uniqueActBlocks:  section.uniqueActs.map((act)=>({name: act.actName, times: [[false,0,0],[false,0,0],[false,0,0],[false,0,0],[false,0,0]]})),
-            }))
-          }
-          writeLocal('coursePrefs', prefs.current);
-          pushCourse(data.courseObject);
+    prefs.current[query] = newPrefs;
+    writeLocal("coursePrefs", prefs.current);
+    pushCourse(data.courseObject);
+  };
 
+  const handleSearch = async () => {
+    if (!query.trim()) return;
 
-        } else {
-          alert('Course does not exist!');
-        }
-      })
+    if (isClearCommand(query)) {
+      handleClear();
+    } else if (prefs.current[query]) {
+      alert("Course already added.");
+    } else {
+      await handleAddCourse();
     }
-  }
-  //#endregion
+  };
 
-  //#region - html return
-  return(
+  return (
     <div className="search-box">
-      <input className="search-input"
+      <input
+        className="search-input"
         type="text"
         placeholder="Enter course name..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
-      <button className="search-button" onClick={handleSearch}>Search</button>
+      <button className="search-button" onClick={handleSearch}>
+        Search
+      </button>
     </div>
-  )
-  //#endregion
-
-}
+  );
+};
 
 export default SearchBar;
