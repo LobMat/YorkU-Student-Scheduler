@@ -34,14 +34,14 @@ class AccountService {
     let err;
     if (!key) {
       err = "* No account with this username/email exists.";
-      return {key: undefined, prefs: undefined, err};
+      return {key: undefined, prefs: undefined, acts: undefined, err};
     } else {
       const accData = await accountRepository.readAccount(key);
       if (accData.password != password) {
         err = "* Password is incorrect.";
-        return {key: undefined, prefs: undefined, err};
+        return {key: undefined, prefs: undefined, acts: undefined, err};
       }
-      return {key: key, prefs: accData.coursePrefs, err: undefined};
+      return {key: key, prefs: accData.coursePrefs, acts: accData.customActs, err: undefined};
     }   
     
   }

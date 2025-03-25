@@ -14,9 +14,9 @@ exports.registerAccountController = async (req, res) => {
 exports.loginController = async (req, res) => {
   const idField = req.query.idField;
   const password = req.query.password;
-  const {key, prefs, err} = await AccountService.login(idField, password);
+  const {key, prefs, acts, err} = await AccountService.login(idField, password);
   if (!err) {
-    res.status(200).json({key:key, prefs:prefs});
+    res.status(200).json({key:key, prefs:prefs, customActs:acts});
   } else {
     res.status(201).json({err:err});
   }
