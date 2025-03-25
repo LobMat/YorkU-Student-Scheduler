@@ -165,7 +165,7 @@ if a course is a duplicate, calling the backend, building empty course object, a
 | Severity | 1 |
 | Priority | medium |
 | Summary | registration bug |
-| Detailed Description | After registration takes you to failed password login page |
+| Detailed Description | After registration (creating an account) it takes you to failed password login page |
 | Status | open |
 | Resolution | pending|
 | Resolved by | N/A |
@@ -216,6 +216,23 @@ if a course is a duplicate, calling the backend, building empty course object, a
 | Summary | The custom activity form does not reset after adding a new activity |
 | Detailed Description | When a user adds a new custom activity after already adding one before, the custom activity selection box does not reset. Instead, all previously selected checkboxes, times, days, and semesters remain selected. This forces the user to manually deselect each previously chosen option before selecting their new custom activity details. |
 | Suggested Fix | Implement a function to reset all checkboxes, time selections, days, and semester selections when a new custom activity is being added|
+| Status | open |
+| Resolution | pending |
+| Resolved by | n/a |
+
+| Problem Report # | 13 |
+| :--------------       | :---------      |
+| Reported by | Ahmet Karaca |
+| Date | 3/24/2025 |
+| Program/Component Name | RegisterPage.jsx |
+| Version/Build | Main branch based on iteration 2 |
+| Type | code smell |
+| Can Reproduce? | n/a  |
+| Severity | 1 |
+| Priority | low |
+| Summary | repetitive logic |
+| Detailed Description |  The readSession('errFlags')?.[n] statements are repeated for different form fields (username, email, passOne, etc.). |
+| Suggested Fix | We could create a helper function to retrieve the error message for a field. This will reduce redundancy and improve code clarity.|
 | Status | open |
 | Resolution | pending |
 | Resolved by | n/a |
