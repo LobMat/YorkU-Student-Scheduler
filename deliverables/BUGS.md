@@ -153,3 +153,19 @@ if a course is a duplicate, calling the backend, building empty course object, a
 | Status | resolved |
 | Resolution | Removed all console testing. |
 | Resolved by | Caleb Jones |
+
+| Problem Report # | 9 |
+| :--------------       | :---------      |
+| Reported by | Ahmet Karaca |
+| Date | 03/24/2025 |
+| Program/Component Name | RegisterPage.jsx |
+| Version/Build | Main branch based on iter-2 |
+| Type | routing bug |
+| Can Reproduce? | y |
+| Severity | 1 |
+| Priority | medium |
+| Summary | registration bug |
+| Detailed Description | After registration takes you to failed password login page |
+| Status | open |
+| Resolution | pending|
+| Resolved by | N/A |
