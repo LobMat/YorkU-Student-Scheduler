@@ -253,7 +253,18 @@ select {
 
 .checks {
   justify-items: left;
-  width: fit-content;
+  width: 100%;
+}
+
+.checks>div>label {
+  margin-left: 0.3rem;
+  /* Add spacing between the checkbox and label */
+}
+
+.checks>div {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 
