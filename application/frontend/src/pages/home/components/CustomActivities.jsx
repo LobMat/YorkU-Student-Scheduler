@@ -5,12 +5,12 @@ import { React, useState } from "react";
 const CustomActivities = (props) => {
 
     const [activityName, setActivityName] = useState("");
-    const [startTime, setStartTime] = useState(0);
+    const [startTime, setStartTime] = useState(-1);
     const [endTime, setEndTime] = useState(0);
     const [customVisible, setCustomVisible] = useState(false);
     const [selectedWeekdays, setSelectedWeekdays] = useState([]);
     const [selectedSemesters, setSelectedSemesters] = useState([]);
-    
+
     const handleWeekdayChange = (event) => {
         const { value, checked } = event.target;
         if (checked) {
@@ -47,14 +47,16 @@ const CustomActivities = (props) => {
         console.log("End Time:", endTime);
         console.log("Selected Weekdays:", selectedWeekdays);
         console.log("Selected Semesters:", selectedSemesters);
-        props.onSubmit(({name: activityName,
+        props.onSubmit(({
+            name: activityName,
             start: (parseInt(startTime)),
             end: (parseInt(endTime)),
-            weekdays: selectedWeekdays.map(weekday=>parseInt(weekday)),
-            semesters: selectedSemesters}));
-        setActivityName()
-        setStartTime()
-        setEndTime()
+            weekdays: selectedWeekdays.map(weekday => parseInt(weekday)),
+            semesters: selectedSemesters
+        }));
+        setActivityName("")
+        setStartTime(-1)
+        setEndTime(0)
         setSelectedWeekdays([])
         setSelectedSemesters([])
         setCustomVisible(false)
@@ -67,7 +69,7 @@ const CustomActivities = (props) => {
             <div>
             </div>
             <div className="custom-box-container" >
-                <button className="toggle" style={{ display: !customVisible ? 'flex' : 'none' }} onClick={() => setCustomVisible(true)}>Add Custom Activity</button>
+                <button className="toggle-button" style={{ display: !customVisible ? 'flex' : 'none' }} onClick={() => setCustomVisible(true)}>Add Custom Activity</button>
                 <div className="custom-box" style={{ display: customVisible ? 'flex' : 'none' }}>
                     <p >Enter Custom Activity</p>
                     <div className="box-head">
@@ -78,10 +80,9 @@ const CustomActivities = (props) => {
                             onChange={(e) => setActivityName(e.target.value)}
                         >
                         </input>
-
                         <div className="timeContainer">
                             <select className="dropdown" value={startTime} onChange={(e) => setStartTime(e.target.value)}>
-                                <option value="">Start Time</option>
+                                <option value={-1}>Start Time</option>
                                 <option value={0}>8:00 AM</option>
                                 <option value={1}>8:30 AM</option>
                                 <option value={2}>9:00 AM</option>
@@ -112,7 +113,7 @@ const CustomActivities = (props) => {
 
 
                             <select className="dropdown" value={endTime} onChange={(e) => setEndTime(e.target.value)}>
-                                <option value="">End Time</option>
+                                <option value={0}>End Time</option>
                                 <option value={1}>8:30 AM</option>
                                 <option value={2}>9:00 AM</option>
                                 <option value={3}>9:30 AM</option>
@@ -143,8 +144,8 @@ const CustomActivities = (props) => {
                         </div>
                     </div>
                     <div className="boxes">
-                        <div>
-                            <p>Which Days?</p>
+                        <div className="picker">
+                            <p>Weekdays:</p>
                             <div className="checks">
                                 <div>
                                     <input type="checkbox" // type of input
@@ -152,8 +153,9 @@ const CustomActivities = (props) => {
                                         name="Weekday" // purpose of checkbox. used to group values together.
                                         value={0}
                                         onChange={handleWeekdayChange}
+                                        checked={selectedWeekdays.includes("0")}
                                     />
-                                    <label>Monday</label>
+                                    <label> Monday</label>
                                 </div>
                                 <div>
                                     <input type="checkbox"
@@ -161,9 +163,9 @@ const CustomActivities = (props) => {
                                         name="Weekday"
                                         value={1}
                                         onChange={handleWeekdayChange}
-
+                                        checked={selectedWeekdays.includes("1")}
                                     />
-                                    <label >Tuesday</label>
+                                    <label > Tuesday</label>
                                 </div>
                                 <div>
                                     <input type="checkbox"
@@ -171,9 +173,9 @@ const CustomActivities = (props) => {
                                         name="Weekday"
                                         value={2}
                                         onChange={handleWeekdayChange}
-
+                                        checked={selectedWeekdays.includes("2")}
                                     />
-                                    <label>Wednesday</label>
+                                    <label> Wednesday</label>
                                 </div>
                                 <div>
                                     <input type="checkbox"
@@ -181,9 +183,9 @@ const CustomActivities = (props) => {
                                         name="Weekday"
                                         value={3}
                                         onChange={handleWeekdayChange}
-
+                                        checked={selectedWeekdays.includes("3")}
                                     />
-                                    <label >Thursday</label>
+                                    <label > Thursday</label>
                                 </div>
                                 <div>
                                     <input type="checkbox"
@@ -191,13 +193,14 @@ const CustomActivities = (props) => {
                                         name="Weekday"
                                         value={4}
                                         onChange={handleWeekdayChange}
+                                        checked={selectedWeekdays.includes("4")}
                                     />
-                                    <label >Friday</label>
+                                    <label > Friday</label>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <p>Which Semester?</p>
+                        <div className="picker">
+                            <p>Semester:</p>
                             <div className="checks">
                                 <div>
                                     <input type="checkbox"
@@ -205,8 +208,9 @@ const CustomActivities = (props) => {
                                         name="Semester"
                                         value="F"
                                         onChange={handleSemesterChange}
+                                        checked={selectedSemesters.includes("F")}
                                     />
-                                    <label>Fall</label>
+                                    <label> Fall</label>
                                 </div>
                                 <div>
                                     <input type="checkbox"
@@ -214,15 +218,17 @@ const CustomActivities = (props) => {
                                         name="Semester"
                                         value="W"
                                         onChange={handleSemesterChange}
+                                        checked={selectedSemesters.includes("W")}
                                     />
-                                    <label >Winter</label>
+                                    <label > Winter</label>
                                 </div>
                             </div>
+                            <div className="buttons">
+                                <button className="search-button2" onClick={handleSubmit}>Submit!</button>
+                                <button className="cancel-button" onClick={() => setCustomVisible(false)}>Cancel</button>
+                            </div>
+
                         </div>
-                    </div>
-                    <div className="buttons">
-                        <button className="cancel-button" onClick={() => setCustomVisible(false)}>Cancel</button>
-                        <button className="search-button2" onClick={handleSubmit}>Submit!</button>
                     </div>
                 </div>
             </div>
