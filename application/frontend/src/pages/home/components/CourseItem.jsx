@@ -1,4 +1,4 @@
-import { writeLocal } from "../../../logic/BrowserStorage";
+import { writeLocal, POST } from "../../../logic/BrowserStorage";
 import { useMainContext } from "../HomePage";
 import ActivityItem from "./ActivityItem";
 import '../styles/Overlay.css'
@@ -11,11 +11,11 @@ const CourseItem = ({ course }) => {
     getters: { getPref, getCourseValue }
   } = useMainContext();
 
-  const {code, title} = course;
+  const { code, title } = course;
   //#endregion
 
   //#region - handlers
-  
+
   // *** HANDLE COURSE SECTION CHANGE *** //
   const handleSectionChange = (newSection) => {
     // load preferences (fp) and data (fd) for the new section
@@ -38,7 +38,7 @@ const CourseItem = ({ course }) => {
     // write to local storage
     writeLocal('coursePrefs', prefs.current);
   }
-  
+
   // *** HANDLE SECTION UNIQUE ACTIVITY SELECTION *** //
   const handleUniqueActChange = (newUniqueActivity) => {
     // load preferences (fp) for the currently selected section.
@@ -59,9 +59,19 @@ const CourseItem = ({ course }) => {
     // write prefs to local storage
     writeLocal('coursePrefs', prefs.current);
   }
+
+  // *** HANDLE REMOVE COURSE *** //
+  const handleRemoveCourse = () => {
+    // remove course from preferences
+    delete prefs.current[code];
+    writeLocal('coursePrefs', prefs.current);
+
+    window.location.reload();
+  }
+
   //#endregion
 
-  
+
   //#region - html return
   return (
     <div className="course-item">
@@ -94,6 +104,9 @@ const CourseItem = ({ course }) => {
         ))}
         <ActivityItem course={course} type="unique" pos={course?.uniqueActChoice} />
       </div>
+
+      {/* clear button to reset specific activity */}
+      <button className="clear-button" onClick={() => handleRemoveCourse()}>Remove</button>
 
     </div>
   );
