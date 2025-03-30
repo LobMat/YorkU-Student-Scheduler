@@ -39,6 +39,22 @@ function App() {
   const [hasSignedIn, setHasSignedIn] = useState(false);
   const [overlayState, setOverlayState] = useState(0);
 
+  // Theme state
+  const [theme, setTheme] = useState(() => {
+    // Load theme from localStorage or default to dark
+    return localStorage.getItem("theme") || "dark-theme";
+  });
+
+  useEffect(() => {
+    console.log("Applying theme:", theme); // Debugging
+    document.body.className = theme;
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark-theme" ? "light-theme" : "dark-theme";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme); // Save theme to localStorage
+  };
 
   //#region - repeat fetch calls:
   const courseListFromPrefs = (prefObject) => {
@@ -130,6 +146,9 @@ function App() {
             <li><a href="/">Home</a></li>
             <ShownLinks hasSignedIn={hasSignedIn} />
           </ul>
+          <button className="theme-toggle-button" onClick={toggleTheme}>
+            {theme === "dark-theme" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          </button>
         </nav>
 
         <Routes>
