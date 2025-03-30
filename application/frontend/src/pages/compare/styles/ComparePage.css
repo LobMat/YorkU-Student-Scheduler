@@ -1,10 +1,29 @@
 #compare-left-body {
-  height: 100%; 
+  height: 100%;
+  width: 10vw;
 }
+
+#compare-left-body p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+#compare-left-body select {
+  display: flex;
+  width: 10vw;
+  padding: 5px;
+  margin: 0 10px;
+  border-radius: 5px;
+}
+
 #compare-right-body {
   border-left: 3px solid #A34848;
-  height: 100%; 
-  padding-right: 25px;
+  height: 100%;
+  width: 88vw;
+  padding-right: 20px;
   display: flex;
   flex-direction: row;
 }

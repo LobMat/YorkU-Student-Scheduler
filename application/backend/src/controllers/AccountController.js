@@ -76,7 +76,6 @@ exports.getPendingController = async(req, res) => {
 exports.getPrefsController = async(req, res) => {
   const {user} = req.query;
   const prefs = await AccountService.getPrefs(user);
-  console.log(prefs);
   if (prefs) {
     res.status(200).json({prefs: prefs});
   } else {
