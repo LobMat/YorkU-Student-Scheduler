@@ -311,6 +311,7 @@ select {
   align-content: center;
   gap: 0.5rem;
   border: 1px solid #aaa;
+
 }
 
 .activity-list-item {
@@ -325,6 +326,11 @@ select {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.activity-list-item>div>button {
+  color: #f9887e;
+}
+
 
 .item-info {
   margin-left: 2rem;

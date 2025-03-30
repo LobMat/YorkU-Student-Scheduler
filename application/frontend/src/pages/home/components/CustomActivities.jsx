@@ -1,11 +1,9 @@
 import { useMainContext } from "../HomePage";
-import { React, useState } from "react";
+import { act, React, useState } from "react";
 
 
 const CustomActivities = (props) => {
-    const { hooks: { customActivityList } } = useMainContext(); // Access customActivityList from context
-
-
+    const { hooks: { customActivityList } } = useMainContext();
     const [activityName, setActivityName] = useState("");
     const [startTime, setStartTime] = useState(-1);
     const [endTime, setEndTime] = useState(0);
@@ -25,7 +23,12 @@ const CustomActivities = (props) => {
 
     const days = ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"];
 
-    const semesters = { F: 'Fall', W: 'Winter' }
+    const semesters = { F: 'Fall', W: 'Winter' };
+
+    const handleDelete = (activity) => {
+        props.onRemoveAct((activity));
+        console.log("remove ", activity);
+    }
 
     const handleWeekdayChange = (event) => {
         const { value, checked } = event.target;
@@ -36,7 +39,6 @@ const CustomActivities = (props) => {
         }
     };
 
-    console.log(customActivityList)
     const handleSemesterChange = (event) => {
         const { value, checked } = event.target;
         if (checked) {
@@ -248,21 +250,26 @@ const CustomActivities = (props) => {
                 </div>
             </div>
             <div >
+
                 <ul>
-                    {customActivityList.map((activity, index) => (
-                        <div className="activity-list-item" key={index}>
-                            <div className="item-info">
-                                <strong>{activity.name}</strong> - {activity.semesters.map(sem => semesters[sem])}
-                                <p>{activity.weekdays.map(dayIndex => days[dayIndex]).join(", ")}</p>
-                                <p>{times[activity.start]} to {times[activity.end]}</p>
+                    {customActivityList && customActivityList.length > 0 ? (
+                        customActivityList.map((activity, index) => (
+                            <div className="activity-list-item" key={index}>
+                                <div className="item-info">
+                                    <strong>{activity.name}</strong> - {activity.semesters.map(sem => semesters[sem]).join(", ")}
+                                    <p>{activity.weekdays.map(dayIndex => days[dayIndex]).join(", ")}</p>
+                                    <p>{times[activity.start]} to {times[activity.end]}</p>
+                                </div>
+                                <div>
+                                    <button className="toggle-button" onClick={() => handleDelete(activity)}>
+                                        Delete
+                                    </button>
+                                </div>
                             </div>
-                            <div>
-                                <button className="toggle-button">
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <></>
+                    )}
                 </ul>
 
             </div>
