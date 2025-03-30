@@ -126,7 +126,7 @@ function App() {
       <Router>
         <nav className='headbar'>
           <img src={yustLogo} className="logo" />
-          <ul>
+          <ul className='nav-options'>
             <li><a href="/">Home</a></li>
             <ShownLinks hasSignedIn={hasSignedIn} />
           </ul>

@@ -18,11 +18,14 @@
   margin: 0;
   padding: 0;
 }
-body, html, #root {
+
+body,
+html,
+#root {
   width: 100vw;
   height: 100vh;
 
-  
+
 }
 
 #root {
@@ -34,13 +37,15 @@ body, html, #root {
 }
 
 #left-body {
-  overflow-y: auto; /* Enable vertical scrolling */
-  height: 100%;  
+  overflow-y: auto;
+  /* Enable vertical scrolling */
+  height: 100%;
 }
+
 #right-body {
   border-left: 3px solid #A34848;
-  height: 100%; 
-  overflow: hidden; 
+  height: 100%;
+  overflow: hidden;
   display: flex;
 }
 
@@ -49,6 +54,7 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -77,9 +83,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -90,9 +98,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
@@ -104,7 +114,19 @@ button:focus-visible {
   border-bottom: 3px solid #A34848;
   display: flex;
 }
+
 .logo {
   align-self: center;
   margin-left: 1em;
+}
+
+.nav-options {
+  display: flex;
+  /* Make list items horizontal */
+  gap: 25px;
+  /* Add spacing between items */
+  list-style: none;
+  /* Remove default bullet points */
+  margin: 28px;
+  padding: 0;
 }
