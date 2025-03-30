@@ -333,6 +333,13 @@ select {
 
 
 .item-info {
-  margin-left: 2rem;
+  margin-left: 1rem; 
   align-self: center;
+  justify-self: left;
+  text-align: left; 
+}
+
+.activity-name  {
+  font-size: 1.3rem;
+  color: #ff6f61;
 }

@@ -27,7 +27,6 @@ const CustomActivities = (props) => {
 
     const handleDelete = (activity) => {
         props.onRemoveAct((activity));
-        console.log("remove ", activity);
     }
 
     const handleWeekdayChange = (event) => {
@@ -60,12 +59,6 @@ const CustomActivities = (props) => {
             alert("Start time must be before end time.");
             return;
         }
-
-        console.log("Activity Name:", activityName);
-        console.log("Start Time:", startTime);
-        console.log("End Time:", endTime);
-        console.log("Selected Weekdays:", selectedWeekdays);
-        console.log("Selected Semesters:", selectedSemesters);
         props.onSubmit(({
             name: activityName,
             start: (parseInt(startTime)),
@@ -256,7 +249,7 @@ const CustomActivities = (props) => {
                         customActivityList.map((activity, index) => (
                             <div className="activity-list-item" key={index}>
                                 <div className="item-info">
-                                    <strong>{activity.name}</strong> - {activity.semesters.map(sem => semesters[sem]).join(", ")}
+                                    <strong className = "activity-name">{activity.name}</strong> - {activity.semesters.map(sem => semesters[sem]).join(", ")}
                                     <p>{activity.weekdays.map(dayIndex => days[dayIndex]).join(", ")}</p>
                                     <p>{times[activity.start]} to {times[activity.end]}</p>
                                 </div>
