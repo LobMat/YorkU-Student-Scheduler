@@ -255,7 +255,7 @@ const CustomActivities = (props) => {
                                 </div>
                                 <div>
                                     <button className="toggle-button" onClick={() => handleDelete(activity)}>
-                                        Delete
+                                        Remove
                                     </button>
                                 </div>
                             </div>
