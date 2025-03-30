@@ -114,6 +114,14 @@ class AccountService {
     return account.requests;
   }
 
+  // quick function to get the course preferences for a given account key.
+  // this is used for the compare page to get the course list of a friend.
+  static async getPrefs(idField){
+    const key = await accountRepository.getKeyFromUsername(idField);
+    const account = await accountRepository.readAccount(key);
+    return account.coursePrefs;
+  }
+
   //#endregion
 }
 

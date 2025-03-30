@@ -12,7 +12,7 @@ class RealDatabase extends DatabaseInterface {
   }
   static async init() {
     this.pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: 'postgresql://postgres.mkjowlfewqmbdjbexxxq:QXhyVaRcnqE8iY5W@aws-0-ca-central-1.pooler.supabase.com:6543/postgres',
       max: 10,
       idleTimeoutMillis: 30000, // Close idle pools after 30 seconds
       connectionTimeoutMillis: 2000, // Return an error after 2 seconds if connection could not be established

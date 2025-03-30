@@ -72,4 +72,15 @@ exports.getPendingController = async(req, res) => {
   const pending = await AccountService.getPendingList(id);
   res.status(200).json({pending: pending});
 }
+
+exports.getPrefsController = async(req, res) => {
+  const {user} = req.query;
+  const prefs = await AccountService.getPrefs(user);
+  console.log(prefs);
+  if (prefs) {
+    res.status(200).json({prefs: prefs});
+  } else {
+    res.status(400).json({prefs: []});
+  }
+}
 //#endregion
