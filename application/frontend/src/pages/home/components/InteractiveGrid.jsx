@@ -29,6 +29,8 @@ function InteractiveGrid({termSchedule, bool}) {
     setters: {setCourseValue, setPref}
   } = useMainContext(); 
 
+  var picker = 0;
+
   // this memoized array updates when changes are made to the course list (set the block positions) or the hovered block changes (to set the mouse event listeners). 
   const displayBlocks = useMemo(() => {
     
@@ -45,13 +47,15 @@ function InteractiveGrid({termSchedule, bool}) {
         // if there is an activity at this slot and it's span is not zero, add a block for this activity
         if (termSchedule[day][slot] && termSchedule[day][slot].span > 0) {
           if (termSchedule[day][slot].isCustom) {
+            // used to determine colors for custom activities that don't have a courseIndex
+            picker++;
             const {name,  span} = termSchedule[day][slot];
             tsm.push(
               <div key={`${day}-${slot}`} className="custom-slot" 
               style={{  
                 /* style for this specific activity */
-                borderColor: `#${colours[slot].border}`,
-                backgroundColor: `#${colours[slot].bg}`,
+                borderColor: `#${colours[picker % 5].border}`,
+                backgroundColor: `#${colours[picker % 5].bg}`,
                 color: `black`,
                 fontSize: `12px`,
                 gridColumn: `${day+1}`,
