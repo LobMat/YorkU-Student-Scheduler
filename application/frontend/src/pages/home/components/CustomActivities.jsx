@@ -1,15 +1,33 @@
 import { useMainContext } from "../HomePage";
-import { React, useState } from "react";
+import { act, React, useState } from "react";
 
 
 const CustomActivities = (props) => {
-
+    const { hooks: { customActivityList } } = useMainContext();
     const [activityName, setActivityName] = useState("");
     const [startTime, setStartTime] = useState(-1);
     const [endTime, setEndTime] = useState(0);
     const [customVisible, setCustomVisible] = useState(false);
     const [selectedWeekdays, setSelectedWeekdays] = useState([]);
     const [selectedSemesters, setSelectedSemesters] = useState([]);
+
+    const times = [
+        "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM",
+        "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+        "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM",
+        "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
+        "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM",
+        "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM",
+        "8:00 PM", "8:30 PM", "9:00 PM"
+    ];
+
+    const days = ["Mondays", "Tuesdays", "Wednesdays", "Thursdays", "Fridays"];
+
+    const semesters = { F: 'Fall', W: 'Winter' };
+
+    const handleDelete = (activity) => {
+        props.onRemoveAct((activity));
+    }
 
     const handleWeekdayChange = (event) => {
         const { value, checked } = event.target;
@@ -41,12 +59,6 @@ const CustomActivities = (props) => {
             alert("Start time must be before end time.");
             return;
         }
-
-        console.log("Activity Name:", activityName);
-        console.log("Start Time:", startTime);
-        console.log("End Time:", endTime);
-        console.log("Selected Weekdays:", selectedWeekdays);
-        console.log("Selected Semesters:", selectedSemesters);
         props.onSubmit(({
             name: activityName,
             start: (parseInt(startTime)),
@@ -66,8 +78,6 @@ const CustomActivities = (props) => {
 
     return (
         <>
-            <div>
-            </div>
             <div className="custom-box-container" >
                 <button className="toggle-button" style={{ display: !customVisible ? 'flex' : 'none' }} onClick={() => setCustomVisible(true)}>Add Custom Activity</button>
                 <div className="custom-box" style={{ display: customVisible ? 'flex' : 'none' }}>
@@ -232,6 +242,31 @@ const CustomActivities = (props) => {
                     </div>
                 </div>
             </div>
+            <div >
+
+                <ul>
+                    {customActivityList && customActivityList.length > 0 ? (
+                        customActivityList.map((activity, index) => (
+                            <div className="activity-list-item" key={index}>
+                                <div className="item-info">
+                                    <strong className = "activity-name">{activity.name}</strong> - {activity.semesters.map(sem => semesters[sem]).join(", ")}
+                                    <p>{activity.weekdays.map(dayIndex => days[dayIndex]).join(", ")}</p>
+                                    <p>{times[activity.start]} to {times[activity.end]}</p>
+                                </div>
+                                <div>
+                                    <button className="toggle-button" onClick={() => handleDelete(activity)}>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <></>
+                    )}
+                </ul>
+
+            </div>
+
         </>
     )
 }

@@ -195,6 +195,8 @@ select {
   width: 95%;
   justify-self: center;
   flex-direction: column;
+  margin-bottom: 1rem;
+
 }
 
 .custom-box>p {
@@ -309,4 +311,35 @@ select {
   align-content: center;
   gap: 0.5rem;
   border: 1px solid #aaa;
+
+}
+
+.activity-list-item {
+  display: flex;
+  background-color: #292929;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 1rem;
+  width: 95%;
+  justify-self: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.activity-list-item>div>button {
+  color: #f9887e;
+}
+
+
+.item-info {
+  margin-left: 1rem; 
+  align-self: center;
+  justify-self: left;
+  text-align: left; 
+}
+
+.activity-name  {
+  font-size: 1.3rem;
+  color: #ff6f61;
 }

@@ -26,7 +26,7 @@ const MainPage = () => {
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
   const [hoveredCourse, setHoveredCourse] = useState(undefined);
 
-  const [customActivityList, setActivityValue, getActivityValue, pushActivity, setCustomActivityList] = useObjectList();
+  const [customActivityList, setActivityValue, getActivityValue, pushActivity, setCustomActivityList, removeActivity] = useObjectList();
   //write locally... 
 
   const {
@@ -83,12 +83,22 @@ const MainPage = () => {
     writeLocal('customActs', customActivityList)
   }, [customActivityList])
 
+  const removeCustom = (activity) => {
+    removeActivity(activity)
+  }
+  useMountedEffect(() => {
+    writeLocal('customActs', customActivityList)
+  }, [customActivityList])
+
+
+
+
   //#region - html return
   return (
     <SchedulingContext.Provider value={{ hooks, getters, setters, dev }}>
       <div id='left-body'>
         <SearchBar />
-        <CustomActivities onSubmit={getActivity} />
+        <CustomActivities onSubmit={getActivity} onRemoveAct={removeCustom} />
         <div className="course-list">
           <ul>
             {
