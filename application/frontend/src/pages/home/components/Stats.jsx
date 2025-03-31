@@ -1,42 +1,99 @@
+import { useEffect, useState } from "react";
+import "../styles/Stats.css";
 
+function Stats({ termSchedule, term, onClose }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [fallStats, setFallStats] = useState({ timesSpent: [], timesBetween: [] });
+  const [winterStats, setWinterStats] = useState({ timesSpent: [], timesBetween: [] });
 
-function Stats({termSchedule}) {
+  const dayLabels = ["MON", "TUE", "WED", "THU", "FRI"];
 
-  // iterate through each day of the term schedule
-  const timesSpent = [0,0,0,0,0];
-  const timesBetween = [0,0,0,0,0];
-  const blocksToTime = (blocks) => `${Math.floor(blocks/2)}h${(blocks%2 == 1) ? '30m' : ''}`;
-  
-  for (let i = 0; i < 5; i++) {
-    let startFound = false;
-    let timeSinceLastAct = 0;
-    // iterate through each block of the day
-    for (let j = 0; j < 26; j++) {
-      if (termSchedule[i][j]) {
-        startFound = true;
-        timesSpent[i] += 1;
-        timesBetween[i] += timeSinceLastAct;
-        timeSinceLastAct = 0;
-      } else {
-        timeSinceLastAct += (startFound) ? 1 : 0;
+  const getStats = (schedule = []) => {
+    const timesSpent = [0, 0, 0, 0, 0];
+    const timesBetween = [0, 0, 0, 0, 0];
+
+    for (let i = 0; i < 5; i++) {
+      let startFound = false;
+      let timeSinceLastAct = 0;
+      const day = schedule[i] || [];
+      for (let j = 0; j < 26; j++) {
+        if (day[j] && !day[j].isConflict) {
+          startFound = true;
+          timesSpent[i]++;
+          timesBetween[i] += timeSinceLastAct;
+          timeSinceLastAct = 0;
+        } else {
+          timeSinceLastAct += startFound ? 1 : 0;
+        }
       }
     }
-  }
+
+    return { timesSpent, timesBetween };
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      setFallStats(getStats(term.FALL));
+      setWinterStats(getStats(term.WINTER));
+    }
+  }, [isOpen, term]);
+
+  const blocksToTime = (blocks) =>
+    `${Math.floor(blocks / 2)}h${blocks % 2 === 1 ? "30m" : ""}`;
+
   return (
-  <>
-      <div className="stats">
-        <h3><br/><u>STATS</u><br /></h3>
-        <div className="stats-grid">
-        <span><b>MON:</b>&emsp;</span><span>{blocksToTime(timesSpent[0])} spent in class.</span><span>{blocksToTime(timesBetween[0])} spent between classes.<br/></span>
-        <span><b>TUE:</b>&emsp;</span><span>{blocksToTime(timesSpent[1])} spent in class.</span><span>{blocksToTime(timesBetween[1])} spent between classes.<br/></span>
-        <span><b>WED:</b>&emsp;</span><span>{blocksToTime(timesSpent[2])} spent in class.</span><span>{blocksToTime(timesBetween[2])} spent between classes.<br/></span>
-        <span><b>THU:</b>&emsp;</span><span>{blocksToTime(timesSpent[3])} spent in class.</span><span>{blocksToTime(timesBetween[3])} spent between classes.<br/></span>
-        <span><b>FRI:</b>&emsp;</span><span>{blocksToTime(timesSpent[4])} spent in class.</span><span>{blocksToTime(timesBetween[4])} spent between classes.<br/></span>
+    <>
+      <button className="open-modal-btn" onClick={() => setIsOpen(true)}>
+        📊 View Weekly Stats
+      </button>
+
+      {isOpen && (
+        <div className="modal-overlay" onClick={() => setIsOpen(false)}>
+          <div className="modal-content scrollable" onClick={(e) => e.stopPropagation()}>
+            <button className="close-modal-btn" onClick={onClose}>
+              ✖ Close
+            </button>
+
+            {/* Fall Term */}
+            <h3 className="stat-title">🍂 Fall Term</h3>
+            <div className="stat-table">
+              {dayLabels.map((day, i) => (
+                <div className="stat-row" key={`fall-${i}`}>
+                  <div className="stat-day">{day}</div>
+                  <div className="stat-entry">
+                    <span className="in-class">
+                      {blocksToTime(fallStats.timesSpent[i])} in class
+                    </span>
+                    <span className="between-class">
+                      {blocksToTime(fallStats.timesBetween[i])} between
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Winter Term */}
+            <h3 className="stat-title">❄️ Winter Term</h3>
+            <div className="stat-table">
+              {dayLabels.map((day, i) => (
+                <div className="stat-row" key={`winter-${i}`}>
+                  <div className="stat-day">{day}</div>
+                  <div className="stat-entry">
+                    <span className="in-class">
+                      {blocksToTime(winterStats.timesSpent[i])} in class
+                    </span>
+                    <span className="between-class">
+                      {blocksToTime(winterStats.timesBetween[i])} between
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
-
 }
 
 export default Stats;

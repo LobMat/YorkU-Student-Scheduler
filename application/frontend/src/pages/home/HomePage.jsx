@@ -8,7 +8,9 @@ import CourseItem from "./components/CourseItem";
 import Schedule from "./components/Schedule";
 import { useAppContext } from "../../App";
 import CustomActivities from "./components/CustomActivities";
+import Stats from "./components/Stats";
 import './styles/LeftBody.css'
+import "./styles/Stats.css";
 //#endregion
 
 //#region - context creation
@@ -25,6 +27,9 @@ const MainPage = () => {
   const [courses, getCourseValue, setCourseValue, pushCourse, initList] = useObjectList();
   const [prefs, getPref, setPref, initMap] = useObjectRef();  //an object ref which stores the local preferences.
   const [hoveredCourse, setHoveredCourse] = useState(undefined);
+  const fallSchedule = getCourseValue("FALL", ["blocks"]) || [];
+  const winterSchedule = getCourseValue("WINTER", ["blocks"]) || [];
+
 
   const [customActivityList, setActivityValue, getActivityValue, pushActivity, setCustomActivityList, removeActivity] = useObjectList();
   //write locally... 
@@ -47,13 +52,15 @@ const MainPage = () => {
 
   //#region - effects
 
+
+
   // do on page mount
   useEffect(() => {
     navigationTrigger();                  // check for valid sign in
     initMap(readLocal('coursePrefs'));    // load local prefs into reference
     setCustomActivityList(readLocal('customActs'));
     courseListFromPrefs(prefs.current).then(list => initList(list));   // set UI state to store the data
-
+    
     // set-up the course preference map database storage interval:
     const interval = setInterval(() => {
       if (timeTilSave.current > -1) {
@@ -111,9 +118,9 @@ const MainPage = () => {
       <div id='right-body'>
         <Schedule term="FALL" bool={overlayState == 2} />
         <Schedule term="WINTER" bool={overlayState == 3} />
-
       </div>
-
+      
+      {/* <Stats fallSchedule={fallSchedule} winterSchedule={winterSchedule} /> */}
 
     </SchedulingContext.Provider>
   );
