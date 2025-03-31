@@ -50,13 +50,14 @@ function InteractiveGrid({termSchedule, bool}) {
           if (termSchedule[day][slot].isCustom) {
             // used to determine colors for custom activities that don't have a courseIndex
             picker++;
-            const {name,  span} = termSchedule[day][slot];
+            const {isCustom, name,  span, customIndex} = termSchedule[day][slot];
+            console.log(customIndex)
             tsm.push(
               <div key={`${day}-${slot}`} className="custom-slot" 
               style={{  
                 /* style for this specific activity */
-                borderColor: `#${colours[picker % 5].border}`,
-                backgroundColor: `#${colours[picker % 5].bg}`,
+                borderColor: `#${colours[customIndex].border}`,
+                backgroundColor: `#${colours[customIndex].bg}`,
                 color: `black`,
                 fontSize: `12px`,
                 gridColumn: `${day+1}`,

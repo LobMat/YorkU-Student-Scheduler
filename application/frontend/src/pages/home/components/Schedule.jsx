@@ -5,6 +5,10 @@ import { useMemo } from 'react';
 import Stats from './Stats.jsx';
 function Schedule({ term, bool }) {
 
+  const customActivityColors = new Map();
+  let customActivityIndex = 0;
+
+
   const termChar = term.charAt(0);
   const {
     hooks: { courses, customActivityList },
@@ -56,47 +60,52 @@ function Schedule({ term, bool }) {
 
     customActivityList?.forEach(activity => {
       if (activity.semesters.find(sem => sem == termChar) && activity.start < activity.end) {
+        if (!customActivityColors.has(activity.name)) {
+          customActivityColors.set(activity.name, customActivityIndex++);
+        }
+
         activity.weekdays.forEach(weekday => {
           let prevTile = null; // To track the previous tile
           let prevIndex = -1; // To track the index of the previous tile
-          
+
           for (let k = activity.start; k < activity.end; k++) {
             // If the slot is already occupied, mark it as a conflict
             if (returnArr[weekday][k]) {
               returnArr[weekday][k] = {
+                isCustom: false,
                 isConflict: true,
                 name: "CONFLICT", // Mark the slot as a conflict
                 span: 1,
+                customIndex: -1, // Use consistent color index
               };
-            } 
+            }
             // If the slot is empty, populate with the custom activity
             else {
               returnArr[weekday][k] = {
                 isCustom: true,
+                isConflict: false,
                 name: activity.name,
                 span: 1,  // Each slot gets a custom activity with a span of 1
+                customIndex: customActivityColors.get(activity.name) % 5, // Use consistent color index
               };
-              
+
             }
-                          // Check if the current tile is the same as the previous one (adjacent)
-                          if (prevTile && returnArr[weekday][k].name === prevTile.name && returnArr[weekday][k].isCustom === prevTile.isCustom) {
-                            // Merge the tiles by increasing the span of the previous tile
-                            prevTile.span += 1;
-                            returnArr[weekday][prevIndex].span = prevTile.span;  // Update the span in the returnArr
-                          } else {
-                            // Update the previous tile with the current one details
-                            prevTile = returnArr[weekday][k];
-                            prevIndex = k;
-                          }
-            
+            // Check if the current tile is the same as the previous one (adjacent)
+            if (prevTile && returnArr[weekday][k].name === prevTile.name && returnArr[weekday][k].isCustom === prevTile.isCustom) {
+              // Merge the tiles by increasing the span of the previous tile
+              prevTile.span += 1;
+              returnArr[weekday][prevIndex].span = prevTile.span;  // Update the span in the returnArr
+            } else {
+              // Update the previous tile with the current one details
+              prevTile = returnArr[weekday][k];
+              prevIndex = k;
+            }
+
           }
         });
       }
     });
-        // iterate twice, first to check if its okay to populate with this activity
-    // second to actually populate with the activity
 
-    console.log(returnArr)
     return returnArr;
   }, [courses, customActivityList]);
 
