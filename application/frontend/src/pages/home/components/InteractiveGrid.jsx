@@ -77,8 +77,8 @@ function InteractiveGrid({termSchedule, bool}) {
               <div key={`${day}-${slot}`} className="custom-slot" 
               style={{  
                 /* style for this specific activity */
-                borderColor: '#D22B2B',
-                backgroundColor: '#880808',
+                borderColor: '#880808',
+                backgroundColor: '#D22B2B',
                 color: `black`,
                 fontSize: `12px`,
                 gridColumn: `${day+1}`,
