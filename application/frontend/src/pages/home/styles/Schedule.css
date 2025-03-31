@@ -93,3 +93,9 @@ border-color: #bc6464;
   border-style: solid;
   border-radius: 10px;
 }
+
+.conflict {
+  background-color: red !important;  
+  border-color: darkred !important;  
+  color: white !important; 
+}

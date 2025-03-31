@@ -57,28 +57,46 @@ function Schedule({ term, bool }) {
     customActivityList?.forEach(activity => {
       if (activity.semesters.find(sem => sem == termChar) && activity.start < activity.end) {
         activity.weekdays.forEach(weekday => {
-          let canPopulate = true;
-          for (let j = 0; j < 2; j++) {
-            for (let k = activity.start; k < activity.end; k++) {
-              if (j == 0 && returnArr[weekday][k]) {
-                canPopulate = false;
-                break;
-              } else if (j == 1 && canPopulate) {
-                returnArr[weekday][k] = {
-                  isCustom: true,
-                  name: activity.name,
-                  span: activity.end - activity.start,
-                };
-              }
+          let prevTile = null; // To track the previous tile
+          let prevIndex = -1; // To track the index of the previous tile
+          
+          for (let k = activity.start; k < activity.end; k++) {
+            // If the slot is already occupied, mark it as a conflict
+            if (returnArr[weekday][k]) {
+              returnArr[weekday][k] = {
+                isConflict: true,
+                name: "CONFLICT", // Mark the slot as a conflict
+                span: 1,
+              };
+            } 
+            // If the slot is empty, populate with the custom activity
+            else {
+              returnArr[weekday][k] = {
+                isCustom: true,
+                name: activity.name,
+                span: 1,  // Each slot gets a custom activity with a span of 1
+              };
+              
             }
+                          // Check if the current tile is the same as the previous one (adjacent)
+                          if (prevTile && returnArr[weekday][k].name === prevTile.name && returnArr[weekday][k].isCustom === prevTile.isCustom) {
+                            // Merge the tiles by increasing the span of the previous tile
+                            prevTile.span += 1;
+                            returnArr[weekday][prevIndex].span = prevTile.span;  // Update the span in the returnArr
+                          } else {
+                            // Update the previous tile with the current one details
+                            prevTile = returnArr[weekday][k];
+                            prevIndex = k;
+                          }
+            
           }
-        })
+        });
       }
-    }
-    )
-    // iterate twice, first to check if its okay to populate with this activity
+    });
+        // iterate twice, first to check if its okay to populate with this activity
     // second to actually populate with the activity
 
+    console.log(returnArr)
     return returnArr;
   }, [courses, customActivityList]);
 
