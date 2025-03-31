@@ -8,23 +8,41 @@
   padding: 20px;
 }
 
+/* Ensure the Search Bar stays fixed in the center */
 .friend-search-bar {
   margin-bottom: 20px;
-  max-width: 400px;
+  max-width: 800px; /* Double the length of the search bar */
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
+  position: relative;
+  display: flex; /* Use flexbox to center the search bar */
+  justify-content: center; /* Center horizontally */
+  border: 2px solid #A34848; /* Add a frame around the search bar */
+  border-radius: 8px; /* Rounded corners for the frame */
+  padding: 10px; /* Add padding inside the frame */
+  background-color: transparent; /* Match the page background */
 }
 
-
+/* Ensure the Friends Container has consistent spacing */
 .friends-container {
-  display: flex; 
-  gap: 40px; 
-  align-items: flex-start; 
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between; /* Distribute space evenly */
+  width: 100%; /* Ensure the container spans the full width */
 }
+
+/* Pending Requests Section */
 .pending-requests {
-  flex: 1; 
+  flex: 1;
   max-width: 50%;
+  min-width: 300px;
+  height: 200px; /* Set a fixed height to prevent layout shifts */
+  overflow-y: auto;
+  transition: all 0.3s ease;
+  border: 2px solid #A34848; /* Add a frame around the pending requests */
+  border-radius: 8px; /* Rounded corners for the frame */
+  padding: 10px; /* Add padding inside the frame */
+  background-color: transparent; /* Match the page background */
 }
 
 .pending-requests ul {
@@ -47,10 +65,18 @@
   justify-content: space-between;
 }
 
+/* Friend List Section */
 .friend-list {
-  flex: 1; 
-  width: 100%; 
+  flex: 2;
+  width: 100%;
   margin-top: 20px;
+  min-height: 300px; 
+  padding-bottom: 20px; 
+  box-sizing: border-box;
+  border: 2px solid #A34848; /* Add a frame around the friend list */
+  border-radius: 8px; /* Rounded corners for the frame */
+  padding: 10px; /* Add padding inside the frame */
+  background-color: transparent; /* Match the page background */
 }
 
 .friend-list ul {
@@ -70,7 +96,7 @@
   border-radius: 8px; 
   padding: 20px; 
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   font-size: 18px; 
 }
 
@@ -82,4 +108,18 @@ button {
   margin-left: 10px;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.remove-friend-icon {
+  background-color: #a34848;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.remove-friend-icon:hover {
+  background-color: #ff5c5c;
 }

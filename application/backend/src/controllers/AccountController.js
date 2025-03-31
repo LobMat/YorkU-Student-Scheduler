@@ -72,4 +72,39 @@ exports.getPendingController = async(req, res) => {
   const pending = await AccountService.getPendingList(id);
   res.status(200).json({pending: pending});
 }
+
+exports.removeFriendController = async (req, res) => {
+  const { key, friendUsername } = req.body;
+  try {
+    await AccountService.removeFriend(key, friendUsername);
+    res.status(200).json({ message: "Friend removed successfully." });
+  } catch (error) {
+    console.error("Error removing friend:", error);
+    res.status(500).json({ message: "Failed to remove friend." });
+  }
+}
+
+exports.denyFriendRequestController = async (req, res) => {
+  const { key, senderUsername } = req.body;
+  try {
+    await AccountService.denyFriendRequest(key, senderUsername);
+    res.status(200).json({ message: "Friend request denied successfully." });
+  } catch (error) {
+    console.error("Error denying friend request:", error);
+    res.status(500).json({ message: "Failed to deny friend request." });
+  }
+}
+
+exports.acceptFriendRequestController = async (req, res) => {
+  const { key, senderUsername } = req.body;
+  try {
+    await AccountService.acceptFriendRequest(key, senderUsername);
+    res.status(200).json({ message: "Friend request accepted successfully." });
+  } catch (error) {
+    console.error("Error accepting friend request:", error);
+    res.status(500).json({ message: "Failed to accept friend request." });
+  }
+}
+;
+
 //#endregion

@@ -96,28 +96,63 @@ class AccountService {
       return 1;
     }
   }
-    // accept incoming friend request. 
-    static async acceptFriendRequest(recieverKey, senderUsername){
-      const receiver = Account.getInstance(await accountRepository.readAccount(recieverKey));
-      if (!receiver) return `bad call: receiver doesnt exist`;
-  
+
+    static async acceptFriendRequest(key, senderUsername){
+      const receiver = Account.getInstance(await accountRepository.readAccount(key));
+      if (!receiver) throw new Error(`Receiver account with key ${key} does not exist.`);
+    
+      const senderKey = await accountRepository.getKeyFromUsername(senderUsername);
+      if (!senderKey) throw new Error(`Sender with username ${senderUsername} does not exist.`);
+    
+      const sender = Account.getInstance(await accountRepository.readAccount(senderKey));
+      if (!sender) throw new Error(`Sender account with key ${senderKey} does not exist.`);
+    
       if (receiver.requestList && receiver.requestList.includes(senderUsername)) {
-          receiver.addFriend(senderUsername);
-          receiver.removeRequest(senderUsername);
-          await accountRepository.writeAccount(receiver);
-          return 0;
+        receiver.addFriend(senderUsername);
+        receiver.removeRequest(senderUsername);
+        await accountRepository.writeAccount(receiver);
+    
+        sender.addFriend(receiver.username);
+        await accountRepository.writeAccount(sender);
+    
+        return 0;
       } else {
-          return 1;
+        return 1;
       }
     }
   
+    // Deny a friend request
+    static async denyFriendRequest(key, senderUsername) {
+      const receiver = Account.getInstance(await accountRepository.readAccount(key));
+      if (!receiver) throw new Error(`Receiver account with key ${key} does not exist.`);
   
+  
+      if (receiver.requestList && receiver.requestList.includes(senderUsername)) {
+        receiver.removeRequest(senderUsername);
+  
+        await accountRepository.writeAccount(receiver);
+      } else {
+        throw new Error(`Friend request from ${senderUsername} does not exist.`);
+      }
+    }
+  
+  // Remove a friend
     static async removeFriend(key, friendUsername) {
+
       const account = Account.getInstance(await accountRepository.readAccount(key));
-      if (!account) return `bad call: account doesnt exist`;
-      
+      if (!account) throw new Error(`Account with key ${key} does not exist.`);
+
+      const friendKey = await accountRepository.getKeyFromUsername(friendUsername);
+      if (!friendKey) throw new Error(`Friend with username ${friendUsername} does not exist.`);
+    
+      const friendAccount = Account.getInstance(await accountRepository.readAccount(friendKey));
+      if (!friendAccount) throw new Error(`Friend account with key ${friendKey} does not exist.`);
+
       account.removeFriend(friendUsername);
+      friendAccount.removeFriend(account.username);
+
       await accountRepository.writeAccount(account);
+      await accountRepository.writeAccount(friendAccount);
     }
 
   //#region - services used in development for quickly checking functionalities of friends list.
@@ -125,7 +160,7 @@ class AccountService {
     return await accountRepository.getKeyFromUsername(username);
   }
 
-  static async clearFriendsList(key){
+  static async clearFriendsList(key) {
     const account = Account.getInstance(await accountRepository.readAccount(key));
 
     account.friendsList = [];
@@ -133,117 +168,10 @@ class AccountService {
     await accountRepository.writeAccount(account);
   }
 
-  static async getPendingList(key){
+  static async getPendingList(key) {
     const account = await accountRepository.readAccount(key);
     return account.requests;
   }
-
-  //#endregion
-
-  // Accept a friend request
-  static async acceptFriendRequest(receiverKey, senderUsername) {
-    const receiver = Account.getInstance(await accountRepository.readAccount(receiverKey));
-    if (!receiver) throw new Error(`Receiver account with key ${receiverKey} does not exist.`);
-
-    const senderKey = await accountRepository.getKeyFromUsername(senderUsername);
-    if (!senderKey) throw new Error(`Sender with username ${senderUsername} does not exist.`);
-
-    const sender = Account.getInstance(await accountRepository.readAccount(senderKey));
-    if (!sender) throw new Error(`Sender account with key ${senderKey} does not exist.`);
-
-    if (receiver.requestList && receiver.requestList.includes(senderUsername)) {
-
-      receiver.addFriend(senderUsername);
-      sender.addFriend(receiver.username);
-
-
-      receiver.removeRequest(senderUsername);
-
-
-      await accountRepository.writeAccount(receiver);
-      await accountRepository.writeAccount(sender);
-    } else {
-      throw new Error(`Friend request from ${senderUsername} does not exist.`);
-    }
-  }
-
-  // Deny a friend request
-  static async denyFriendRequest(receiverKey, senderUsername) {
-    const receiver = Account.getInstance(await accountRepository.readAccount(receiverKey));
-    if (!receiver) throw new Error(`Receiver account with key ${receiverKey} does not exist.`);
-
-
-    if (receiver.requestList && receiver.requestList.includes(senderUsername)) {
-      // Remove the request
-      receiver.removeRequest(senderUsername);
-
-
-      await accountRepository.writeAccount(receiver);
-    } else {
-      throw new Error(`Friend request from ${senderUsername} does not exist.`);
-    }
-  }
-
-// Remove a friend
-  static async removeFriend(key, friendUsername) {
-    const account = Account.getInstance(await accountRepository.readAccount(key));
-    if (!account) throw new Error(`Account with key ${key} does not exist.`);
-
-    const friendKey = await accountRepository.getKeyFromUsername(friendUsername);
-    if (!friendKey) throw new Error(`Friend with username ${friendUsername} does not exist.`);
-
-    const friendAccount = Account.getInstance(await accountRepository.readAccount(friendKey));
-    if (!friendAccount) throw new Error(`Friend account with key ${friendKey} does not exist.`);
-
-
-    account.removeFriend(friendUsername);
-    friendAccount.removeFriend(account.username);
-
-    await accountRepository.writeAccount(account);
-    await accountRepository.writeAccount(friendAccount);
-  }
 }
-
+  //#endregion
 module.exports = AccountService;
-
-const express = require('express');
-const router = express.Router();
-const AccountService = require('../services/AccountService');
-
-// Accept a friend request
-router.post('/acceptFriend', async (req, res) => {
-  const { receiverKey, senderUsername } = req.body;
-  try {
-    await AccountService.acceptFriendRequest(receiverKey, senderUsername);
-    res.status(200).send("Friend request accepted.");
-  } catch (error) {
-    console.error("Error accepting friend request:", error);
-    res.status(500).send(error.message);
-  }
-});
-
-// Deny a friend request
-router.post('/denyFriend', async (req, res) => {
-  const { receiverKey, senderUsername } = req.body;
-  try {
-    await AccountService.denyFriendRequest(receiverKey, senderUsername);
-    res.status(200).send("Friend request denied.");
-  } catch (error) {
-    console.error("Error denying friend request:", error);
-    res.status(500).send(error.message);
-  }
-});
-
-// Remove a friend
-router.post('/removeFriend', async (req, res) => {
-  const { key, friendUsername } = req.body;
-  try {
-    await AccountService.removeFriend(key, friendUsername);
-    res.status(200).send("Friend removed successfully.");
-  } catch (error) {
-    console.error("Error removing friend:", error);
-    res.status(500).send(error.message);
-  }
-});
-
-module.exports = router;

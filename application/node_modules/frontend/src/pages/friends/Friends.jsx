@@ -58,7 +58,7 @@ const Friends = () => {
   //#region - handlers
   const handleAcceptRequest = async (username) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/acceptFriend`, POST({ receiverKey: readLocal('id'), senderUsername: username }));
+      const response = await fetch(`http://localhost:3000/accounts/acceptFriendRequest`, POST({ key: readLocal('id'), senderUsername: username }));
       if (response.ok) {
         // Reload the friends list and pending requests
         loadFriendsList().then((loadedList) => setFriendsList(loadedList));
@@ -72,12 +72,13 @@ const Friends = () => {
       console.error("Error accepting friend request:", error);
     }
   };
-
+  
+  
   const handleDenyRequest = async (username) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/denyFriend`, POST({ receiverKey: readLocal('id'), senderUsername: username }));
+      const response = await fetch(`http://localhost:3000/accounts/denyFriendRequest`, POST({ key: readLocal('id'), senderUsername: username }));
       if (response.ok) {
-        // Reload pending requests
+        // Reload pending requests after denying
         fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
           .then((response) => response.json())
           .then((data) => setPendingRequests(data.pending || []));
@@ -88,21 +89,34 @@ const Friends = () => {
       console.error("Error denying friend request:", error);
     }
   };
-
+  
+  
+  
+  
+  
   const handleRemoveFriend = async (friend) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/removeFriend`, POST({ key: readLocal('id'), friendUsername: friend }));
+
+      const response = await fetch(`http://localhost:3000/accounts/removeFriend`, POST({ key: readLocal('id'), friendUsername: friend}));
+  
       if (response.ok) {
 
-        loadFriendsList().then((loadedList) => setFriendsList(loadedList));
+        const updatedFriendsList = await loadFriendsList();
+        setFriendsList(updatedFriendsList);
+
         alert(`${friend} has been removed from your friends.`);
       } else {
-        alert(`Failed to remove ${friend}.`);
+
+        const errorData = await response.json();
+        alert(`Failed to remove ${friend}: ${errorData.message || "Unknown error occurred."}`);
       }
     } catch (error) {
+
       console.error("Error removing friend:", error);
+      alert(`An error occurred while removing ${friend}. Please try again.`);
     }
   };
+  
 
   const togglePendingRequests = () => {
     setShowPendingRequests((prev) => !prev);
