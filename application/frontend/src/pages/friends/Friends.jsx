@@ -1,16 +1,16 @@
 //#region - imports
   //#region - functional imports
-  import { createContext, useContext, useEffect, useState, } from "react"; //react hooks
-  import { useNavigate } from 'react-router-dom'
-  import { useMountedEffect } from "../../logic/CustomEffects";  //custom hooks
-  import { readLocal,  } from "../../logic/BrowserStorage";
+  import { createContext, useContext, useEffect, useState } from "react"; // React hooks
+  import { useNavigate } from 'react-router-dom';
+  import { useMountedEffect } from "../../logic/CustomEffects"; // Custom hooks
+  import { readLocal, POST } from "../../logic/BrowserStorage";
   //#endregion
   //#region - component imports
   import { useAppContext } from "../../App";
   import FriendSearch from "./components/FriendSearch";
   //#endregion
   //#region - style imports
-  import './Friends.css'
+  import './Friends.css';
   //#endregion
   //#region - context creation
 const FriendsContext = createContext();
@@ -19,62 +19,172 @@ export const useFriends = () => useContext(FriendsContext);
 //#endregion
 
 const Friends = () => {
-  //#region - instantiation 
-
+  //#region - instantiation
   const navigate = useNavigate();
-  const [friendsList, setFriendsList] = useState([]);
+  const [friendsList, setFriendsList] = useState([]); 
+  const [pendingRequests, setPendingRequests] = useState([]);
+  const [showPendingRequests, setShowPendingRequests] = useState(false); 
+  const [showRemoveButtons, setShowRemoveButtons] = useState(false); 
 
   const {
-    fetchMethods: {loadFriendsList},
-    navigation: {hasSignedIn, navigationTrigger}, 
+    fetchMethods: { loadFriendsList },
+    navigation: { hasSignedIn, navigationTrigger },
   } = useAppContext();
-
-
   //#endregion
-  
+
   //#region - mount effects
 
-  //navigation trigger on mount
-  useEffect(() => { navigationTrigger() }, []);
+  // Trigger navigation check on mount
+  useEffect(() => {
+    navigationTrigger();
+  }, []);
 
+  // Load the friend list and pending requests after the component mounts
   useMountedEffect(() => {
     if (!hasSignedIn) {
-      navigate('/')
+      navigate('/');
     } else {
-       loadFriendsList().then(loadedList => setFriendsList(loadedList));
+      // Load the friend list
+      loadFriendsList().then((loadedList) => setFriendsList(loadedList));
+
+      // Fetch pending friend requests
+      fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
+        .then((response) => response.json())
+        .then((data) => setPendingRequests(data.pending || []));
     }
-  }, [hasSignedIn])
+  }, [hasSignedIn]);
+  //#endregion
+
+  //#region - handlers
+  const handleAcceptRequest = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/acceptFriendRequest`, POST({ key: readLocal('id'), senderUsername: username }));
+      if (response.ok) {
+     
+        loadFriendsList().then((loadedList) => setFriendsList(loadedList));
+        fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
+          .then((response) => response.json())
+          .then((data) => setPendingRequests(data.pending || []));
+      } else {
+        alert(`Failed to accept friend request from ${username}.`);
+      }
+    } catch (error) {
+      console.error("Error accepting friend request:", error);
+    }
+  };
+  
+  
+  const handleDenyRequest = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/denyFriendRequest`, POST({ key: readLocal('id'), senderUsername: username }));
+      if (response.ok) {
+
+        fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
+          .then((response) => response.json())
+          .then((data) => setPendingRequests(data.pending || []));
+      } else {
+        alert(`Failed to deny friend request from ${username}.`);
+      }
+    } catch (error) {
+      console.error("Error denying friend request:", error);
+    }
+  };
+  
+  
+  
+  
+  
+  const handleRemoveFriend = async (friend) => {
+    try {
+
+      const response = await fetch(`http://localhost:3000/accounts/removeFriend`, POST({ key: readLocal('id'), friendUsername: friend}));
+  
+      if (response.ok) {
+
+        const updatedFriendsList = await loadFriendsList();
+        setFriendsList(updatedFriendsList);
+
+        alert(`${friend} has been removed from your friends.`);
+      } else {
+
+        const errorData = await response.json();
+        alert(`Failed to remove ${friend}: ${errorData.message || "Unknown error occurred."}`);
+      }
+    } catch (error) {
+
+      console.error("Error removing friend:", error);
+      alert(`An error occurred while removing ${friend}. Please try again.`);
+    }
+  };
+  
+
+  const togglePendingRequests = () => {
+    setShowPendingRequests((prev) => !prev);
+  };
   //#endregion
 
   //#region - html return
-  return(
-    <FriendsContext.Provider value={{friendsList, setFriendsList}}>
-      <div id='left-body'>
+  return (
+    <FriendsContext.Provider value={{ friendsList, setFriendsList }}>
+      <div id="friends-page">
+        {/* Friend Search Component */}
+        <div className="friend-search-bar">
+          <FriendSearch />
+        </div>
 
-        <FriendSearch />
-
-        <div className="course-list">
-          <ul>
-            {friendsList.map((friend, index) => 
-              <p key={index}>{friend}</p>
+        {/* Horizontal Layout */}
+        <div className="friends-container">
+          {/* Pending Friend Requests */}
+          <div className="pending-requests">
+            <h3>Pending Friend Requests</h3>
+            <button onClick={togglePendingRequests}>
+              {showPendingRequests ? "Hide Pending Requests" : "Show Pending Requests"}
+            </button>
+            {showPendingRequests && (
+              <ul>
+                {pendingRequests.map((request, index) => (
+                  <li key={index}>
+                    {request}
+                    <button onClick={() => handleAcceptRequest(request)}>Accept</button>
+                    <button onClick={() => handleDenyRequest(request)}>Deny</button>
+                  </li>
+                ))}
+              </ul>
             )}
-           
-          </ul>
+          </div>
+
+          {/* Friend List */}
+          <div className="friend-list">
+            <h3>Your Friends</h3>
+
+            {/* Toggle Remove Buttons */}
+            <button onClick={() => setShowRemoveButtons(prev => !prev)}>
+              {showRemoveButtons ? "Hide Remove Buttons" : "Remove Friends"}
+            </button>
+
+            <ul>
+              {friendsList.map((friend, index) => (
+                <li key={index}>
+                  {friend}
+                  {showRemoveButtons && (
+                    <button 
+                    className="remove-friend-icon"
+                    onClick={() => handleRemoveFriend(friend)}
+                    title="Remove friend"
+                    >
+                      ×
+                      </button>
+                    )}
+
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-      <div id='right-sect'>
-        <h2>development commands</h2>
-        <h3>type into the search bar for testing purposes</h3><br />
-        <p>switch:username -- set current account to 'newAcc' and refreshes page</p>
-        <p>pending -- see all pending requests for current account</p>
-        <p>clear -- clear friendslist for this account</p>
-
-      </div>
-
     </FriendsContext.Provider>
   );
   //#endregion
+};
 
-}
-
-export default Friends
+export default Friends;

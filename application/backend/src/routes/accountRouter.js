@@ -11,6 +11,9 @@ accountRouter.get('/verifyID', verifyIDController);
 accountRouter.post('/store', storePrefsAndCustomActsController);
 accountRouter.get('/getFriends', getFriendsController);
 accountRouter.post("/addFriend", sendFriendRequestController);
+accountRouter.post('/removeFriend', removeFriendController);
+accountRouter.post('/acceptFriendRequest', acceptFriendRequestController);
+accountRouter.post('/denyFriendRequest', denyFriendRequestController);
 accountRouter.get('/getPrefs', getPrefsController);
 
 accountRouter.post('/dev/switch',switchAccountController);

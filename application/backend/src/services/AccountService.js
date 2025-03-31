@@ -96,6 +96,65 @@ class AccountService {
     }
   }
 
+  static async acceptFriendRequest(key, senderUsername){
+    const receiver = Account.getInstance(await accountRepository.readAccount(key));
+    if (!receiver) throw new Error(`Receiver account with key ${key} does not exist.`);
+  
+    const senderKey = await accountRepository.getKeyFromUsername(senderUsername);
+    if (!senderKey) throw new Error(`Sender with username ${senderUsername} does not exist.`);
+  
+    const sender = Account.getInstance(await accountRepository.readAccount(senderKey));
+    if (!sender) throw new Error(`Sender account with key ${senderKey} does not exist.`);
+  
+    if (receiver.requestList && receiver.requestList.includes(senderUsername)) {
+      receiver.addFriend(senderUsername);
+      receiver.removeRequest(senderUsername);
+      await accountRepository.writeAccount(receiver);
+  
+      sender.addFriend(receiver.username);
+      await accountRepository.writeAccount(sender);
+  
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  // Deny a friend request
+  static async denyFriendRequest(key, senderUsername) {
+    const receiver = Account.getInstance(await accountRepository.readAccount(key));
+    if (!receiver) throw new Error(`Receiver account with key ${key} does not exist.`);
+
+
+    if (receiver.requestList && receiver.requestList.includes(senderUsername)) {
+      receiver.removeRequest(senderUsername);
+
+      await accountRepository.writeAccount(receiver);
+    } else {
+      throw new Error(`Friend request from ${senderUsername} does not exist.`);
+    }
+  }
+
+// Remove a friend
+  static async removeFriend(key, friendUsername) {
+
+    const account = Account.getInstance(await accountRepository.readAccount(key));
+    if (!account) throw new Error(`Account with key ${key} does not exist.`);
+
+    const friendKey = await accountRepository.getKeyFromUsername(friendUsername);
+    if (!friendKey) throw new Error(`Friend with username ${friendUsername} does not exist.`);
+  
+    const friendAccount = Account.getInstance(await accountRepository.readAccount(friendKey));
+    if (!friendAccount) throw new Error(`Friend account with key ${friendKey} does not exist.`);
+
+    account.removeFriend(friendUsername);
+    friendAccount.removeFriend(account.username);
+
+    await accountRepository.writeAccount(account);
+    await accountRepository.writeAccount(friendAccount);
+  }
+
+
   //#region - services used in development for quickly checking functionalities of friends list.
   static async getKeyFromUsername(username) {
     return await accountRepository.getKeyFromUsername(username);
