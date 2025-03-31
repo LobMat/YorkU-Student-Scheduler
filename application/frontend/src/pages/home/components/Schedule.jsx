@@ -1,91 +1,89 @@
-import InteractiveGrid from './InteractiveGrid.jsx'
-import '../styles/Schedule.css'
-import { useMainContext } from '../HomePage.jsx'
-import { useMemo } from 'react';
+import InteractiveGrid from './InteractiveGrid.jsx';
+import '../styles/Schedule.css';
+import { useMainContext } from '../HomePage.jsx';
+import { useMemo, useState } from 'react';
 import Stats from './Stats.jsx';
-function Schedule({ term, bool }) {
 
+function Schedule({ term, bool }) {
   const termChar = term.charAt(0);
   const {
     hooks: { courses, customActivityList },
     getters: { getCourseValue }
   } = useMainContext();
 
-  const termSchedule = useMemo(() => {
-    //empty array filled with -1s
+  const [showStats, setShowStats] = useState(false);
+
+  // Function to generate the schedule for a given term character
+  const generateSchedule = (targetTermChar) => {
     const returnArr = Array.from({ length: 5 }, () => new Array(26).fill(undefined));
 
-    //iterate through all courses.
     courses?.forEach((course, courseIndex) => {
       const { code, sectionChoice } = course;
       const [sectionData] = getCourseValue(code, [`sections[${sectionChoice}]`]);
 
-      //check that extracted term matches input term
-      if (sectionData.termChar == termChar) {
+      if (sectionData.termChar === targetTermChar) {
         const [blocks] = getCourseValue(code, [`blocks`]);
-
-        //iterate through each activity
         blocks.forEach((block) => {
           block?.times.forEach((dayInBlock, dayIndex) => {
             const [active, start, span] = dayInBlock;
             if (active && span > 0 && start + span <= 26) {
               let canPopulate = true;
-
-              // iterate twice, first to check if its okay to populate with this activity
-              // second to actually populate with the activity
               for (let i = 0; i < 2; i++) {
                 for (let j = start; j < start + span; j++) {
-                  if (i == 0 && returnArr[dayIndex][j]) {
+                  if (i === 0 && returnArr[dayIndex][j]) {
                     canPopulate = false;
                     break;
-                  } else if (i == 1 && canPopulate) {
+                  } else if (i === 1 && canPopulate) {
                     returnArr[dayIndex][j] = {
-                      courseIndex: courseIndex,
+                      courseIndex,
                       sect: sectionData.sectChar,
                       act: block.name,
-                      span: span,
+                      span
                     };
                   }
                 }
               }
             }
-          })
-        })
+          });
+        });
       }
-    })
+    });
 
     customActivityList?.forEach(activity => {
-      if (activity.semesters.find(sem => sem == termChar) && activity.start < activity.end) {
+      if (activity.semesters.includes(targetTermChar) && activity.start < activity.end) {
         activity.weekdays.forEach(weekday => {
           let canPopulate = true;
           for (let j = 0; j < 2; j++) {
             for (let k = activity.start; k < activity.end; k++) {
-              if (j == 0 && returnArr[weekday][k]) {
+              if (j === 0 && returnArr[weekday][k]) {
                 canPopulate = false;
                 break;
-              } else if (j == 1 && canPopulate) {
+              } else if (j === 1 && canPopulate) {
                 returnArr[weekday][k] = {
                   isCustom: true,
                   name: activity.name,
-                  span: activity.end - activity.start,
+                  span: activity.end - activity.start
                 };
               }
             }
           }
-        })
+        });
       }
-    }
-    )
-    // iterate twice, first to check if its okay to populate with this activity
-    // second to actually populate with the activity
+    });
 
     return returnArr;
-  }, [courses, customActivityList]);
+  };
 
+  // ⬇ Memoized schedules for each term
+  const fallTermSchedule = useMemo(() => generateSchedule('F'), [courses, customActivityList]);
+  const winterTermSchedule = useMemo(() => generateSchedule('W'), [courses, customActivityList]);
+
+  // Actual visible schedule (either Fall or Winter depending on which grid)
+  const termSchedule = term === 'FALL' ? fallTermSchedule : winterTermSchedule;
 
   return (
     <>
-      <div className={`schedule ${(bool) ? 'focused' : ''}`} >
+      <div className={`schedule ${bool ? 'focused' : ''}`}>
         <div>{term}</div>
         <div className="days">
           <p>Mon</p>
@@ -111,10 +109,20 @@ function Schedule({ term, bool }) {
         </div>
         <InteractiveGrid termSchedule={termSchedule} bool={bool} />
       </div>
-      <Stats termSchedule={termSchedule} />
+
+      {/* 📊 Stats Modal Button */}
+      <button className="open-modal-btn" onClick={() => setShowStats(true)}>
+        📊 View Weekly Stats
+      </button>
+
+      {showStats && (
+        <Stats
+          term={{ FALL: fallTermSchedule, WINTER: winterTermSchedule }}
+          onClose={() => setShowStats(false)}
+        />
+      )}
     </>
-  )
+  );
 }
 
-export default Schedule
-
+export default Schedule;

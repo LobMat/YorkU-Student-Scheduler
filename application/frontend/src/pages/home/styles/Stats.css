@@ -1,0 +1,118 @@
+.stat-container {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  /* === Modal Overlay === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 15, 25, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* === Modal Content Box === */
+  .modal-content {
+    background-color: #460c0c;
+    border-radius: 16px;
+    padding: 30px 25px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;           
+    overflow-y: auto;           
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    position: relative;
+    color: white;
+  }
+
+  
+  /* === Close Button === */
+  .close-modal-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.1rem;
+    color: #bbb;
+    cursor: pointer;
+  }
+  
+  .close-modal-btn:hover {
+    color: #fff;
+  }
+  
+  /* === Open Button === */
+  .open-modal-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 18px;
+    background-color: #2d3748;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .open-modal-btn:hover {
+    background-color: #4a5568;
+  }
+  
+  /* === Stats Styling === */
+  .stat-title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5rem;
+    padding-top: 1rem;
+  }
+  
+  .stat-table {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2a2a3b;
+    padding: 12px 16px;
+    border-radius: 10px;
+  }
+  
+  .stat-day {
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 60px;
+  }
+  
+  .stat-entry {
+    text-align: right;
+  }
+  
+  .in-class {
+    color: #4fd1c5;
+    display: block;
+  }
+  
+  .between-class {
+    color: #f6ad55;
+    display: block;
+  }
+  
