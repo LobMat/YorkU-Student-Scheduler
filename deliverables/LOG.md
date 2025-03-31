@@ -243,3 +243,7 @@ March 3rd 2025 (240 mins)
 * Created and implemented new endpoints and services for getting review lists based on a given input.
 * Created UI for this system, though it should be polished.
 * Fully functional and implemented atleast for the StubDatabase.
+
+* March 30th 2025 (300 mins)
+* Polished UI for the system.
+* Added a theme switch feature to toggle from dark to light mode for users. 
