@@ -44,18 +44,19 @@ function InteractiveGrid({termSchedule, bool}) {
       while(slot < 26) {
         const savedSlot = slot; // current slot is preserved here for passing into mouse event handlers -- otherwise 26 will be used.
         
+        
         // if there is an activity at this slot and it's span is not zero, add a block for this activity
         if (termSchedule[day][slot] && termSchedule[day][slot].span > 0) {
           if (termSchedule[day][slot].isCustom) {
             // used to determine colors for custom activities that don't have a courseIndex
             picker++;
-            const {name,  span} = termSchedule[day][slot];
+            const {isCustom, name,  span, customIndex} = termSchedule[day][slot];
             tsm.push(
               <div key={`${day}-${slot}`} className="custom-slot" 
               style={{  
                 /* style for this specific activity */
-                borderColor: `#${colours[picker % 5].border}`,
-                backgroundColor: `#${colours[picker % 5].bg}`,
+                borderColor: `#${colours[customIndex].border}`,
+                backgroundColor: `#${colours[customIndex].bg}`,
                 color: `black`,
                 fontSize: `12px`,
                 gridColumn: `${day+1}`,
@@ -66,7 +67,33 @@ function InteractiveGrid({termSchedule, bool}) {
                 {name}
               </div>
             )
-          } else {
+          } 
+
+          else if(termSchedule[day][slot].isConflict)
+          {
+            picker++;
+            const {name,  span} = termSchedule[day][slot];
+            tsm.push(
+              <div key={`${day}-${slot}`} className="custom-slot" 
+              style={{  
+                /* style for this specific activity */
+                borderColor: '#880808',
+                backgroundColor: '#D22B2B',
+                color: `black`,
+                fontSize: `12px`,
+                gridColumn: `${day+1}`,
+                gridRow: `${slot+1}`,
+                gridRowEnd: `span ${span}`,
+              }}
+              >
+                CONFLICT
+              </div>
+            )
+          }
+
+          
+          
+          else {
             //stored data for the course at this position
             const {courseIndex, sect, act, span} = termSchedule[day][slot];
 
