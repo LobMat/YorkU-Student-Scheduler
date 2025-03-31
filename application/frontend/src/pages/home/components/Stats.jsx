@@ -17,7 +17,7 @@ function Stats({ termSchedule, term, onClose }) {
       let timeSinceLastAct = 0;
       const day = schedule[i] || [];
       for (let j = 0; j < 26; j++) {
-        if (day[j]) {
+        if (day[j] && !day[j].isConflict) {
           startFound = true;
           timesSpent[i]++;
           timesBetween[i] += timeSinceLastAct;
