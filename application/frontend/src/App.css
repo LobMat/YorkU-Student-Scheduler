@@ -29,7 +29,7 @@ html,
 }
 
 #root {
-  background: #1B1616;
+  background: inherit; /* Ensure it inherits the background-color from body */
   text-align: center;
   display: grid;
   grid-template-columns: 30fr 70fr;
@@ -129,4 +129,210 @@ button:focus-visible {
   /* Remove default bullet points */
   margin: 28px;
   padding: 0;
+}
+
+.dark-theme {
+  background-color: #242424; /* Original dark background */
+  color: rgba(255, 255, 255, 0.87); /* Original white text */
+}
+
+.dark-theme #root {
+  background: #1B1616; /* Original background for the root */
+}
+
+.dark-theme .headbar {
+  background: #292424; /* Original dark grey for the header */
+  border-bottom: 3px solid #A34848; /* Original red border */
+}
+
+.dark-theme #left-body {
+  overflow-y: auto; /* Enable vertical scrolling */
+  height: 100%; 
+}
+
+.dark-theme #right-body {
+  border-left: 3px solid #A34848;
+  height: 100%; 
+  overflow: hidden; 
+  display: flex;
+}
+
+.dark-theme a {
+  font-weight: 500;
+  color: #646cff; /* Original blue links */
+  text-decoration: inherit;
+}
+
+.dark-theme a:hover {
+  color: #535bf2; /* Original lighter blue on hover */
+}
+
+.dark-theme body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.dark-theme h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+.dark-theme button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a; /* Original button background */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.dark-theme button:hover {
+  border-color: #646cff; /* Original hover border color */
+}
+
+.dark-theme button:focus,
+.dark-theme button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.light-theme {
+  background-color: #a6a6a6; /* Swap: Header color becomes background color */
+  color: #213547; /* Original text color */
+}
+
+.theme-toggle-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.25s, color 0.25s;
+}
+
+.dark-theme .theme-toggle-button {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.light-theme .theme-toggle-button {
+  background-color: #d6d6d6; /* Grey button background */
+  color: #000000; /* Black text */
+}
+
+/* Dark Theme */
+
+.dark-theme .headbar {
+  grid-column: span 2;
+  background: #292424;
+  border-bottom: 3px solid #A34848;
+  display: flex;
+}
+
+.dark-theme #left-body {
+  color: rgba(255, 255, 255, 0.87); /* Original white text */
+}
+
+.dark-theme #right-body {
+  color: rgba(255, 255, 255, 0.87); /* Original white text */
+}
+
+.dark-theme a {
+  color: #646cff; /* Original blue links */
+}
+
+.dark-theme a:hover {
+  color: #535bf2; /* Original lighter blue on hover */
+}
+
+.dark-theme .calendar-times,
+.dark-theme .calendar-days {
+  color: #ffffff; /* Original white text for times and days */
+}
+
+.dark-theme .schedule {
+  background-color: #1e1e1e; /* Original dark grey for the schedule background */
+}
+
+.dark-theme .time-slot {
+  border: 1px solid #494545; /* Original grey border for time slots */
+  color: rgba(255, 255, 255, 0.87); /* Original white text */
+}
+
+.dark-theme .time-slot:hover {
+  border-color: #bc6464; /* Original red border on hover */
+}
+
+.dark-theme .activity-slot,
+.dark-theme .custom-slot {
+  background-color: #292929; /* Original dark grey for activity slots */
+  color: #ffffff; /* Original white text */
+}
+
+/* Light Theme */
+.light-theme {
+  background-color: #a6a6a6; /* Swap: Header color becomes background color */
+  color: #213547; /* Original text color */
+}
+
+.light-theme .headbar {
+  background-color: #bfbfbf; /* Swap: Background color becomes header color */
+  border-bottom: 3px solid #A34848;
+}
+
+.light-theme #left-body {
+  background-color: #c4c4c4; /* Slightly lighter grey for the left body */
+  color: #213547;
+}
+
+.light-theme #right-body {
+  background-color: #c4c4c4; /* Slightly lighter grey for the right body */
+  color: #213547;
+}
+
+.light-theme a {
+  color: #213547;
+}
+
+.light-theme a:hover {
+  color: #747bff;
+}
+
+.light-theme .times,
+.light-theme .days {
+  color: #ffffff !important; /* Force white text for times and days */
+}
+
+/* Ensure course text stays white in both themes */
+.light-theme .course-item{
+  color: #ffffff !important; /* Force white text */
+}
+
+.dark-theme .course-item{
+  color: #ffffff; /* Keep white text for dark theme */
+}
+
+.dark-theme .course-code{
+  color: #ff6f61; /* Brighter color for the course code */
+}
+
+/* Light Theme Button Styles */
+.light-theme button {
+  background-color: #f9f9f9; /* Light mode background */
+  color: #000000; /* Light mode text color */
+  border-radius: 8px; /* Ensure consistent border radius */
+  border: 1px solid transparent; /* Ensure consistent border */
+  padding: 0.6em 1.2em; /* Ensure consistent padding */
+  font-size: 1em; /* Ensure consistent font size */
+  font-weight: 500; /* Ensure consistent font weight */
+  font-family: inherit; /* Ensure consistent font family */
 }
