@@ -246,4 +246,99 @@ March 3rd 2025 (240 mins)
 
 March 30th 2025 (300 mins)
 * Polished UI for the system.
-* Added a theme switch feature to toggle from dark to light mode for users. 
+* Added a theme switch feature to toggle from dark to light mode for users.
+
+# Iteration 3
+## USER STORIES
+### Remote Database - (Assigned to: *Mateo* | Priority: *Medium* | Expected: *1.5 days* | Actual: *1 day*)
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Research a free and compatible database.                                                      | 1.5h | 1.5h |
+| Design database calls to fetch review data from database.                                     | 1.5h | 1h   |
+<br/>
+
+### Updated General Tests - (Assigned to: *Everyone* | Priority: *High* | Expected: *2 days* | Actual: *2.5 days* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Ran end-2-end testing for various added features.                                             | 4h   | 5h |
+
+### Logout Feature - (Assigned to: *Mateo* | Priority: *High* | Expected: *1.5 days* | Actual: *1.5 days* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Implemented a logout page which saves user local storage to database. Then removes local data | 2h   | 1.5h |
+
+### Personal Conflict Handling - (Assigned to: *Kunle* | Priority: *High* | Expected: *2 days* | Actual: *2.5 days*)
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Configured frontend displays to allow and display conflicts on overlapping activities.        | 4h   | 2.5h |
+| Ensured functionality with both custom acts and course objects.                               | 4h   | 3h   |
+
+### Improved Homepage UI UX - (Assigned to: *Kunle & Zayn* | Priority: *High* | Expected: *2.5 days* | Actual: *1.75 days*)
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Improved the navigation headbar across all pages.                                             | 1h   | 1h |
+| Improved layout for using adding custom activities                                            | 1h   | 1h |
+
+
+### CLearing Courses & Custom Activities - (Assigned to: *Kunle & Mateo* | Priority: *High* | Expected: *2 days* | Actual: *2 days* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Added functionality to remove courses from schedule.                                          | 2h   | 2h |
+| Added functionality to remove custom activities from schedule.                                | 2h   | 2h |
+
+### Best Schedule Generator - (Assigned to: *Caleb & Mirza* | Priority: *High* | Expected: *2.5 days* | Actual: *4 days* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Write algorithm to gather the most commonly added time for certain course events.             | 2h   |  |
+| Display them to the user as they select their courses.                                        | 2h   |  |
+
+### Improved Login & Register Page UI UX - (Assigned to: *Mirza* | Priority: *Medium* | Expected: *1.5 days* | Actual: *1 day* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Improve the look of the layout of the login page.                                             | 2h   | 2h |
+
+### Improved Friend UI UX - (Assigned to: *Ahmet* | Priority: *Medium* | Expected: *1.5 days* | Actual: *2 days* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Improve the layout of the friends page.                                                       | 2h   | 2h   |
+| Allow users to remove friends and deny pending requests.                                      | 2h   | 2.5h |
+
+### Theme Preference - (Assigned to: *Zayn* | Priority: *Low* | Expected: *0.5 days* | Actual: *0.5 days* )
+| Development Task                             |  Expected Cost      |   Actual Cost       |
+| :--------------------------------------------| :-----------------: | :-----------------: |
+| Change background colour across all pages.                                                    | 1h   | 1h   |
+| Update colour or buttons and text across all pages.                                           | 1h   | 1h   |
+
+## Team Meetings
+Mar idk 2025 (idk mins)
+* fill in here
+
+## Personal Logs
+### Mateo 
+Mar 5th 2025 (80 mins)
+* Researched potential remote database services to ensure compatibility with project.
+* fill in here.
+
+### Caleb
+Mar idk (300 minutes)
+* fill in here.
+
+### Kunle
+Mar idk 2025 (180 mins) 
+* fill in here
+
+### Zayn
+Mar idk 2025 (idk mins)
+* fill in here
+
+Mar 30th 2025 (300 mins)
+* Polished UI for the system.
+* Added a theme switch feature to toggle from dark to light mode for users.
+
+### Mirza
+Mar idk 2025 (idk mins)
+* fill in here
+
+### Ahmet
+Mar idk 2025 (idk mins)
+* fill in here
