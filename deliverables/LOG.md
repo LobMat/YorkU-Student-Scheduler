@@ -244,10 +244,6 @@ March 3rd 2025 (240 mins)
 * Created UI for this system, though it should be polished.
 * Fully functional and implemented atleast for the StubDatabase.
 
-March 30th 2025 (300 mins)
-* Polished UI for the system.
-* Added a theme switch feature to toggle from dark to light mode for users.
-
 # Iteration 3
 ## USER STORIES
 ### Remote Database - (Assigned to: *Mateo* | Priority: *Medium* | Expected: *1.5 days* | Actual: *1 day*)
@@ -328,9 +324,6 @@ Mar idk 2025 (180 mins)
 * fill in here
 
 ### Zayn
-Mar idk 2025 (idk mins)
-* fill in here
-
 Mar 30th 2025 (300 mins)
 * Polished UI for the system.
 * Added a theme switch feature to toggle from dark to light mode for users.
