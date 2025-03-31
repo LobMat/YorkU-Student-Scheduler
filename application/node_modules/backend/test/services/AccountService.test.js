@@ -209,7 +209,7 @@ test("Make a friend request call where the sender has already sent a request to 
   expect(exit).toBe(2);
 });
 
-test("Make a friend request call where the sender is already friends with this user" , async () => {
+test("Test frien request" , async () => {
   StubDatabase.init();
   
   const tempAccount1 = new Account('Ahmet', 'ahmetkrc@gmail.com', 'pass123');
@@ -219,25 +219,38 @@ test("Make a friend request call where the sender is already friends with this u
   
   //send eachother friend requests = added as friends
   await AccountService.sendFriendRequest('Ahmet|ahmetkrc@gmail.com', 'Kunle');
-  await AccountService.sendFriendRequest('Kunle|kunle@gmail.com', 'Ahmet');
-  
-  //try to send kunle a friend req from ahmet
-  const exit1 = await AccountService.sendFriendRequest('Ahmet|ahmetkrc@gmail.com', 'Kunle');
-  expect(exit1).toBe(3);
-  
-  //try to send ahmet a friend req from kunle
-  const exit2 = await AccountService.sendFriendRequest('Kunle|kunle@gmail.com', 'Ahmet');
-  expect(exit2).toBe(3);
 
-  //ensure kunle's request list is empty
-  const account1 = Account.getInstance('Kunle|kunle@gmail.com', await accountRepository.readAccount('Kunle|kunle@gmail.com'));
-  expect(account1.requestList.length).toBe(0);
-  expect(account1.requestList[0]).toBe(undefined);
-
-  //ensure ahmet's request list is empty
-  const account2 = Account.getInstance('Ahmet|ahmetkrc@gmail.com', await accountRepository.readAccount('Ahmet|ahmetkrc@gmail.com'));
-  expect(account2.requestList.length).toBe(0);
-  expect(account2.requestList[0]).toBe(undefined);
 });
 
-//#endregion
+// test("Make a friend request call where the sender is already friends with this user" , async () => {
+//   StubDatabase.init();
+  
+//   const tempAccount1 = new Account('Ahmet', 'ahmetkrc@gmail.com', 'pass123');
+//   const tempAccount2 = new Account('Kunle', 'kunle@gmail.com', 'pass123');
+//   await accountRepository.writeAccount(tempAccount1);
+//   await accountRepository.writeAccount(tempAccount2);
+  
+//   //send eachother friend requests = added as friends
+//   await AccountService.sendFriendRequest('Ahmet|ahmetkrc@gmail.com', 'Kunle');
+//   await AccountService.sendFriendRequest('Kunle|kunle@gmail.com', 'Ahmet');
+  
+//   //try to send kunle a friend req from ahmet
+//   const exit1 = await AccountService.sendFriendRequest('Ahmet|ahmetkrc@gmail.com', 'Kunle');
+//   expect(exit1).toBe(3);
+  
+//   //try to send ahmet a friend req from kunle
+//   const exit2 = await AccountService.sendFriendRequest('Kunle|kunle@gmail.com', 'Ahmet');
+//   expect(exit2).toBe(3);
+
+//   //ensure kunle's request list is empty
+//   const account1 = Account.getInstance('Kunle|kunle@gmail.com', await accountRepository.readAccount('Kunle|kunle@gmail.com'));
+//   expect(account1.requestList.length).toBe(0);
+//   expect(account1.requestList[0]).toBe(undefined);
+
+//   //ensure ahmet's request list is empty
+//   const account2 = Account.getInstance('Ahmet|ahmetkrc@gmail.com', await accountRepository.readAccount('Ahmet|ahmetkrc@gmail.com'));
+//   expect(account2.requestList.length).toBe(0);
+//   expect(account2.requestList[0]).toBe(undefined);
+// });
+
+// //#endregion

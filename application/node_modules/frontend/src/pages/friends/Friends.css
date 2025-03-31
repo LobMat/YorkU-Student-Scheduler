@@ -3,3 +3,58 @@
   height: 100%; 
   overflow: hidden; 
 }
+
+#friends-page {
+  padding: 20px;
+}
+
+.friend-search-bar {
+  margin-bottom: 20px;
+}
+
+.friend-list {
+  margin-top: 20px;
+}
+
+.friend-list ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px; /* Space between grid items */
+  list-style-type: none;
+  padding: 0;
+}
+
+.friend-list li {
+  background-color: #f9f9f9; /* Light background for each friend */
+  border: 1px solid #ddd; /* Border for each friend */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.pending-requests {
+  margin-top: 20px;
+}
+
+.pending-requests ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pending-requests li {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pending-requests-list {
+  margin-top: 10px;
+}
