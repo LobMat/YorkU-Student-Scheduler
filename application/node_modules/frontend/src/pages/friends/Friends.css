@@ -10,51 +10,76 @@
 
 .friend-search-bar {
   margin-bottom: 20px;
+  max-width: 400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.friends-container {
+  display: flex; 
+  gap: 40px; 
+  align-items: flex-start; 
+}
+.pending-requests {
+  flex: 1; 
+  max-width: 50%;
+}
+
+.pending-requests ul {
+  display: flex; 
+  gap: 10px; 
+  list-style-type: none;
+  padding: 0;
+  overflow-x: auto; 
+}
+
+.pending-requests li {
+  background-color: #000000; 
+  border: 1px solid #000000; 
+  border-radius: 8px; 
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .friend-list {
+  flex: 1; 
+  width: 100%; 
   margin-top: 20px;
 }
 
 .friend-list ul {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns */
-  gap: 20px; /* Space between grid items */
+  display: flex;
+  gap: 20px;
   list-style-type: none;
   padding: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .friend-list li {
-  background-color: #f9f9f9; /* Light background for each friend */
-  border: 1px solid #ddd; /* Border for each friend */
-  border-radius: 8px; /* Rounded corners */
-  padding: 10px;
+  background-color: black; 
+  color: white; 
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  padding: 20px; 
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 18px; 
 }
 
-.pending-requests {
-  margin-top: 20px;
-}
-
-.pending-requests ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.pending-requests li {
-  margin: 5px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.pending-requests-list {
+  margin-top: 10px;
 }
 
 button {
   margin-left: 10px;
   padding: 5px 10px;
   cursor: pointer;
-}
-
-.pending-requests-list {
-  margin-top: 10px;
 }

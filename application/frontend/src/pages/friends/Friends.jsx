@@ -24,6 +24,7 @@ const Friends = () => {
   const [friendsList, setFriendsList] = useState([]); // State to store the friend list
   const [pendingRequests, setPendingRequests] = useState([]); // State to store pending friend requests
   const [showPendingRequests, setShowPendingRequests] = useState(false); // Toggle for pending requests
+  const [showRemoveButtons, setShowRemoveButtons] = useState(false); // Toggle for showing remove buttons
 
   const {
     fetchMethods: { loadFriendsList },
@@ -57,10 +58,15 @@ const Friends = () => {
   //#region - handlers
   const handleAcceptRequest = async (username) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/acceptFriend`, POST({ receiver: readLocal('id'), sender: username }));
+      const response = await fetch(`http://localhost:3000/accounts/acceptFriend`, POST({ receiverKey: readLocal('id'), senderUsername: username }));
       if (response.ok) {
-        setFriendsList((prev) => [...prev, username]); // Add to friend list
-        setPendingRequests((prev) => prev.filter((req) => req !== username)); // Remove from pending requests
+        // Reload the friends list and pending requests
+        loadFriendsList().then((loadedList) => setFriendsList(loadedList));
+        fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
+          .then((response) => response.json())
+          .then((data) => setPendingRequests(data.pending || []));
+      } else {
+        alert(`Failed to accept friend request from ${username}.`);
       }
     } catch (error) {
       console.error("Error accepting friend request:", error);
@@ -69,12 +75,32 @@ const Friends = () => {
 
   const handleDenyRequest = async (username) => {
     try {
-      const response = await fetch(`http://localhost:3000/accounts/denyFriend`, POST({ receiver: readLocal('id'), sender: username }));
+      const response = await fetch(`http://localhost:3000/accounts/denyFriend`, POST({ receiverKey: readLocal('id'), senderUsername: username }));
       if (response.ok) {
-        setPendingRequests((prev) => prev.filter((req) => req !== username)); // Remove from pending requests
+        // Reload pending requests
+        fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
+          .then((response) => response.json())
+          .then((data) => setPendingRequests(data.pending || []));
+      } else {
+        alert(`Failed to deny friend request from ${username}.`);
       }
     } catch (error) {
       console.error("Error denying friend request:", error);
+    }
+  };
+
+  const handleRemoveFriend = async (friend) => {
+    try {
+      const response = await fetch(`http://localhost:3000/accounts/removeFriend`, POST({ key: readLocal('id'), friendUsername: friend }));
+      if (response.ok) {
+
+        loadFriendsList().then((loadedList) => setFriendsList(loadedList));
+        alert(`${friend} has been removed from your friends.`);
+      } else {
+        alert(`Failed to remove ${friend}.`);
+      }
+    } catch (error) {
+      console.error("Error removing friend:", error);
     }
   };
 
@@ -92,24 +118,15 @@ const Friends = () => {
           <FriendSearch />
         </div>
 
-        {/* Friend List */}
-        <div className="friend-list">
-          <h3>Your Friends</h3>
-          <ul>
-            {friendsList.map((friend, index) => (
-              <li key={index}>{friend}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Toggleable Pending Friend Requests */}
-        <div className="pending-requests">
-          <button onClick={togglePendingRequests}>
-            {showPendingRequests ? "Hide Pending Requests" : "Show Pending Requests"}
-          </button>
-          {showPendingRequests && (
-            <div className="pending-requests-list">
-              <h3>Pending Friend Requests</h3>
+        {/* Horizontal Layout */}
+        <div className="friends-container">
+          {/* Pending Friend Requests */}
+          <div className="pending-requests">
+            <h3>Pending Friend Requests</h3>
+            <button onClick={togglePendingRequests}>
+              {showPendingRequests ? "Hide Pending Requests" : "Show Pending Requests"}
+            </button>
+            {showPendingRequests && (
               <ul>
                 {pendingRequests.map((request, index) => (
                   <li key={index}>
@@ -119,8 +136,36 @@ const Friends = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-          )}
+            )}
+          </div>
+
+          {/* Friend List */}
+          <div className="friend-list">
+            <h3>Your Friends</h3>
+
+            {/* Toggle Remove Buttons */}
+            <button onClick={() => setShowRemoveButtons(prev => !prev)}>
+              {showRemoveButtons ? "Hide Remove Buttons" : "Remove Friends"}
+            </button>
+
+            <ul>
+              {friendsList.map((friend, index) => (
+                <li key={index}>
+                  {friend}
+                  {showRemoveButtons && (
+                    <button 
+                    className="remove-friend-icon"
+                    onClick={() => handleRemoveFriend(friend)}
+                    title="Remove friend"
+                    >
+                      ×
+                      </button>
+                    )}
+
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </FriendsContext.Provider>
