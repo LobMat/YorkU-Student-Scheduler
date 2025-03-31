@@ -60,7 +60,7 @@ const Friends = () => {
     try {
       const response = await fetch(`http://localhost:3000/accounts/acceptFriendRequest`, POST({ key: readLocal('id'), senderUsername: username }));
       if (response.ok) {
-        // Reload the friends list and pending requests
+     
         loadFriendsList().then((loadedList) => setFriendsList(loadedList));
         fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
           .then((response) => response.json())
@@ -78,7 +78,7 @@ const Friends = () => {
     try {
       const response = await fetch(`http://localhost:3000/accounts/denyFriendRequest`, POST({ key: readLocal('id'), senderUsername: username }));
       if (response.ok) {
-        // Reload pending requests after denying
+
         fetch(`http://localhost:3000/accounts/dev/pending`, POST({ id: readLocal('id') }))
           .then((response) => response.json())
           .then((data) => setPendingRequests(data.pending || []));

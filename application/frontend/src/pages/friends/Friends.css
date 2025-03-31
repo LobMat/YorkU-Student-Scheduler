@@ -1,4 +1,5 @@
 #right-sect {
+  margin-left: 20px;
   border-left: 3px solid #A34848;
   height: 100%; 
   overflow: hidden; 
@@ -8,49 +9,53 @@
   padding: 20px;
 }
 
-/* Ensure the Search Bar stays fixed in the center */
 .friend-search-bar {
-  margin-bottom: 20px;
-  max-width: 800px; /* Double the length of the search bar */
+  margin-top: 100px;
+  max-width: 800px;
   width: 100%;
-  position: relative;
-  display: flex; /* Use flexbox to center the search bar */
-  justify-content: center; /* Center horizontally */
-  border: 2px solid #A34848; /* Add a frame around the search bar */
-  border-radius: 8px; /* Rounded corners for the frame */
-  padding: 10px; /* Add padding inside the frame */
-  background-color: transparent; /* Match the page background */
+  position: fixed;
+  top: 20px;
+  left: 0px; 
+  transform: none; 
+  z-index: 1000;
+  display: fixed;
+  justify-content: center;
+  border: none;
+  border-radius: 0;
+  padding: 10px;
+  background-color: transparent;
 }
 
-/* Ensure the Friends Container has consistent spacing */
 .friends-container {
   display: flex;
   gap: 40px;
   align-items: flex-start;
-  justify-content: space-between; /* Distribute space evenly */
-  width: 100%; /* Ensure the container spans the full width */
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 100px;
 }
 
-/* Pending Requests Section */
 .pending-requests {
   flex: 1;
   max-width: 50%;
   min-width: 300px;
-  height: 200px; /* Set a fixed height to prevent layout shifts */
+  height: 275px; 
   overflow-y: auto;
   transition: all 0.3s ease;
-  border: 2px solid #A34848; /* Add a frame around the pending requests */
-  border-radius: 8px; /* Rounded corners for the frame */
-  padding: 10px; /* Add padding inside the frame */
-  background-color: transparent; /* Match the page background */
+  border: 2px solid #A34848;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: transparent;
+  margin-top: 20px;
 }
 
 .pending-requests ul {
-  display: flex; 
-  gap: 10px; 
+  display: block;
+  gap: 10px;
   list-style-type: none;
   padding: 0;
-  overflow-x: auto; 
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .pending-requests li {
@@ -63,9 +68,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-/* Friend List Section */
 .friend-list {
   flex: 2;
   width: 100%;
@@ -73,10 +78,11 @@
   min-height: 300px; 
   padding-bottom: 20px; 
   box-sizing: border-box;
-  border: 2px solid #A34848; /* Add a frame around the friend list */
-  border-radius: 8px; /* Rounded corners for the frame */
-  padding: 10px; /* Add padding inside the frame */
-  background-color: transparent; /* Match the page background */
+  border: 2px solid #A34848;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: transparent;
+  height: 300px;
 }
 
 .friend-list ul {
