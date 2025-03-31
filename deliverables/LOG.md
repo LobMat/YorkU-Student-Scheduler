@@ -313,7 +313,22 @@ Mar idk 2025 (idk mins)
 ### Mateo 
 Mar 5th 2025 (80 mins)
 * Researched potential remote database services to ensure compatibility with project.
-* fill in here.
+* Went with Supabase for it's free subscription and use of Postgres.
+
+Mar 17th 2025 (180 mins)
+* Began completing bug search and code smells review as part of take home assignment.
+
+Mar 20th 2025 (50 mins)
+* Officially logged and fixed review adding error (incorrect data type).
+
+Mar 22nd 2025 (60 mins)
+* Officially logged and fixed review adding error (error when getting data to push to db).
+
+Mar 26th 2025 (60 mins)
+* Added logout page.
+
+Mar 26th 2025 (50 mins)
+* Added ability to remove courses on homepage.
 
 ### Caleb
 Mar idk (300 minutes)
