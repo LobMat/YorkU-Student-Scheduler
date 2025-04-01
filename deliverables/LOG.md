@@ -306,8 +306,12 @@ March 3rd 2025 (240 mins)
 | Update colour or buttons and text across all pages.                                           | 1h   | 1h   |
 
 ## Team Meetings
-Mar idk 2025 (idk mins)
-* fill in here
+Mar 16th 2025 (30 mins)
+* Discussed the allocation of user stories among group members to create end-2-end tests and check for code smells and bugs.
+
+Mar 30th 2025 (60 mins)
+* Created a slideshow to showcase user stories, interview and postmortem analysis.
+* Designated speaking roles and planned the Delivery 2 presentation.
 
 ## Personal Logs
 ### Mateo 
@@ -339,8 +343,14 @@ Mar idk 2025 (180 mins)
 * fill in here
 
 ### Zayn
+Mar 19th 2025 (180 mins)
+* Began creation of end-end user tests in search of bugs.
+* Reviewed peers code to ensure there were no code smells or design issues.
+* Officially logged bug found. 
+
 Mar 30th 2025 (300 mins)
-* Polished UI for the system.
+* Helped polish UI for activities to ensure smoother user experience.
+* Polished general UI for cleaner look. 
 * Added a theme switch feature to toggle from dark to light mode for users.
 
 ### Mirza
