@@ -339,8 +339,30 @@ Mar idk (300 minutes)
 * fill in here.
 
 ### Kunle
-Mar idk 2025 (180 mins) 
-* fill in here
+Mar 24th 2025 (180 mins) 
+* Reviewed Schedule code along with drag and drop functionality as part of the Lab 5 Take Home Assignment.
+* Found a bug where conflicting times between courses and custom activities would produce unexpected behaviour.
+* Additionally reviewed the login page and fixed minor design issues with the Register button.
+* Wrote bug reports for conflicting times and design issue, solved design bug.
+
+March 28th 2025 (240 mins)
+* Spent this day improving the picker for custom activities.
+* Fixed a functionality bug that would require users to manually uncheck all boxes before adding another aactivity.
+* Fixed another bug where the Start Time picker would be initialized to 8AM instead of blank, which would produce more unexpeted behaviour.
+* Improved the UI in line with feedback from Delivery 1.
+
+March 29th 2025 (180 mins)
+* Added a view to display the info of each custom activity upon adding one to a user's schedule.
+* This is to allow for deleting custom activities, which is in line with one of my ITER3 user stories.
+* Configured remove button and added colors for custom activities.
+
+March 30th 2025 (400 min)
+* Noticed and fixed a bug that would crash the program upon picking a custom activity with a start time beyond 4PM.
+* This was due to an ArrayIndexOutOfBounds that would occur when a variable related to the time would be out of bounds of the array of colors.
+* Started on adding schedule conflicts for schedule elements.
+* Had lots of difficulty implementing it but found a solution.
+* Spent the rest of the day making bug fixes related to styling and rendering of customActivities on the schedule.
+* Ensured that elements of the same custom activity are the same color, like the courses are.
 
 ### Zayn
 Mar 19th 2025 (180 mins)
