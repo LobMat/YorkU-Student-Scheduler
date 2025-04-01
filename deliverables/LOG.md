@@ -354,8 +354,23 @@ Mar 30th 2025 (300 mins)
 * Added a theme switch feature to toggle from dark to light mode for users.
 
 ### Mirza
-Mar idk 2025 (idk mins)
-* fill in here
+Mar 28th 2025 (240 mins)
+* Worked on implementing the "Apply Most Common Time" feature.
+* Built frontend popup modal to allow users to apply the most common time per course.
+* Connected modal to backend route and began testing.
+* Spent time debugging why valid blocks were not being returned or applied.
+
+Mar 29th 2025 (180 mins)
+* Investigated formatting and parsing issues between frontend and backend course blocks.
+* Tested across multiple accounts to validate if the backend was computing consistent times.
+* Improved console logging and error handling to isolate issues in the logic.
+
+Mar 30th 2025 (300 mins)
+* Redesigned the stat tracker component.
+* Moved it into its own modal to improve layout and usability.
+* Restyled the modal for a cleaner and more consistent UI.
+* Integrated it with course state and ensured the modal still reflected schedule changes.
+* Also continued debugging the common time logic and backend-to-frontend block mismatches.
 
 ### Ahmet
 Mar idk 2025 (idk mins)
