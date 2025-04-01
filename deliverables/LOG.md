@@ -395,5 +395,22 @@ Mar 30th 2025 (300 mins)
 * Also continued debugging the common time logic and backend-to-frontend block mismatches.
 
 ### Ahmet
-Mar idk 2025 (idk mins)
-* fill in here
+March 28th, 2025 (100 minutes)
+
+*Watched and learned tutorials to connect buttons and basic frontend components.
+*Started working on the code, got the back end methods and features done.
+*Started learning routing and controller
+
+March 29th, 2025 (120 minutes)
+
+*Started working on the front end code and got a draft ready.
+*Bug tested many times with scenarios.
+*Finalized on the methods and features.
+
+March 30th, 2025 (120 minutes)
+
+*Touched up the draft and finalized the code.
+*Worked on the routing
+*Did the controller for the features
+*Connected frontend buttons, edited the CSS to improve the look
+*Finalized and merged
